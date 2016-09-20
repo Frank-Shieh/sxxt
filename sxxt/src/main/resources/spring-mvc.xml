@@ -29,7 +29,7 @@
 	<!-- 静态资源处理 -->
 	<mvc:default-servlet-handler />
 	
-	<context:component-scan base-package="cn.edu.scau.crebas.controller" />
+	<context:component-scan base-package="sxxt.controller" />
 	
 	
 	

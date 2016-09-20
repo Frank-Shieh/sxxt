@@ -18,7 +18,7 @@
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-  <property name="url" value="jdbc:mysql://localhost:3306/caihr?useUnicode=true&amp;characterEncoding=utf-8" />
+  <property name="url" value="jdbc:mysql://localhost:3306/sxxt?useUnicode=true&amp;characterEncoding=utf-8" />
 		<property name="username" value="root" />
 		<property name="password" value="0769" />  
 
@@ -29,14 +29,14 @@
 		<!-- 实例化sqlSessionFactory时需要使用上述配置好的数据源以及SQL映射文件 -->
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:mybatis-config.xml" />
-		<property name="typeAliasesPackage" value="cn.edu.scau.crebas.entity" />
-		<property name="mapperLocations" value="classpath:cn/edu/scau/crebas/mapper/*.xml" />
+		<property name="typeAliasesPackage" value="sxxt.entity" />
+		<property name="mapperLocations" value="classpath:sxxt/mapper/*.xml" />
 	</bean>
 
 	<!-- 配置扫描器 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<!-- 扫描cn.edu.uestc.ssm.dao这个包以及它的子包下的所有映射接口类 -->
-		<property name="basePackage" value="cn.edu.scau.crebas.dao" />
+		<property name="basePackage" value="sxxt.dao" />
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
 	</bean>
 
@@ -53,7 +53,7 @@
 	<context:annotation-config />
 
 	<!-- 让Spring通过自动扫描来查询和管理Bean -->
-	<context:component-scan base-package="cn.edu.scau.crebas" />
+	<context:component-scan base-package="sxxt" />
 
 	<!-- <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"> 
 		<property name="messageConverters"> <list> <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter" 

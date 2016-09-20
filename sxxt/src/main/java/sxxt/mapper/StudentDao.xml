@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sxxt.dao.StudentDao">
+	<select id="findById" resultType="Student" parameterType="int">
+		SELECT
+		student_table.id,
+		student_table.`code`,
+		student_table.`name`,
+		student_table.birth_date,
+		student_table.sex,
+		student_table.age,
+		student_table.student_phone,
+		student_table.family_address,
+		student_table.parent_name,
+		student_table.parent_phone,
+		student_table.`password`,
+		student_table.class_id `classId.id`,
+		student_table.school_id `school.id`,
+		student_table.state,
+		class_table.`name` `classId.name`,
+		major_table.`name`
+		`classId.major.name`,
+		school_table.`name` `school.name`
+		FROM
+		student_table
+		INNER JOIN class_table ON
+		student_table.class_id =
+		class_table.id
+		INNER JOIN major_table ON
+		class_table.major_id =
+		major_table.id
+		INNER JOIN school_table ON
+		student_table.school_id =
+		school_table.id AND
+		major_table.school_id =
+		school_table.id
+		WHERE
+		student_table.id = #{id}
+		AND student_table.state = 1
+		;
+	</select>
+	<select id="findByClassId" resultType="Student" parameterType="int">
+		SELECT
+		student_table.id,
+		student_table.`code`,
+		student_table.`name`,
+		student_table.birth_date,
+		student_table.sex,
+		student_table.age,
+		student_table.student_phone,
+		student_table.family_address,
+		student_table.parent_name,
+		student_table.parent_phone,
+		student_table.`password`,
+		student_table.class_id `classId.id`,
+		student_table.school_id `school.id`,
+		student_table.state,
+		class_table.`name` `classId.name`,
+		major_table.`name` `classId.major.name`,
+		school_table.`name` `school.name`
+		FROM
+		student_table
+		INNER JOIN class_table ON
+		student_table.class_id = class_table.id
+		INNER JOIN major_table ON
+		class_table.major_id = major_table.id
+		INNER JOIN school_table ON
+		student_table.school_id = school_table.id AND
+		major_table.school_id =
+		school_table.id
+		WHERE
+		student_table.class_id
+		=#{id}
+		AND
+		student_table.state = 1 ;
+	</select>
+	<insert id="addStudent" parameterType="Student" flushCache="true"
+		useGeneratedKeys="true" keyProperty="id">
+
+		INSERT INTO `sxxt`.`student_table`
+		(
+		`code`,
+		`name`,
+		`birth_date`,
+		`sex`,
+		`age`,
+		`student_phone`,
+		`family_address`,
+		`parent_name`,
+		`parent_phone`,
+		`password`,
+		`role_id`,
+		`class_id`,
+		`school_id`,
+		`state`
+		)
+		VALUES
+		(
+		#{code},
+		#{name},
+		#{birthDate},
+		#{sex},
+		#{age},
+		#{studentPhone},
+		#{familyAddress},
+		#{parentName},
+		#{parentPhone},
+		#{password},
+		#{role.id},
+		#{classId.id},
+		#{school.id},
+		1
+		);
+	</insert>
+	<update id="editStudent" parameterType="Student" flushCache="true">
+		UPDATE `sxxt`.`student_table`
+		SET
+		`code` = #{code},
+		`name` =#{name},
+		`birth_date` = #{birthDate},
+		`sex` = #{sex},
+		`age` = #{age},
+		`student_phone` = #{studentPhone},
+		`family_address` =
+		#{familyAddress},
+		`parent_name` =#{parentName},
+		`parent_phone`
+		=#{parentPhone},
+		`password`
+		= #{password},
+		`role_id` = #{role.id},
+		`site_id` =#{site.id},
+		`class_id`
+		= #{classId.id},
+		`school_id` =
+		#{school.id}
+		WHERE
+		(`id` = #{id});
+	</update>
+
+	<update id="delStudent" parameterType="int" flushCache="true">
+		UPDATE `sxxt`.`student_table`
+		<set>
+			`state` = 0,
+		</set>
+		WHERE (`id` = #{id});
+	</update>
+</mapper>

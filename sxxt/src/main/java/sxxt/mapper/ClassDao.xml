@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sxxt.dao.ClassDao">
+	<select id="findById" resultType="Class" parameterType="int">
+		SELECT
+		class_table.id,
+		class_table.`name`,
+		class_table.major_id `major.id`,
+		major_table.`name` `major.name`,
+		school_table.`name` `major.school.name`
+		FROM
+		class_table
+		INNER JOIN major_table ON class_table.major_id = major_table.id
+		INNER JOIN school_table ON major_table.school_id = school_table.id
+		WHERE
+		class_table.id = #{id};
+	</select>
+	<select id="findAll" resultType="Class" parameterType="int">
+		SELECT
+		class_table.id,
+		class_table.`name`,
+		class_table.major_id `major.id`,
+		major_table.`name` `major.name`,
+		school_table.`name`
+		`major.school.name`
+		FROM
+		class_table
+		INNER JOIN major_table ON
+		class_table.major_id = major_table.id
+		INNER JOIN school_table ON
+		major_table.school_id = school_table.id
+	</select>
+	<insert id="addClass" parameterType="Class" flushCache="true"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `sxxt`.`class_table`
+		(`name`, `major_id`)
+		VALUES
+		(
+		#{name},
+		#{major.id}
+		);
+	</insert>
+	<update id="editStudent" parameterType="Class" flushCache="true">
+		UPDATE `sxxt`.`class_table`
+		SET
+		`name` = #{name},
+		`major_id` =
+		#{major.id}
+		WHERE
+		(`id` = #{id});
+	</update>
+
+	<delete id="delClass" parameterType="int" flushCache="true">
+
+		DELETE FROM
+		`sxxt`.`class_table` WHERE id = #{id}
+
+	</delete>
+</mapper>
