@@ -9,20 +9,6 @@
 		class_table.`name`,
 		class_table.major_id `major.id`,
 		major_table.`name` `major.name`,
-		school_table.`name` `major.school.name`
-		FROM
-		class_table
-		INNER JOIN major_table ON class_table.major_id = major_table.id
-		INNER JOIN school_table ON major_table.school_id = school_table.id
-		WHERE
-		class_table.id = #{id};
-	</select>
-	<select id="findAll" resultType="Class" parameterType="int">
-		SELECT
-		class_table.id,
-		class_table.`name`,
-		class_table.major_id `major.id`,
-		major_table.`name` `major.name`,
 		school_table.`name`
 		`major.school.name`
 		FROM
@@ -31,9 +17,50 @@
 		class_table.major_id = major_table.id
 		INNER JOIN school_table ON
 		major_table.school_id = school_table.id
+		WHERE
+		class_table.id = #{id};
+	</select>
+	<select id="findIdAndName" resultType="Class">
+		SELECT
+		class_table.id,
+		class_table.`name`,
+		class_table.major_id `major.id`
+		FROM
+		class_table
+		ORDER BY
+		class_table.`name` ASC
+	</select>
+	<select id="findByMajorId" resultType="Class">
+		SELECT
+		class_table.id,
+		class_table.`name`,
+		class_table.major_id `major.id`
+		FROM
+		class_table
+		WHERE
+		class_table.major_id = #{id}
+		ORDER BY
+		class_table.`name` ASC
+	</select>
+	<select id="findAll" resultType="Class">
+		SELECT
+		class_table.id,
+		class_table.`name`,
+		class_table.major_id `major.id`,
+		major_table.`name`
+		`major.name`,
+		school_table.`name`
+		`major.school.name`
+		FROM
+		class_table
+		INNER JOIN major_table ON
+		class_table.major_id = major_table.id
+		INNER
+		JOIN school_table ON
+		major_table.school_id = school_table.id
 	</select>
 	<insert id="addClass" parameterType="Class" flushCache="true"
-		useGeneratedKeys="true" keyProperty="id">
+		useGeneratedKeys="true" keyProperty="id" >
 		INSERT INTO `sxxt`.`class_table`
 		(`name`, `major_id`)
 		VALUES

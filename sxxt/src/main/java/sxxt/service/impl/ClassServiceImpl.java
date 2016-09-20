@@ -17,19 +17,36 @@ public class ClassServiceImpl implements ClassService {
 	@Override
 	public int addClass(Class classId) {
 		// TODO Auto-generated method stub
-		return 0;
+		int result = classDao.addClass(classId);
+		return result;
 	}
 
 	@Override
 	public int editClass(Class classId) {
 		// TODO Auto-generated method stub
-		return 0;
+		int result = classDao.editClass(classId);
+		return result;
 	}
 
 	@Override
 	public Class findById(int id) {
 		// TODO Auto-generated method stub
-		return null;
+		Class result = classDao.findById(id);
+		return result;
+	}
+
+	@Override
+	public List<Class> findIdAndName() {
+		// TODO Auto-generated method stub
+		List<Class> result = classDao.findIdAndName();
+		return result;
+	}
+
+	@Override
+	public List<Class> findByMajorId(int id) {
+		// TODO Auto-generated method stub
+		List<Class> result = classDao.findByMajorId(id);
+		return result;
 	}
 
 	@Override
@@ -42,7 +59,8 @@ public class ClassServiceImpl implements ClassService {
 	@Override
 	public int delClass(int id) {
 		// TODO Auto-generated method stub
-		return 0;
+		int result = classDao.delClass(id);
+		return result;
 	}
 
 }

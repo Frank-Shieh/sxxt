@@ -170,14 +170,17 @@
 									<div class="dropdown btn-group" style="width: 50%">
 										<button id="dLabel" class="btn btn-default dropdown-toggle"
 											type="button" data-toggle="dropdown" style="width: 100%">
-											<span id='schoolId' name="schoolId" value="1">华南农业大学</span> <span
-												class="caret"></span>
+											<span id="schoolId" value="${schoolList.get(0).id}">${schoolList.get(0).name}</span>
+											<span class="caret"></span>
 										</button>
+										<input id='school-input' name="school"
+											value="${schoolList.get(0).id}" hidden="true" />
 										<ul class="dropdown-menu school-menu" aria-labelledby="dLabel"
-											role="menu" style="width: 100%">
-											<li><a value="2">华南理工大学</a></li>
-											<li><a value="3">电子科技大学</a></li>
-											<li><a value="4">四川大学</a></li>
+											role="menu"
+											style="width: 100%; height: 150px; overflow: scroll;">
+											<c:forEach var="schoolList" items="${schoolList}">
+												<li><a valueID="${schoolList.id}">${schoolList.name}</a></li>
+											</c:forEach>
 											<li class="divider"></li>
 											<li>
 												<button type="button" class="btn" style="width: 100%"
@@ -190,7 +193,7 @@
 									<div hidden="true" class="new-school">
 										<input type="text" class="form-control add-input"
 											name="schoolName" />
-										<button type="button" class="btn btn-primary" id="hide-school">
+										<button type="button" class="btn btn-primary" id="add-school">
 											<span>保存</span>
 										</button>
 									</div>
@@ -204,14 +207,17 @@
 									<div class="dropdown btn-group" style="width: 50%">
 										<button id="dLabel" class="btn btn-default dropdown-toggle"
 											type="button" data-toggle="dropdown" style="width: 100%">
-											<span id='majorId' name="schoolId" value="1">软件工程</span> <span
-												class="caret"></span>
+											<span id="majorId" value="${majorList.get(0).id}">${majorList.get(0).name}</span>
+											<span class="caret"></span>
 										</button>
+										<input id='major-input' name="major.id"
+											value="${majorList.get(0).id}" hidden="true" />
 										<ul class="dropdown-menu major-menu" aria-labelledby="dLabel"
-											role="menu" style="width: 100%">
-											<li><a value="2">网络工程</a></li>
-											<li><a value="3">计算机科学与技术</a></li>
-											<li><a value="4">工业工程</a></li>
+											role="menu"
+											style="width: 100%; height: 150px; overflow: scroll;">
+											<c:forEach var="majorList" items="${majorList}">
+												<li><a valueID="${majorList.id}">${majorList.name}</a></li>
+											</c:forEach>
 											<li class="divider"></li>
 											<li>
 												<button type="button" class="btn" style="width: 100%"
@@ -224,7 +230,7 @@
 									<div hidden="true" class="new-major">
 										<input type="text" class="form-control add-input"
 											name="majorName" />
-										<button type="button" class="btn btn-primary" id="hide-major">
+										<button type="button" class="btn btn-primary" id="add-major">
 											<span>保存</span>
 										</button>
 									</div>
@@ -238,18 +244,18 @@
 									<div class="dropdown btn-group" style="width: 50%">
 										<button id="dLabel" class="btn btn-default dropdown-toggle"
 											type="button" data-toggle="dropdown" style="width: 100%">
-											<span id='classId' value="${classList.get(0).id}">${classList.get(0).name}</span>
+											<span id="classId" value="${classList.get(0).id}">${classList.get(0).name}</span>
 											<span class="caret"></span>
 										</button>
+										<input id='class-input' name="classId.id"
+											value="${classList.get(0).id}" hidden="true" />
 										<ul class="dropdown-menu class-menu" aria-labelledby="dLabel"
-											role="menu" style="width: 100%">
-											<c:if test="${classList.size()>1}">
-												<c:forEach var="classList" items="${classList}">
-													<li><a value="${classList.id}">${classList.name}</a></li>
-												</c:forEach>
-												<li class="divider"></li>
-											</c:if>
-											
+											role="menu"
+											style="width: 100%; height: 150px; overflow: scroll;">
+											<c:forEach var="classList" items="${classList}">
+												<li><a valueID="${classList.id}">${classList.name}</a></li>
+											</c:forEach>
+											<li class="divider"></li>
 											<li>
 												<button type="button" class="btn" style="width: 100%"
 													id="add-class-btn">
@@ -260,7 +266,7 @@
 									</div>
 									<div hidden="true" class="new-class">
 										<input type="text" class="form-control add-input"
-											name="className" />
+											name="className" id="add-class-input" />
 										<button type="button" class="btn btn-primary" id="add-class">
 											<span>保存</span>
 										</button>
@@ -419,43 +425,282 @@
 				increaseArea : '20%' // optional
 			});
 		});
-		$('.class-menu').on('click', function(e) {
-			var $target = $(e.target);
-			$target.is('a') && $('#classId').text($target.text());
-		});
-		$('.school-menu').on('click', function(e) {
-			var $target = $(e.target);
-			$target.is('a') && $('#schoolId').text($target.text());
-		});
-		$('.major-menu').on('click', function(e) {
+
+		$('.school-menu')
+				.on(
+						'click',
+						function(e) {
+							var $target = $(e.target);
+							$target.is('a')
+									&& $('#schoolId').text($target.text());
+							$('#school-input').attr('value',
+									$target.attr("valueid"));
+							//更新新的专业列表
+							var schoolId = $target.attr("valueid");
+							$
+									.ajax({
+										type : "POST",
+										dataType : 'json',
+										data : {
+											id : schoolId
+										},
+										url : "/student/findBySchoolId",
+										complete : function(msg) {
+											var list = eval("("
+													+ msg.responseText + ")");
+											console.log(list);
+											if (list && list.length > 0) {
+												//列表的初始值更改
+												$('#majorId')
+														.text(list[0].name);
+												$('#majorId').attr('value',
+														list[0].id);
+												$('#major-input').attr('value',
+														list[0].id);
+												var pul = $('.major-menu')
+														.parent();
+												$('.major-menu').remove();
+												var ul = $('<ul></ul>')
+														.addClass(
+																'dropdown-menu major-menu')
+														.attr(
+																'aria-labelledby',
+																'dLabel')
+														.attr('role', 'menu')
+														.attr('style',
+																'width: 100%;height:150px;overflow:scroll;');
+
+												for (var i = 0; i < list.length; i++) {
+													var li = $('<li></li>');
+													$('<a></a>').attr(
+															'valueID',
+															list[i].id).html(
+															list[i].name)
+															.appendTo(li);
+													li.appendTo(ul);
+												}
+
+												$('<li></li>').addClass(
+														'divider').appendTo(ul);
+
+												var li = $('<li></li>');
+
+												var button = $(
+														'<button></button>')
+														.addClass('btn')
+														.attr('type', 'button')
+														.attr('id',
+																'add-major-btn')
+														.attr('style',
+																'width: 100%');
+
+												$('<i></i>').addClass(
+														'fa fa-plus').appendTo(
+														button);
+
+												$('<span></span>').html('增加专业')
+														.appendTo(button);
+												button.appendTo(li);
+
+												li.appendTo(ul);
+
+												ul.appendTo(pul);
+											}
+										}
+
+									});
+
+							//更新新的班级列表
+							//为了处理异步问题,所以传的是学校的id,而不是更新后的专业的ID
+							var schoolId = $target.attr("valueid");
+							$
+									.ajax({
+										type : "POST",
+										dataType : 'json',
+										data : {
+											id : schoolId
+										},
+										url : "/student/findByMajorId",
+										complete : function(msg) {
+											var list = eval("("
+													+ msg.responseText + ")");
+											console.log(list);
+											if (list && list.length > 0) {
+												//列表的初始值更改
+												$('#classId')
+														.text(list[0].name);
+												$('#classId').attr('value',
+														list[0].id);
+												$('#class-input').attr('value',
+														list[0].id);
+												var pul = $('.class-menu')
+														.parent();
+												$('.class-menu').remove();
+												var ul = $('<ul></ul>')
+														.addClass(
+																'dropdown-menu class-menu')
+														.attr(
+																'aria-labelledby',
+																'dLabel')
+														.attr('role', 'menu')
+														.attr('style',
+																'width: 100%;height:150px;overflow:scroll;');
+
+												for (var i = 0; i < list.length; i++) {
+													var li = $('<li></li>');
+													$('<a></a>').attr(
+															'valueID',
+															list[i].id).html(
+															list[i].name)
+															.appendTo(li);
+													li.appendTo(ul);
+												}
+
+												$('<li></li>').addClass(
+														'divider').appendTo(ul);
+
+												var li = $('<li></li>');
+
+												var button = $(
+														'<button></button>')
+														.addClass('btn')
+														.attr('type', 'button')
+														.attr('id',
+																'add-class-btn')
+														.attr('style',
+																'width: 100%');
+
+												$('<i></i>').addClass(
+														'fa fa-plus').appendTo(
+														button);
+
+												$('<span></span>').html('增加班级')
+														.appendTo(button);
+												button.appendTo(li);
+
+												li.appendTo(ul);
+
+												ul.appendTo(pul);
+											}
+										}
+
+									});
+
+						});
+		$('*').on('click', '.major-menu', function(e) {
 			var $target = $(e.target);
 			$target.is('a') && $('#majorId').text($target.text());
+			$('#major-input').attr('value', $target.attr("valueid"));
 		});
-		$('#add-class-btn').on('click', function(e) {
+		$('*').on('click', '.class-menu', function(e) {
+			var $target = $(e.target);
+			$target.is('a') && $('#classId').text($target.text());
+			$('#class-input').attr('value', $target.attr("valueid"));
+		});
+		$('*').on('click', '#add-class-btn', function(e) {
 			$('.class-menu').parent().hide();
 			$('.new-class').show();
 		});
-		$('#add-class').on('click', function(e) {
-			$('.class-menu').parent().show();
-			$('.new-class').hide();
-		});
-		$('#add-school-btn').on('click', function(e) {
+		//添加Class,成功后刷新列表,并且隐藏输入框
+		$('#add-class')
+				.on(
+						'click',
+						function(e) {
+							var name = document
+									.getElementById('add-class-input').value;
+							document.getElementById('add-class-input').value = '';
+							$
+									.ajax({
+										type : "POST",
+										dataType : 'json',
+										data : {
+											name : name
+										},
+										url : "/class/add",
+										complete : function(msg) {
+											var data = eval("("
+													+ msg.responseText + ")");
+											var classList = '${classList}';
+											var list = JSON.parse(classList);
+
+											list.push(data);
+											list.sort(keysrt('name', false));
+
+											console.log(list);
+
+											var pul = $('.class-menu').parent();
+											$('.class-menu').remove();
+
+											var ul = $('<ul></ul>')
+													.addClass(
+															'dropdown-menu class-menu')
+													.attr('aria-labelledby',
+															'dLabel')
+													.attr('role', 'menu')
+													.attr('style',
+															'width: 100%;height:150px;overflow:scroll;');
+
+											for (var i = 0; i < list.length; i++) {
+												var li = $('<li></li>');
+												$('<a></a>').attr('valueID',
+														list[i].id).html(
+														list[i].name).appendTo(
+														li);
+												li.appendTo(ul);
+											}
+
+											$('<li></li>').addClass('divider')
+													.appendTo(ul);
+
+											var li = $('<li></li>');
+
+											var button = $('<button></button>')
+													.addClass('btn')
+													.attr('type', 'button')
+													.attr('id', 'add-class-btn')
+													.attr('style',
+															'width: 100%');
+
+											$('<i></i>').addClass('fa fa-plus')
+													.appendTo(button);
+
+											$('<span></span>').html('增加班级')
+													.appendTo(button);
+											button.appendTo(li);
+
+											li.appendTo(ul);
+
+											ul.appendTo(pul);
+											$('.class-menu').parent().show();
+											$('.new-class').hide();
+
+										}
+
+									});
+
+						});
+		$('*').on('click', '#add-school-btn', function(e) {
 			$('.school-menu').parent().hide();
 			$('.new-school').show();
 		});
-		$('#hide-school').on('click', function(e) {
+		$('#add-school').on('click', function(e) {
 			$('.school-menu').parent().show();
 			$('.new-school').hide();
 		});
-		$('#add-major-btn').on('click', function(e) {
+		$('*').on('click', '#add-major-btn', function(e) {
 			$('.major-menu').parent().hide();
 			$('.new-major').show();
 		});
-		$('#hide-major').on('click', function(e) {
+		$('#add-major').on('click', function(e) {
 			$('.major-menu').parent().show();
 			$('.new-major').hide();
 		});
+		function keysrt(key, desc) {
+			return function(a, b) {
+				return desc ? ~~(a[key] < b[key]) : ~~(a[key] > b[key]);
+			}
+		}
 	</script>
-	
+
 </body>
 </html>

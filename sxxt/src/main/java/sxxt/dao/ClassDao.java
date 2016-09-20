@@ -11,7 +11,11 @@ public interface ClassDao {
 
 	Class findById(int id);
 
+	List<Class> findIdAndName();
+
 	List<Class> findAll();
+
+	List<Class> findByMajorId(int id);
 
 	int delClass(int id);
 }

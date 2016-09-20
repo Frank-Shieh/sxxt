@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sxxt.dao.SchoolDao">
+	<select id="findById" resultType="School" parameterType="int">
+		SELECT
+		school_table.id,
+		school_table.`name`
+		FROM
+		school_table
+		WHERE
+		school_table.id =#{id}
+	</select>
+	<select id="findAll" resultType="School">
+		SELECT
+		school_table.id,
+		school_table.`name`
+		FROM
+		school_table
+	</select>
+	<insert id="addSchool" parameterType="School" flushCache="true"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `sxxt`.`school_table`
+		(`name`)
+		VALUES
+		(
+		#{name}
+		);
+	</insert>
+	<update id="editSchool" parameterType="School" flushCache="true">
+		UPDATE `sxxt`.`school_table`
+		SET
+		`name` = #{name},
+		WHERE
+		(`id` = #{id});
+	</update>
+
+	<delete id="delSchool" parameterType="int" flushCache="true">
+		DELETE
+		FROM
+		`sxxt`.`school_table` WHERE id = #{id}
+	</delete>
+</mapper>

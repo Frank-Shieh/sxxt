@@ -1,11 +1,10 @@
-package sxxt.dao;
+package sxxt.service.interfaces;
 
 import java.util.List;
 
 import sxxt.entity.Major;
 
-public interface MajorDao {
-
+public interface MajorService {
 	int addMajor(Major major);
 
 	int editMajor(Major major);
@@ -17,5 +16,4 @@ public interface MajorDao {
 	List<Major> findBySchoolId(int id);
 
 	int delMajor(int id);
-
 }
