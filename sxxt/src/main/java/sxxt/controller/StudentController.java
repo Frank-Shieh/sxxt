@@ -14,6 +14,7 @@ import com.alibaba.fastjson.JSONArray;
 import sxxt.entity.Major;
 import sxxt.entity.School;
 import sxxt.entity.Student;
+import sxxt.dto.reponseDto;
 import sxxt.entity.Class;
 import sxxt.service.interfaces.ClassService;
 import sxxt.service.interfaces.MajorService;
@@ -72,25 +73,41 @@ public class StudentController {
 
 	// 请求查找新的专业列表
 	@RequestMapping(value = "findBySchoolId")
-	public @ResponseBody JSONArray findBySchoolId(int id, Model model) {
+	public @ResponseBody reponseDto findBySchoolId(int id, Model model) {
 
 		List<Major> majorList = majorService.findBySchoolId(id);
-		String jsonMajor = JSON.toJSONString(majorList);
-		JSONArray jsonArrayMajor = JSON.parseArray(jsonMajor);
+		reponseDto reponseDto = new reponseDto();
+		if (majorList != null) {
+			String jsonMajor = JSON.toJSONString(majorList);
+			JSONArray jsonArrayMajor = JSON.parseArray(jsonMajor);
+			reponseDto.setObject(jsonArrayMajor);
+			reponseDto.setLength(majorList.size());
+		} else {
+			reponseDto.setObject(null);
+			reponseDto.setLength(0);
+		}
 
-		return jsonArrayMajor;
+		return reponseDto;
 	}
 
 	// 请求查找新的班级列表
 	@RequestMapping(value = "findByMajorId")
-	public @ResponseBody JSONArray findByMajorId(int id, Model model) {
-		System.out.println(id);
-		List<Major> majorList = majorService.findBySchoolId(id);
-		List<Class> classList = classService.findByMajorId(majorList.get(0).getId());
-		String jsonClass = JSON.toJSONString(classList);
-		JSONArray jsonArrayClass = JSON.parseArray(jsonClass);
+	public @ResponseBody reponseDto findByMajorId(int id, Model model) {
+		reponseDto reponseDto = new reponseDto();
 
-		return jsonArrayClass;
+
+			List<Class> classList = classService.findByMajorId(id);
+			if (classList != null && classList.size()>0) {
+				String jsonClass = JSON.toJSONString(classList);
+				JSONArray jsonArrayClass = JSON.parseArray(jsonClass);
+				reponseDto.setObject(jsonArrayClass);
+				reponseDto.setLength(classList.size());
+			} else {
+				reponseDto.setObject(null);
+				reponseDto.setLength(0);
+			}
+	
+		return reponseDto;
 	}
 
 }

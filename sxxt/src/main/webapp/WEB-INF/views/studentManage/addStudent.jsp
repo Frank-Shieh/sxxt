@@ -192,7 +192,7 @@
 									</div>
 									<div hidden="true" class="new-school">
 										<input type="text" class="form-control add-input"
-											name="schoolName" />
+											id="add-school-input" name="schoolName" />
 										<button type="button" class="btn btn-primary" id="add-school">
 											<span>保存</span>
 										</button>
@@ -229,7 +229,7 @@
 									</div>
 									<div hidden="true" class="new-major">
 										<input type="text" class="form-control add-input"
-											name="majorName" />
+											id="add-major-input" name="majorName" />
 										<button type="button" class="btn btn-primary" id="add-major">
 											<span>保存</span>
 										</button>
@@ -425,117 +425,90 @@
 				increaseArea : '20%' // optional
 			});
 		});
+		$("body").on('click', '.school-menu li', function(e) {
+			var $target = $(e.target);
+			$target.is('a') && $('#schoolId').text($target.text());
+			$('#school-input').attr('value', $target.attr("valueid"));
 
-		$('.school-menu')
+			//如果点击的是a标签
+			if ($target.is('a')) {
+				//更新新的专业列表
+				var schoolId = $target.attr("valueid");
+				updateMajorBySchoolId(schoolId);
+			}
+		});
+		$('body').on('click', '.major-menu li', function(e) {
+			var $target = $(e.target);
+			$target.is('a') && $('#majorId').text($target.text());
+			$('#major-input').attr('value', $target.attr("valueid"));
+			//如果点击的是a标签
+			if ($target.is('a')) {
+				//更新新的专业列表
+				var majorId = $target.attr("valueid");
+				updateClassByMajorId(majorId);
+			}
+		});
+		$('body').on('click', '.class-menu', function(e) {
+			var $target = $(e.target);
+			$target.is('a') && $('#classId').text($target.text());
+			$('#class-input').attr('value', $target.attr("valueid"));
+		});
+		$('body').on('click', '#add-class-btn', function(e) {
+			$('.class-menu').parent().hide();
+			$('.new-class').show();
+		});
+		//添加Class,成功后刷新列表,并且隐藏输入框
+		$('#add-class')
 				.on(
 						'click',
 						function(e) {
-							var $target = $(e.target);
-							$target.is('a')
-									&& $('#schoolId').text($target.text());
-							$('#school-input').attr('value',
-									$target.attr("valueid"));
-							//更新新的专业列表
-							var schoolId = $target.attr("valueid");
+							var name = document
+									.getElementById('add-class-input').value;
+							document.getElementById('add-class-input').value = '';
+							var majorId = document
+									.getElementById('major-input').value;
 							$
 									.ajax({
 										type : "POST",
 										dataType : 'json',
 										data : {
-											id : schoolId
+											majorId : majorId,
+											name : name
 										},
-										url : "/student/findBySchoolId",
+										url : "/class/add",
 										complete : function(msg) {
-											var list = eval("("
+											var message = eval("("
 													+ msg.responseText + ")");
-											console.log(list);
-											if (list && list.length > 0) {
-												//列表的初始值更改
-												$('#majorId')
-														.text(list[0].name);
-												$('#majorId').attr('value',
-														list[0].id);
-												$('#major-input').attr('value',
-														list[0].id);
-												var pul = $('.major-menu')
-														.parent();
-												$('.major-menu').remove();
-												var ul = $('<ul></ul>')
-														.addClass(
-																'dropdown-menu major-menu')
-														.attr(
-																'aria-labelledby',
-																'dLabel')
-														.attr('role', 'menu')
-														.attr('style',
-																'width: 100%;height:150px;overflow:scroll;');
+											if (message.length == 1) {
+												var data = message.object;
+												var classList = '${classList}';
 
-												for (var i = 0; i < list.length; i++) {
-													var li = $('<li></li>');
-													$('<a></a>').attr(
-															'valueID',
-															list[i].id).html(
-															list[i].name)
-															.appendTo(li);
-													li.appendTo(ul);
+												if (document.classFlag
+														&& document.classFlag == 1) {
+													var list = new Array();
+													document.classFlag = 0;
+												} else {
+													var list;
+													if (document.wclasslists) {
+														list = document.wclasslists;
+													} else {
+
+														list = JSON
+																.parse(classList);
+													}
 												}
+												list.push(data);
+												document.wclasslists = list;
+												list
+														.sort(keysrt('name',
+																false));
 
-												$('<li></li>').addClass(
-														'divider').appendTo(ul);
+												console.log(list);
 
-												var li = $('<li></li>');
-
-												var button = $(
-														'<button></button>')
-														.addClass('btn')
-														.attr('type', 'button')
-														.attr('id',
-																'add-major-btn')
-														.attr('style',
-																'width: 100%');
-
-												$('<i></i>').addClass(
-														'fa fa-plus').appendTo(
-														button);
-
-												$('<span></span>').html('增加专业')
-														.appendTo(button);
-												button.appendTo(li);
-
-												li.appendTo(ul);
-
-												ul.appendTo(pul);
-											}
-										}
-
-									});
-
-							//更新新的班级列表
-							//为了处理异步问题,所以传的是学校的id,而不是更新后的专业的ID
-							var schoolId = $target.attr("valueid");
-							$
-									.ajax({
-										type : "POST",
-										dataType : 'json',
-										data : {
-											id : schoolId
-										},
-										url : "/student/findByMajorId",
-										complete : function(msg) {
-											var list = eval("("
-													+ msg.responseText + ")");
-											console.log(list);
-											if (list && list.length > 0) {
-												//列表的初始值更改
-												$('#classId')
-														.text(list[0].name);
-												$('#classId').attr('value',
-														list[0].id);
-												$('#class-input').attr('value',
-														list[0].id);
 												var pul = $('.class-menu')
 														.parent();
 												$('.class-menu').remove();
+
 												var ul = $('<ul></ul>')
 														.addClass(
 																'dropdown-menu class-menu')
@@ -581,126 +554,410 @@
 												li.appendTo(ul);
 
 												ul.appendTo(pul);
+												$('.class-menu').parent()
+														.show();
+												$('.new-class').hide();
+
+											} else {
+												alert("添加班级失败");
+												$('.class-menu').parent()
+														.show();
+												$('.new-class').hide();
 											}
 										}
-
 									});
 
 						});
-		$('*').on('click', '.major-menu', function(e) {
-			var $target = $(e.target);
-			$target.is('a') && $('#majorId').text($target.text());
-			$('#major-input').attr('value', $target.attr("valueid"));
+		$('body').on('click', '#add-school-btn', function(e) {
+			$('.school-menu').parent().hide();
+			$('.new-school').show();
 		});
-		$('*').on('click', '.class-menu', function(e) {
-			var $target = $(e.target);
-			$target.is('a') && $('#classId').text($target.text());
-			$('#class-input').attr('value', $target.attr("valueid"));
-		});
-		$('*').on('click', '#add-class-btn', function(e) {
-			$('.class-menu').parent().hide();
-			$('.new-class').show();
-		});
-		//添加Class,成功后刷新列表,并且隐藏输入框
-		$('#add-class')
+		$('#add-school')
 				.on(
 						'click',
 						function(e) {
 							var name = document
-									.getElementById('add-class-input').value;
-							document.getElementById('add-class-input').value = '';
+									.getElementById('add-school-input').value;
+							document.getElementById('add-school-input').value = '';
 							$
 									.ajax({
 										type : "POST",
 										dataType : 'json',
+										async : false,
 										data : {
 											name : name
 										},
-										url : "/class/add",
+										url : "/school/add",
+
 										complete : function(msg) {
-											var data = eval("("
+											var message = eval("("
 													+ msg.responseText + ")");
-											var classList = '${classList}';
-											var list = JSON.parse(classList);
+											if (message.length == 1) {
+												var data = message.object;
+												var schoolList = '${schoolList}';
 
-											list.push(data);
-											list.sort(keysrt('name', false));
+												var list;
 
-											console.log(list);
+												if (document.wschoolLists) {
+													list = document.wschoolLists;
+												} else {
+													list = JSON
+															.parse(schoolList);
+												}
+												list.push(data);
+												document.wschoolLists = list;
 
-											var pul = $('.class-menu').parent();
-											$('.class-menu').remove();
+												list
+														.sort(keysrt('name',
+																false));
 
-											var ul = $('<ul></ul>')
-													.addClass(
-															'dropdown-menu class-menu')
-													.attr('aria-labelledby',
-															'dLabel')
-													.attr('role', 'menu')
-													.attr('style',
-															'width: 100%;height:150px;overflow:scroll;');
+												console.log(list);
 
-											for (var i = 0; i < list.length; i++) {
+												var pul = $('.school-menu')
+														.parent();
+												$('.school-menu').remove();
+
+												var ul = $('<ul></ul>')
+														.addClass(
+																'dropdown-menu school-menu')
+														.attr(
+																'aria-labelledby',
+																'dLabel')
+														.attr('role', 'menu')
+														.attr('style',
+																'width: 100%;height:150px;overflow:scroll;');
+
+												for (var i = 0; i < list.length; i++) {
+													var li = $('<li></li>');
+													$('<a></a>').attr(
+															'valueID',
+															list[i].id).html(
+															list[i].name)
+															.appendTo(li);
+													li.appendTo(ul);
+												}
+
+												$('<li></li>').addClass(
+														'divider').appendTo(ul);
+
 												var li = $('<li></li>');
-												$('<a></a>').attr('valueID',
-														list[i].id).html(
-														list[i].name).appendTo(
-														li);
+
+												var button = $(
+														'<button></button>')
+														.addClass('btn')
+														.attr('type', 'button')
+														.attr('id',
+																'add-school-btn')
+														.attr('style',
+																'width: 100%');
+
+												$('<i></i>').addClass(
+														'fa fa-plus').appendTo(
+														button);
+
+												$('<span></span>').html('增加学校')
+														.appendTo(button);
+												button.appendTo(li);
+
 												li.appendTo(ul);
+
+												ul.appendTo(pul);
+												$('.school-menu').parent()
+														.show();
+												$('.new-school').hide();
+
+											} else {
+												alert("添加学校失败");
+												$('.school-menu').parent()
+														.show();
+												$('.new-school').hide();
 											}
 
-											$('<li></li>').addClass('divider')
-													.appendTo(ul);
+										}
 
-											var li = $('<li></li>');
+									});
+						});
+		$('body').on('click', '#add-major-btn', function(e) {
+			$('.major-menu').parent().hide();
+			$('.new-major').show();
+		});
+		$('#add-major')
+				.on(
+						'click',
+						function(e) {
 
-											var button = $('<button></button>')
-													.addClass('btn')
-													.attr('type', 'button')
-													.attr('id', 'add-class-btn')
-													.attr('style',
-															'width: 100%');
+							var name = document
+									.getElementById('add-major-input').value;
+							var schoolId = document
+									.getElementById('school-input').value;
+							document.getElementById('add-major-input').value = '';
+							$
+									.ajax({
+										type : "POST",
+										dataType : 'json',
+										async : false,
+										data : {
+											schoolId : schoolId,
+											name : name
+										},
+										url : "/major/add",
 
-											$('<i></i>').addClass('fa fa-plus')
-													.appendTo(button);
+										complete : function(msg) {
+											var message = eval("("
+													+ msg.responseText + ")");
+											if (message.length == 1) {
+												var data = message.object;
+												var majorList = '${majorList}';
 
-											$('<span></span>').html('增加班级')
-													.appendTo(button);
-											button.appendTo(li);
+												if (document.majorFlag
+														&& document.majorFlag == 1) {
+													var list = new Array();
+													document.majorFlag = 0;
+												} else {
+													var list;
+													if (document.wmajorLists) {
+														list = document.wmajorLists;
+													} else {
+														list = JSON
+																.parse(majorList);
+													}
+												}
 
-											li.appendTo(ul);
+												list.push(data);
+												document.wmajorLists = list;
+												list
+														.sort(keysrt('name',
+																false));
 
-											ul.appendTo(pul);
-											$('.class-menu').parent().show();
-											$('.new-class').hide();
+												console.log(list);
+
+												var pul = $('.major-menu')
+														.parent();
+												$('.major-menu').remove();
+
+												var ul = $('<ul></ul>')
+														.addClass(
+																'dropdown-menu major-menu')
+														.attr(
+																'aria-labelledby',
+																'dLabel')
+														.attr('role', 'menu')
+														.attr('style',
+																'width: 100%;height:150px;overflow:scroll;');
+
+												for (var i = 0; i < list.length; i++) {
+													var li = $('<li></li>');
+													$('<a></a>').attr(
+															'valueID',
+															list[i].id).html(
+															list[i].name)
+															.appendTo(li);
+													li.appendTo(ul);
+												}
+
+												$('<li></li>').addClass(
+														'divider').appendTo(ul);
+
+												var li = $('<li></li>');
+
+												var button = $(
+														'<button></button>')
+														.addClass('btn')
+														.attr('type', 'button')
+														.attr('id',
+																'add-major-btn')
+														.attr('style',
+																'width: 100%');
+
+												$('<i></i>').addClass(
+														'fa fa-plus').appendTo(
+														button);
+
+												$('<span></span>').html('增加专业')
+														.appendTo(button);
+												button.appendTo(li);
+
+												li.appendTo(ul);
+
+												ul.appendTo(pul);
+												$('.major-menu').parent()
+														.show();
+												$('.new-major').hide();
+
+											} else {
+												alert("添加专业失败");
+												$('.major-menu').parent()
+														.show();
+												$('.new-major').hide();
+											}
 
 										}
 
 									});
 
 						});
-		$('*').on('click', '#add-school-btn', function(e) {
-			$('.school-menu').parent().hide();
-			$('.new-school').show();
-		});
-		$('#add-school').on('click', function(e) {
-			$('.school-menu').parent().show();
-			$('.new-school').hide();
-		});
-		$('*').on('click', '#add-major-btn', function(e) {
-			$('.major-menu').parent().hide();
-			$('.new-major').show();
-		});
-		$('#add-major').on('click', function(e) {
-			$('.major-menu').parent().show();
-			$('.new-major').hide();
-		});
 		function keysrt(key, desc) {
 			return function(a, b) {
 				return desc ? ~~(a[key] < b[key]) : ~~(a[key] > b[key]);
 			}
 		}
-	</script>
 
+		function updateClassByMajorId(majorId) {
+			//更新新的班级列表
+			var schoolId = schoolId;
+			$
+					.ajax({
+						type : "POST",
+						dataType : 'json',
+						async : false,
+						data : {
+							id : majorId
+						},
+						url : "/student/findByMajorId",
+						complete : function(msg) {
+							console.log(msg);
+							var message = eval("(" + msg.responseText + ")");
+							if (message.length > 0) {
+								var list = message.object;
+								console.log(list);
+								if (list && list.length > 0) {
+									//列表的初始值更改
+									$('#classId').text(list[0].name);
+									$('#classId').attr('value', list[0].id);
+									$('#class-input').attr('value', list[0].id);
+									var pul = $('.class-menu').parent();
+									$('.class-menu').remove();
+									var ul = $('<ul></ul>')
+											.addClass(
+													'dropdown-menu class-menu')
+											.attr('aria-labelledby', 'dLabel')
+											.attr('role', 'menu')
+											.attr('style',
+													'width: 100%;height:150px;overflow:scroll;');
+
+									for (var i = 0; i < list.length; i++) {
+										var li = $('<li></li>');
+										$('<a></a>')
+												.attr('valueID', list[i].id)
+												.html(list[i].name)
+												.appendTo(li);
+										li.appendTo(ul);
+									}
+									$('<li></li>').addClass('divider')
+											.appendTo(ul);
+
+									var li = $('<li></li>');
+
+									var button = $('<button></button>')
+											.addClass('btn').attr('type',
+													'button').attr('id',
+													'add-class-btn').attr(
+													'style', 'width: 100%');
+
+									$('<i></i>').addClass('fa fa-plus')
+											.appendTo(button);
+
+									$('<span></span>').html('增加班级').appendTo(
+											button);
+									button.appendTo(li);
+
+									li.appendTo(ul);
+
+									ul.appendTo(pul);
+								}
+							} else {
+								alert("暂无相关班级");
+								document.classFlag=1;
+								$('.class-menu').parent().hide();
+								$('.new-class').show();
+							}
+						}
+
+					});
+
+		}
+	</script>
+	<script>
+		function updateMajorBySchoolId(id) {
+			$
+					.ajax({
+						type : "POST",
+						dataType : 'json',
+						async : false,
+						data : {
+							id : id
+						},
+						url : "/student/findBySchoolId",
+						complete : function(msg) {
+							flag = 0;
+							var message = eval("(" + msg.responseText + ")");
+							if (message.length > 0) {
+								var list = message.object;
+								console.log(list);
+								if (list && list.length > 0) {
+									//列表的初始值更改
+									$('#majorId').text(list[0].name);
+									$('#majorId').attr('value', list[0].id);
+									$('#major-input').attr('value', list[0].id);
+									var pul = $('.major-menu').parent();
+									$('.major-menu').remove();
+									var ul = $('<ul></ul>')
+											.addClass(
+													'dropdown-menu major-menu')
+											.attr('aria-labelledby', 'dLabel')
+											.attr('role', 'menu')
+											.attr('style',
+													'width: 100%;height:150px;overflow:scroll;');
+
+									for (var i = 0; i < list.length; i++) {
+										var li = $('<li></li>');
+										$('<a></a>')
+												.attr('valueID', list[i].id)
+												.html(list[i].name)
+												.appendTo(li);
+										li.appendTo(ul);
+									}
+
+									$('<li></li>').addClass('divider')
+											.appendTo(ul);
+
+									var li = $('<li></li>');
+
+									var button = $('<button></button>')
+											.addClass('btn').attr('type',
+													'button').attr('id',
+													'add-major-btn').attr(
+													'style', 'width: 100%');
+
+									$('<i></i>').addClass('fa fa-plus')
+											.appendTo(button);
+
+									$('<span></span>').html('增加专业').appendTo(
+											button);
+									button.appendTo(li);
+
+									li.appendTo(ul);
+
+									ul.appendTo(pul);
+
+									updateClassByMajorId(list[0].id);
+								}
+							} else {
+								alert("暂无相关专业");
+								document.classFlag = 1;
+								document.majorFlag = 1;
+								$('.major-menu').parent().hide();
+								$('.new-major').show();
+
+								alert("暂无相关班级");
+								$('.class-menu').parent().hide();
+								$('.new-class').show();
+
+							}
+						}
+					});
+
+		}
+	</script>
 </body>
 </html>
