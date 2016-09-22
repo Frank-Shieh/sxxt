@@ -16,12 +16,12 @@
 		student_table.parent_name,
 		student_table.parent_phone,
 		student_table.`password`,
-		student_table.class_id `classId.id`,
-		student_table.school_id `school.id`,
 		student_table.state,
+		student_table.class_id `classId.id`,
 		class_table.`name` `classId.name`,
-		major_table.`name`
-		`classId.major.name`,
+		major_table.`id` `classId.major.id`,
+		major_table.`name` `classId.major.name`,
+		student_table.school_id `school.id`,
 		school_table.`name` `school.name`
 		FROM
 		student_table
@@ -131,7 +131,6 @@
 		`password`
 		= #{password},
 		`role_id` = #{role.id},
-		`site_id` =#{site.id},
 		`class_id`
 		= #{classId.id},
 		`school_id` =

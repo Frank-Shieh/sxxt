@@ -37,7 +37,12 @@ public class StudentController {
 	@RequestMapping(value = "list")
 	public String list(int id, Model model) {
 		List<Student> result = studentService.findByClassId(id);
-		model.addAttribute("result", result);
+		if(result.size()==0){
+			model.addAttribute("errorMsg", "该班级暂无人员信息");
+		}else{
+			model.addAttribute("result", result);
+		}
+		
 		return "studentManage/listStudent";
 	}
 
@@ -71,6 +76,54 @@ public class StudentController {
 		return "studentManage/addStudent";
 	}
 
+	// 请求跳转到添加单个班级人员信息
+	@RequestMapping(value = "doAdd")
+	public String doAdd(Student student, Model model) {
+		System.out.println(student);
+		studentService.addStudent(student);
+		return "redirect:/student/list?id=" + student.getClassId().getId();
+	}
+
+	// 请求跳转到修改班级人员信息
+	@RequestMapping(value = "edit")
+	public String edit(int id, Model model) {
+		Student student = studentService.findById(id);
+		model.addAttribute("student", student);
+
+		List<School> schoolList = schoolService.findAll();
+		String jsonSchool = JSON.toJSONString(schoolList);
+		JSONArray jsonArraySchool = JSON.parseArray(jsonSchool);
+		model.addAttribute("schoolList", jsonArraySchool);
+
+		List<Major> majorList = majorService.findBySchoolId(student.getSchool().getId());
+		String jsonMajor = JSON.toJSONString(majorList);
+		JSONArray jsonArrayMajor = JSON.parseArray(jsonMajor);
+		model.addAttribute("majorList", jsonArrayMajor);
+
+		List<Class> classList = classService.findByMajorId(student.getClassId().getMajor().getId());
+		String jsonClass = JSON.toJSONString(classList);
+		JSONArray jsonArrayClass = JSON.parseArray(jsonClass);
+		model.addAttribute("classList", jsonArrayClass);
+
+		return "studentManage/editStudent";
+
+	}
+
+	// 请求跳转到添加单个班级人员信息
+	@RequestMapping(value = "doEdit")
+	public String doEdit(Student student, Model model) {
+		System.out.println(student);
+		studentService.editStudent(student);
+		return "redirect:/student/list?id=" + student.getClassId().getId();
+	}
+
+	// 请求跳转到删除单个班级人员信息
+	@RequestMapping(value = "delete")
+	public String delStudent(int id, Model model) {
+		studentService.delStudent(id);
+		return "redirect:/student/list?id=" + id;
+	}
+
 	// 请求查找新的专业列表
 	@RequestMapping(value = "findBySchoolId")
 	public @ResponseBody reponseDto findBySchoolId(int id, Model model) {
@@ -95,18 +148,17 @@ public class StudentController {
 	public @ResponseBody reponseDto findByMajorId(int id, Model model) {
 		reponseDto reponseDto = new reponseDto();
 
+		List<Class> classList = classService.findByMajorId(id);
+		if (classList != null && classList.size() > 0) {
+			String jsonClass = JSON.toJSONString(classList);
+			JSONArray jsonArrayClass = JSON.parseArray(jsonClass);
+			reponseDto.setObject(jsonArrayClass);
+			reponseDto.setLength(classList.size());
+		} else {
+			reponseDto.setObject(null);
+			reponseDto.setLength(0);
+		}
 
-			List<Class> classList = classService.findByMajorId(id);
-			if (classList != null && classList.size()>0) {
-				String jsonClass = JSON.toJSONString(classList);
-				JSONArray jsonArrayClass = JSON.parseArray(jsonClass);
-				reponseDto.setObject(jsonArrayClass);
-				reponseDto.setLength(classList.size());
-			} else {
-				reponseDto.setObject(null);
-				reponseDto.setLength(0);
-			}
-	
 		return reponseDto;
 	}
 

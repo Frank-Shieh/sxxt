@@ -5,6 +5,7 @@
 %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -54,7 +55,7 @@
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
 
-	<jsp:include page="header.jsp"></jsp:include>
+		<jsp:include page="header.jsp"></jsp:include>
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
@@ -63,6 +64,26 @@
 				<section class="content">
 				<div class="row">
 					<div class="col-xs-12">
+
+						<c:if test="${fn:length(errorMsg) gt 0}">
+							<div class="bs-example bs-example-standalone">
+								<div class="alert alert-danger alert-dismissible fade in"
+									role="alert">
+									<button type="button" class="close" data-dismiss="alert">
+										<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+									</button>
+									<h4>Oh snap! You got an error!</h4>
+									<p>该班级暂无相关的人员信息。请先添加班级人员信息</p>
+									<p>
+										<a class="btn btn-primary" herf="/student/add" style="text-decoration: none;">添加单个班级人员信息</a>
+										<a class="btn btn-warning" herf="/student/load" style="text-decoration: none;">导入班级人员信息</a>
+									</p>
+								</div>
+							</div>
+						</c:if>
+
+					<!-- 如果查找出来的数据存在则显示出来，否则不显示 -->
+					<c:if test="${fn:length(result) gt 0}">
 						<div class="panel panel-info">
 							<div class="panel-heading">
 								<h3 class="panel-title">${result.get(0).getClassId().getName()}学生信息</h3>
@@ -90,7 +111,7 @@
 												<td><a href="/student/edit?id=${result.id}"
 													class="btn btn-primary">修改</a></td>
 												<td><a class="btn btn-danger"
-													onclick="delStudent(${result.id},${result.classId.id}})">删除</a></td>
+													onclick="delStudent(${result.id},${result.classId.id})">删除</a></td>
 											</tr>
 										</c:forEach>
 
@@ -100,6 +121,7 @@
 							</div>
 							<!-- /.box-body -->
 						</div>
+						</c:if>
 						<!-- /.box -->
 					</div>
 					<!-- /.col -->
@@ -109,21 +131,9 @@
 		</div>
 	</div>
 	<!-- ./wrapper -->
-	<!-- Modal -->
-	<div id="error-msg" class="modal hide fade" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal"
-				aria-hidden="true">×</button>
-			<h3 id="myModalLabel">操作错误提示信息</h3>
-		</div>
-		<div class="modal-body">
-			<p>${errorMsg}</p>
-		</div>
-		<div class="modal-footer">
-			<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
-		</div>
-	</div>
+	<!-- 警告提示 -->
+
+
 	<!-- jQuery 2.2.3 -->
 	<script src="<%=path%>/assets/js/jquery-2.2.3.min.js"></script>
 	<!-- jQuery UI 1.11.4 -->
@@ -178,15 +188,7 @@
 	}
 </script>
 	<script type="text/javascript">
-		$(document).ready(function() {
-			var msg = "${errorMsg}";
-			console.log(msg);
-			if (msg.length > 0) {
-				$('#error-msg').modal({
-					keyboard : false
-				});
-			}
-		});
+		
 		$(document).ready(function() {
 			$('#tp-result-table').DataTable();
 			});

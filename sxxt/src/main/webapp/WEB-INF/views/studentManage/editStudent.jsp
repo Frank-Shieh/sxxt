@@ -116,51 +116,58 @@
 
 				<div class="panel panel-primary">
 					<div class="panel-heading">
-						<h3 class="panel-title">添加单个班级人员信息</h3>
+						<h3 class="panel-title">修改单个班级人员信息</h3>
 					</div>
 					<div id="breadcrumb">
 						<a href="#" title="首页" class="tip-bottom"> <i
 							class="icon-home"></i> Home
-						</a> <a href="listClass.html">班级人员信息</a> <a href="#" class="current">添加单个班级人员信息</a>
+						</a> <a href="listClass.html">班级人员信息</a> <a href="#" class="current">修改单个班级人员信息</a>
 					</div>
 					<div class="panel-body">
 						<form class="form-horizontal" method="post"
-							action="/student/doAdd" id="registerForm">
+							action="/student/doEdit" id="registerForm">
+							<input type="hidden" class="form-control" name="id"
+								value="${student.id}" />
 							<!-- 添加学号 -->
 							<div class="form-group background">
 								<label class="col-sm-3 control-label">学号</label>
 								<div class="controls form-group">
-									<input type="text" class="form-control" name="code" />
+									<input type="text" class="form-control" name="code"
+										value="${student.code}" />
 								</div>
 							</div>
 							<!-- 添加名字 -->
 							<div class="form-group background">
 								<label class="col-sm-3 control-label">名字</label>
 								<div class="controls form-group">
-									<input type="text" class="form-control" name="name" />
+									<input type="text" class="form-control" name="name"
+										value="${student.name}" />
 								</div>
 							</div>
 							<!-- 添加出生年月日 -->
 							<div class="form-group background">
 								<label class="col-sm-3 control-label">出生年月日</label>
 								<div class="controls form-group">
-									<input type="date" class="form-control" name="birthDate" />
+									<input type="date" class="form-control" name="birthDate"
+										value="<fmt:formatDate  pattern="yyyy-MM-dd" value="${student.birthDate}"  type="date" dateStyle="default"/>" />
 								</div>
 							</div>
 							<!-- 添加性别 -->
 							<div class="form-group background">
 								<label class="col-sm-3 control-label">性别</label>
 								<div class="controls form-group">
-									<input type="radio" name="sex" value="1" checked> <label
-										class="radio-label">男</label> <input type="radio" name="sex"
-										value="0"> <label class="radio-label">女</label>
+										<input type="radio" name="sex" value="1" <c:if test="${student.sex eq 1}">checked</c:if>>
+										<label class="radio-label">男</label>
+										<input type="radio" name="sex" value="0" <c:if test="${student.sex eq 0}">checked</c:if>> 
+										<label class="radio-label">女</label>
 								</div>
 							</div>
 							<!-- 添加年龄 -->
 							<div class="form-group background">
 								<label class="col-sm-3 control-label">年龄</label>
 								<div class="controls form-group">
-									<input type="text" class="form-control" name="age" />
+									<input type="text" class="form-control" name="age"
+										value="${student.age}" />
 								</div>
 							</div>
 							<!-- 添加学校 -->
@@ -170,11 +177,11 @@
 									<div class="dropdown btn-group" style="width: 50%">
 										<button id="dLabel" class="btn btn-default dropdown-toggle"
 											type="button" data-toggle="dropdown" style="width: 100%">
-											<span id="schoolId" value="${schoolList.get(0).id}">${schoolList.get(0).name}</span>
+											<span id="schoolId" value="${student.school.id}">${student.school.name}</span>
 											<span class="caret"></span>
 										</button>
 										<input id='school-input' name="school.id"
-											value="${schoolList.get(0).id}" hidden="true" />
+											value="${student.school.id}" hidden="true" />
 										<ul class="dropdown-menu school-menu" aria-labelledby="dLabel"
 											role="menu"
 											style="width: 100%; height: 150px; overflow: scroll;">
@@ -207,11 +214,11 @@
 									<div class="dropdown btn-group" style="width: 50%">
 										<button id="dLabel" class="btn btn-default dropdown-toggle"
 											type="button" data-toggle="dropdown" style="width: 100%">
-											<span id="majorId" value="${majorList.get(0).id}">${majorList.get(0).name}</span>
+											<span id="majorId" value="${student.classId.major.id}">${student.classId.major.name}</span>
 											<span class="caret"></span>
 										</button>
-										<input id='major-input' name="major.id"
-											value="${majorList.get(0).id}" hidden="true" />
+										<input id='major-input' name="classId.major.id"
+											value="${student.classId.major.id}" hidden="true" />
 										<ul class="dropdown-menu major-menu" aria-labelledby="dLabel"
 											role="menu"
 											style="width: 100%; height: 150px; overflow: scroll;">
@@ -227,6 +234,8 @@
 											</li>
 										</ul>
 									</div>
+									<!-- 學生實訓場地（亂輸入的） -->
+									<input type="hidden" name="site.id" value="1">
 									<div hidden="true" class="new-major">
 										<input type="text" class="form-control add-input"
 											id="add-major-input" name="majorName" />
@@ -244,11 +253,11 @@
 									<div class="dropdown btn-group" style="width: 50%">
 										<button id="dLabel" class="btn btn-default dropdown-toggle"
 											type="button" data-toggle="dropdown" style="width: 100%">
-											<span id="classId" value="${classList.get(0).id}">${classList.get(0).name}</span>
+											<span id="classId" value="${student.classId.id}">${student.classId.name}</span>
 											<span class="caret"></span>
 										</button>
 										<input id='class-input' name="classId.id"
-											value="${classList.get(0).id}" hidden="true" />
+											value="${student.classId.id}" hidden="true" />
 										<ul class="dropdown-menu class-menu" aria-labelledby="dLabel"
 											role="menu"
 											style="width: 100%; height: 150px; overflow: scroll;">
@@ -279,14 +288,15 @@
 								<label class="col-sm-3 control-label">联系电话</label>
 								<div class="controls form-group">
 									<input type="text" class="form-control" name="studentPhone"
-										maxlength="11" />
+										value="${student.studentPhone}" maxlength="11" />
 								</div>
 							</div>
 							<!-- 添加家庭地址 -->
 							<div class="form-group background">
 								<label class="col-sm-3 control-label">家庭地址</label>
 								<div class="controls form-group">
-									<input type="text" class="form-control" name="familyAddress" />
+									<input type="text" class="form-control" name="familyAddress"
+										value="${student.familyAddress}" />
 								</div>
 							</div>
 							<!-- 添加父母名称 -->
@@ -294,7 +304,7 @@
 								<label class="col-sm-3 control-label">父母名称</label>
 								<div class="controls form-group">
 									<input type="text" class="form-control" name="parentName"
-										 />
+										value="${student.parentName}" />
 								</div>
 							</div>
 							<!-- 添加父母电话 -->
@@ -302,7 +312,7 @@
 								<label class="col-sm-3 control-label">父母电话</label>
 								<div class="controls form-group">
 									<input type="text" class="form-control" name="parentPhone"
-										maxlength="11" />
+										value="${student.parentPhone}" maxlength="11" />
 								</div>
 							</div>
 
