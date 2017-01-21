@@ -18,7 +18,12 @@
 		INNER JOIN school_table ON
 		major_table.school_id = school_table.id
 		WHERE
-		class_table.id = #{id};
+		class_table.id = #{id}
+		AND
+		major_table.state=1
+		AND
+		school_table.state=1
+		;
 	</select>
 	<select id="findIdAndName" resultType="Class">
 		SELECT
@@ -27,6 +32,8 @@
 		class_table.major_id `major.id`
 		FROM
 		class_table
+		WHERE
+		class_table.state=1
 		ORDER BY
 		class_table.`name` ASC
 	</select>
@@ -39,6 +46,8 @@
 		class_table
 		WHERE
 		class_table.major_id = #{id}
+		AND
+		class_table.state=1
 		ORDER BY
 		class_table.`name` ASC
 	</select>
@@ -58,18 +67,26 @@
 		INNER
 		JOIN school_table ON
 		major_table.school_id = school_table.id
+		WHERE
+		class_table.state=1
+		AND
+		major_table.state=1
+		AND
+		school_table.state=1
 	</select>
 	<insert id="addClass" parameterType="Class" flushCache="true"
-		useGeneratedKeys="true" keyProperty="id" >
-		INSERT INTO `sxxt`.`class_table`
-		(`name`, `major_id`)
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO
+		`sxxt`.`class_table`
+		(`name`, `major_id`,`state`)
 		VALUES
 		(
 		#{name},
-		#{major.id}
+		#{major.id},
+		1
 		);
 	</insert>
-	<update id="editStudent" parameterType="Class" flushCache="true">
+	<update id="editClass" parameterType="Class" flushCache="true">
 		UPDATE `sxxt`.`class_table`
 		SET
 		`name` = #{name},
@@ -81,8 +98,12 @@
 
 	<delete id="delClass" parameterType="int" flushCache="true">
 
-		DELETE FROM
-		`sxxt`.`class_table` WHERE id = #{id}
+		UPDATE
+		`sxxt`.`class_table`
+		SET
+		`state` = 0
+		WHERE
+		(`id` = #{id});
 
 	</delete>
 </mapper>

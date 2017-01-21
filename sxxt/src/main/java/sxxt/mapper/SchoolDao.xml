@@ -11,6 +11,8 @@
 		school_table
 		WHERE
 		school_table.id =#{id}
+		AND
+		school_table.state=1
 	</select>
 	<select id="findAll" resultType="School">
 		SELECT
@@ -18,14 +20,17 @@
 		school_table.`name`
 		FROM
 		school_table
+		WHERE
+		school_table.state=1
 	</select>
 	<insert id="addSchool" parameterType="School" flushCache="true"
 		useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO `sxxt`.`school_table`
-		(`name`)
+		(`name`,`state`)
 		VALUES
 		(
-		#{name}
+		#{name},
+		1
 		);
 	</insert>
 	<update id="editSchool" parameterType="School" flushCache="true">
@@ -37,8 +42,11 @@
 	</update>
 
 	<delete id="delSchool" parameterType="int" flushCache="true">
-		DELETE
-		FROM
-		`sxxt`.`school_table` WHERE id = #{id}
+		UPDATE
+		`sxxt`.`school_table`
+		SET
+		`state` = 0,
+		WHERE
+		(`id` = #{id});
 	</delete>
 </mapper>

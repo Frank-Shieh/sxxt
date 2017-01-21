@@ -38,7 +38,14 @@
 		school_table.id
 		WHERE
 		student_table.id = #{id}
-		AND student_table.state = 1
+		AND 
+		student_table.state = 1
+		AND
+		class_table.state=1
+		AND
+		major_table.state=1
+		AND
+		school_table.state=1
 		;
 	</select>
 	<select id="findByClassId" resultType="Student" parameterType="int">
@@ -74,7 +81,14 @@
 		student_table.class_id
 		=#{id}
 		AND
-		student_table.state = 1 ;
+		student_table.state = 1 
+		AND
+		class_table.state=1
+		AND
+		major_table.state=1
+		AND
+		school_table.state=1
+		;
 	</select>
 	<insert id="addStudent" parameterType="Student" flushCache="true"
 		useGeneratedKeys="true" keyProperty="id">

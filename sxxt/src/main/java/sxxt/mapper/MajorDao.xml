@@ -16,7 +16,13 @@
 		major_table.school_id = school_table.id
 		WHERE
 		major_table.id =
-		#{id};
+		#{id}
+		AND
+		major_table.state=1
+		AND
+		school_table.state=1
+		;
+		
 	</select>
 
 	<select id="findBySchoolId" resultType="Major">
@@ -33,6 +39,10 @@
 		WHERE
 		major_table.school_id =
 		#{id}
+		AND
+		major_table.state=1
+		AND
+		school_table.state=1
 		ORDER BY
 		major_table.`name` ASC
 	</select>
@@ -47,6 +57,10 @@
 		INNER JOIN
 		school_table ON
 		major_table.school_id = school_table.id
+		WHERE
+		major_table.state=1
+		AND
+		school_table.state=1
 		ORDER BY
 		major_table.`name` ASC
 	</select>
@@ -54,11 +68,12 @@
 		useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO
 		`sxxt`.`major_table`
-		(`name`, `school_id`)
+		(`name`, `school_id`,`state`)
 		VALUES
 		(
 		#{name},
-		#{school.id}
+		#{school.id},
+		1
 		);
 	</insert>
 	<update id="editMajor" parameterType="Major" flushCache="true">
@@ -73,7 +88,11 @@
 	</update>
 
 	<delete id="delMajor" parameterType="int" flushCache="true">
-		DELETE FROM
-		`sxxt`.`major_table` WHERE id = #{id}
+		UPDATE
+		`sxxt`.`major_table`
+		SET
+		`state` = 0 ,
+		WHERE
+		(`id` = #{id});
 	</delete>
 </mapper>

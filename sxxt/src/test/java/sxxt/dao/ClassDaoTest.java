@@ -12,7 +12,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class ClassDaoTest {
 	@Autowired
 	private ClassDao classDao;
-
+	@Test
+	public void findById() {
+	System.out.println(classDao.findById(1));
+	}
 	@Test
 	public void findAll() {
 	System.out.println(classDao.findAll());

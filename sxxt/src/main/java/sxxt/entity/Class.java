@@ -4,6 +4,7 @@ public class Class {
 private int id;
 private String name;
 private Major major;
+private int state;
 public int getId() {
 	return id;
 }
@@ -25,6 +26,18 @@ public void setMajor(Major major) {
 @Override
 public String toString() {
 	return "Class [id=" + id + ", name=" + name + ", major=" + major + "]";
+}
+/**
+ * @return the state
+ */
+public int getState() {
+	return state;
+}
+/**
+ * @param state the state to set
+ */
+public void setState(int state) {
+	this.state = state;
 }
 
 }

@@ -118,7 +118,7 @@
 						</a> <a href="listClass.html">班级人员信息</a> <a href="#" class="current">查看班级人员信息</a>
 					</div>
 					<div class="panel-body">
-						<form class="form-horizontal" method="post" action="/user/doAdd"
+						<form class="form-horizontal" method="post" action="/student/list?id=${result.classId.id}"
 							id="registerForm">
 							<!-- 查看学号 -->
 							<div class="form-group background">

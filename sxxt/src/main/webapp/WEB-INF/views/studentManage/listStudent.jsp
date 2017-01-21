@@ -75,8 +75,8 @@
 									<h4>Oh snap! You got an error!</h4>
 									<p>该班级暂无相关的人员信息。请先添加班级人员信息</p>
 									<p>
-										<a class="btn btn-primary" herf="/student/add" style="text-decoration: none;">添加单个班级人员信息</a>
-										<a class="btn btn-warning" herf="/student/load" style="text-decoration: none;">导入班级人员信息</a>
+										<a class="btn btn-primary" href="/student/add" style="text-decoration: none;">添加单个班级人员信息</a>
+										<a class="btn btn-warning"  href="/student/load" style="text-decoration: none;">导入班级人员信息</a>
 									</p>
 								</div>
 							</div>

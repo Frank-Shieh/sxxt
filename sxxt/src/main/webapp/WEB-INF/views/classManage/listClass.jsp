@@ -165,7 +165,7 @@
 	</script>
 	<script type="text/javascript">
 	function delClass(id) {
-		var result = confirm("确定删除编号:"+ id +"吗?");
+		var result = confirm("确定删除该班级吗?");
 		if (result) {
 			console.log(result);
 			var url = '/class/delete?id='+id;
