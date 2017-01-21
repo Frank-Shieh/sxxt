@@ -91,7 +91,7 @@ public class ClassController {
 		return "class/list";
 	}
 
-	// 请求跳转到修改班级人员信息
+	// 请求跳转到修改班级信息
 	@RequestMapping(value = "edit")
 	public String edit(int id, Model model) {
 		Class classId = classService.findById(id);
@@ -110,14 +110,14 @@ public class ClassController {
 		return "classManage/editClass";
 	}
 
-	// 请求跳转到添加单个班级人员信息
+	//处理修改班级信息
 	@RequestMapping(value = "doEdit")
 	public String doEdit(Class c) {
 		System.out.println(c);
 		classService.editClass(c);
 		return "redirect:/class/list";
 	}
-	// 请求跳转到删除单个班级人员信息
+	// 请求跳转到删除单个班级信息
 	@RequestMapping(value = "delete")
 	public String delClass(int id, Model model) {
 		classService.delClass(id);
