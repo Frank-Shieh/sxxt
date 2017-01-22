@@ -73,10 +73,10 @@
 										<span aria-hidden="true">×</span><span class="sr-only">Close</span>
 									</button>
 									<h4>Oh snap! You got an error!</h4>
-									<p>暂无相关的人员信息。请先添加场地管理员信息</p>
+									<p>暂无相关的人员信息。请先添加实训教师信息</p>
 									<p>
 										<a class="btn btn-primary" href="/siteManager/add"
-											style="text-decoration: none;">添加单个场地管理员信息</a>
+											style="text-decoration: none;">添加单个实训教师信息</a>
 									</p>
 								</div>
 							</div>
@@ -86,14 +86,14 @@
 						<c:if test="${fn:length(result) gt 0}">
 							<div class="panel panel-info">
 								<div class="panel-heading">
-									<h3 class="panel-title">场地管理员信息</h3>
+									<h3 class="panel-title">实训教师信息</h3>
 								</div>
 								<div class="panel-body">
 									<table id="example1" class="table table-bordered table-striped">
 										<thead>
 											<tr>
-												<th>管理员工号</th>
-												<th>管理员名称</th>
+												<th>教师工号</th>
+												<th>教师名称</th>
 												<th>所属公司</th>
 												<th>查看</th>
 												<th>修改</th>
@@ -107,11 +107,11 @@
 													<td>${result.name}</td>
 													<td>${result.company.name}</td>
 													<td><a class="btn btn-info"
-														href="/siteManager/view?id=${result.id}">查看</a></td>
-													<td><a href="/siteManager/edit?id=${result.id}"
+														href="/trainningTeacher/view?id=${result.id}">查看</a></td>
+													<td><a href="/trainningTeacher/edit?id=${result.id}"
 														class="btn btn-primary">修改</a></td>
 													<td><a class="btn btn-danger"
-														onclick="delSiteManager(${result.id})">删除</a></td>
+														onclick="delTrainningTeacher(${result.id})">删除</a></td>
 												</tr>
 											</c:forEach>
 
@@ -175,14 +175,14 @@
 		});
 	</script>
 	<script type="text/javascript">
-	function delSiteManager(id) {
+	function delTrainningTeacher(id) {
 		var result = confirm("确定删除编号:"+ id +"吗?");
 		if (result) {
 			console.log(result);
-			var url = '/siteManager/delete?id='+id;
+			var url = '/trainningTeacher/delete?id='+id;
 			$.get(url, function(data) {
 				console.log('deleted.');
-			 	window.location.href='/siteManager/list'; 
+			 	window.location.href='/trainningTeacher/list'; 
 			});
 		}
 	}

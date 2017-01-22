@@ -71,7 +71,7 @@ public class SiteManagerController {
 	public String doAdd(SiteManager siteManager, Model model) {
 		System.out.println(siteManager);
 		siteManagerService.addSiteManager(siteManager);
-		return "redirect:/siteManager/list?id=" + siteManager.getCompany().getId();
+		return "redirect:/siteManager/list";
 	}
 
 	// 请求跳转到修改场地管理员信息
@@ -94,7 +94,7 @@ public class SiteManagerController {
 	public String doEdit(SiteManager siteManager, Model model) {
 		System.out.println(siteManager);
 		siteManagerService.editSiteManager(siteManager);
-		return "redirect:/siteManager/list?id=" + siteManager.getCompany().getId();
+		return "redirect:/siteManager/list";
 	}
 
 	// 请求跳转到删除单个场地管理员信息

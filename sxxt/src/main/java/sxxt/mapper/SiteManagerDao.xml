@@ -10,7 +10,7 @@
 		site_manager.`name`,
 		site_manager.company_id `company.id`,
 		site_manager.`password`,
-		site_manager.role_id,
+		site_manager.role_id `role.id`,
 		site_manager.state,
 		company_info.`name` `company.name`
 		FROM
@@ -30,9 +30,9 @@
 		site_manager.id,
 		site_manager.`code`,
 		site_manager.`name`,
-		site_manager.company_id,
+		site_manager.company_id `company.id`,
 		site_manager.`password`,
-		site_manager.role_id,
+		site_manager.role_id `role.id`,
 		site_manager.state,
 		company_info.`name` `company.name`
 		FROM
