@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sxxt.dao.SiteManagerDao">
+	<select id="findById" resultType="SiteManager" parameterType="int">
+		SELECT
+		site_manager.id,
+		site_manager.`code`,
+		site_manager.`name`,
+		site_manager.company_id `company.id`,
+		site_manager.`password`,
+		site_manager.role_id,
+		site_manager.state,
+		company_info.`name` `company.name`
+		FROM
+		site_manager
+		INNER JOIN
+		company_info ON site_manager.company_id = company_info.id
+		WHERE
+		site_manager.id = #{id}
+		AND
+		site_manager.state =1
+		AND
+		company_info.state
+		=1
+	</select>
+	<select id="findAll" resultType="SiteManager" parameterType="int">
+		SELECT
+		site_manager.id,
+		site_manager.`code`,
+		site_manager.`name`,
+		site_manager.company_id,
+		site_manager.`password`,
+		site_manager.role_id,
+		site_manager.state,
+		company_info.`name` `company.name`
+		FROM
+		site_manager
+		INNER JOIN
+		company_info ON site_manager.company_id = company_info.id
+		WHERE
+		site_manager.state =1
+		AND
+		company_info.state =1
+	</select>
+	<insert id="addSiteManager" parameterType="SiteManager"
+		flushCache="true" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO
+		`sxxt`.`site_manager`
+		(
+		`code`,
+		`name`,
+		`company_id`,
+		`password`,
+		`role_id`,
+		`state`
+		)
+		VALUES
+		(
+		#{code},
+		#{name},
+		#{company.id},
+		#{password},
+		2,
+		1
+		);
+	</insert>
+	<update id="editSiteManager" parameterType="SiteManager"
+		flushCache="true">
+		UPDATE `sxxt`.`site_manager`
+		SET
+		`code` = #{code},
+		`name` =
+		#{name},
+		`company_id` = #{company.id},
+		`password` =
+		#{password}
+		WHERE
+		(`id` = #{id});
+	</update>
+
+	<update id="delSiteManager" parameterType="int" flushCache="true">
+		UPDATE `sxxt`.`site_manager`
+		<set>
+			`state` = 0,
+		</set>
+		WHERE (`id` = #{id});
+	</update>
+</mapper>

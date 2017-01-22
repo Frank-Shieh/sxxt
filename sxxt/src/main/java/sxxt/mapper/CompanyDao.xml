@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sxxt.dao.CompanyDao">
+	<select id="findById" resultType="Company" parameterType="int">
+		SELECT
+		company_info.id,
+		company_info.`name`,
+		company_info.phone,
+		company_info.address,
+		company_info.introduction,
+		company_info.founding_date
+		FROM
+		company_info
+		WHERE
+		company_info.state = 1
+		AND
+		company_info.id = #{id}
+	</select>
+
+	<select id="findAll" resultType="Company">
+		SELECT
+		company_info.id,
+		company_info.`name`,
+		company_info.phone,
+		company_info.address,
+		company_info.introduction,
+		company_info.founding_date
+		FROM
+		company_info
+		WHERE
+		company_info.state = 1
+	</select>
+	<insert id="addCompany" parameterType="Company" flushCache="true"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `sxxt`.`company_info`
+		(
+		`name`,
+		`phone`,
+		`address`,
+		`introduction`,
+		`founding_date`,
+		`state`
+		)
+		VALUES
+		(
+		#{name},
+		#{phone},
+		#{address},
+		#{introduction},
+		#{foundingDate},
+		1
+		);
+	</insert>
+	<update id="editCompany" parameterType="Company" flushCache="true">
+		UPDATE `sxxt`.`company_info`
+		SET `name` = #{name},
+		`phone` = #{phone},
+		`address` = #{address},
+		`introduction` = #{introduction},
+		`founding_date` = #{foundingDate}
+		WHERE
+		`id` = #{id};
+	</update>
+
+	<delete id="delCompany" parameterType="int" flushCache="true">
+
+		UPDATE
+		`sxxt`.`company_info`
+		SET
+		`state` = 0
+		WHERE
+		(`id` = #{id});
+
+	</delete>
+</mapper>

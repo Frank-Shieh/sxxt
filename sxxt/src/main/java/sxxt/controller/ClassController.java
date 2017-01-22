@@ -15,11 +15,9 @@ import sxxt.dto.reponseDto;
 import sxxt.entity.Class;
 import sxxt.entity.Major;
 import sxxt.entity.School;
-import sxxt.entity.Student;
 import sxxt.service.interfaces.ClassService;
 import sxxt.service.interfaces.MajorService;
 import sxxt.service.interfaces.SchoolService;
-import sxxt.service.interfaces.StudentService;
 
 @Controller
 @RequestMapping(value = "/class")
