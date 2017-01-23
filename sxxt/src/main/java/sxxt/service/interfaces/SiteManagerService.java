@@ -11,6 +11,8 @@ public interface SiteManagerService {
 
 	List<SiteManager> findAll();
 
+	List<SiteManager> findByCompanyId(int id);
+	
 	SiteManager findById(int id);
 
 	int delSiteManager(int id);

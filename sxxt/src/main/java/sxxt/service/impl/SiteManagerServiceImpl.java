@@ -49,4 +49,10 @@ public class SiteManagerServiceImpl implements SiteManagerService {
 		return result;
 	}
 
+	@Override
+	public List<SiteManager> findByCompanyId(int id) {
+		List<SiteManager> result = siteManagerDao.findByCompanyId(id);
+		return result;
+	}
+
 }

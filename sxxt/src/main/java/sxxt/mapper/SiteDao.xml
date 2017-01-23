@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sxxt.dao.SiteDao">
+	<select id="findById" resultType="Site" parameterType="int">
+		SELECT
+		site_info.id,
+		site_info.area_name,
+		site_info.building,
+		site_info.floor,
+		site_info.classroom_code,
+		site_info.num,
+		site_info.state,
+		site_info.manager_id `siteManager.id`,
+		site_info.teacher_id
+		`trainningTeacher.id`,
+		site_info.rent_fee,
+		site_info.rent_date,
+		site_info.return_date,
+		site_info.company_id
+		`company.id`,
+		site_manager.`name` `siteManager.name`,
+		company_info.`name`
+		`company.name`
+		FROM
+		site_info
+		INNER JOIN site_manager ON
+		site_info.manager_id =
+		site_manager.id
+		INNER JOIN company_info ON
+		site_info.company_id =
+		company_info.id
+		WHERE
+		site_info.id =#{id}
+		AND
+		site_info.state > 0
+		AND
+		company_info.state =
+		1
+	</select>
+	<select id="findAll" resultType="Site" parameterType="int">
+		SELECT
+		site_info.id,
+		site_info.area_name,
+		site_info.building,
+		site_info.floor,
+		site_info.classroom_code,
+		site_info.num,
+		site_info.state,
+		site_info.manager_id `siteManager.id`,
+		site_info.teacher_id
+		`trainningTeacher.id`,
+		site_info.rent_fee,
+		site_info.rent_date,
+		site_info.return_date,
+		site_info.company_id
+		`company.id`,
+		site_manager.`name` `siteManager.name`,
+		company_info.`name`
+		`company.name`
+		FROM
+		site_info
+		INNER JOIN site_manager ON
+		site_info.manager_id =
+		site_manager.id
+		INNER JOIN company_info ON
+		site_info.company_id =
+		company_info.id
+		WHERE
+		site_info.state > 0
+		AND
+		company_info.state = 1
+	</select>
+	<insert id="addSite" parameterType="Site" flushCache="true"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `sxxt`.`site_info` (
+		`area_name`,
+		`building`,
+		`floor`,
+		`classroom_code`,
+		`num`,
+		`state`,
+		`manager_id`,
+		`company_id`
+		)
+		VALUES
+		(
+		#{areaName},
+		#{building},
+		#{floor},
+		#{classroomCode},
+		#{num},
+		1,
+		#{siteManager.id},
+		#{company.id}
+		);
+	</insert>
+	<update id="editSite" parameterType="Site" flushCache="true">
+		UPDATE
+		`sxxt`.`site_info`
+		SET
+		`area_name` = #{areaName},
+		`building` =
+		#{building},
+		`floor` = #{floor},
+		`classroom_code` = #{classroomCode},
+		`num` =#{num},
+		`manager_id` = #{siteManager.id},
+		`company_id` =
+		#{company.id}
+		WHERE
+		(`id` = #{id});
+	</update>
+
+	<update id="delSite" parameterType="int" flushCache="true">
+		UPDATE `sxxt`.`site_info`
+		<set>
+			`state` = 0,
+		</set>
+		WHERE (`id` = #{id});
+	</update>
+</mapper>
