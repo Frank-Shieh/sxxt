@@ -124,60 +124,71 @@
 						</a> <a href="listClass.html">场地信息</a> <a href="#" class="current">修改单个场地信息</a>
 					</div>
 					<div class="panel-body">
-						<form class="form-horizontal" method="post" action="/site/doEdit"
+						<form class="form-horizontal" method="post" action="/site/doAssign"
 							id="registerForm">
 							<input type="hidden" class="form-control" name="id"
 								value="${site.id}" />
-							<!-- 添加区域名称 -->
+								<input type="hidden" class="form-control" name="state"
+								value="${site.state}" />
+							<!-- 查看区域名称 -->
 							<div class="form-group background">
-								<label class="col-sm-3 control-label">区域名称</label>
+								<label class="col-sm-3 control-label">区域名称 </label>
 								<div class="controls form-group">
-									<input type="text" class="form-control" name="areaName"
-										value="${site.areaName}" />
+									<span>${site.areaName}</span>
 								</div>
 							</div>
-							<!-- 添加所属建筑物 -->
+							<!-- 查看所属建筑物 -->
 							<div class="form-group background">
-								<label class="col-sm-3 control-label">所属建筑物</label>
+								<label class="col-sm-3 control-label">所属建筑物 </label>
 								<div class="controls form-group">
-									<input type="text" class="form-control" name="building"
-										value="${site.building}" />
+									<span>${site.building}</span>
 								</div>
 							</div>
-							<!-- 添加楼层 -->
+							<!-- 查看楼层 -->
 							<div class="form-group background">
-								<label class="col-sm-3 control-label">楼层</label>
+								<label class="col-sm-3 control-label">楼层 </label>
 								<div class="controls form-group">
-									<input type="text" class="form-control" name="floor"
-										value="${site.floor}" />
+									<span>${site.floor}</span>
+								</div>
+							</div>
+							<!-- 查看课室编号 -->
+							<div class="form-group background">
+								<label class="col-sm-3 control-label">课室编号 </label>
+								<div class="controls form-group">
+									<span>${site.classroomCode}</span>
+								</div>
+							</div>
+							<!-- 查看容纳人数 -->
+							<div class="form-group background">
+								<label class="col-sm-3 control-label">容纳人数 </label>
+								<div class="controls form-group">
+									<span>${site.num}</span>
+								</div>
+							</div>
+							<!-- 查看场地所属公司 -->
+							<div class="form-group background">
+								<label class="col-sm-3 control-label">场地所属公司</label>
+								<div class="controls form-group">
+									<span>${site.company.name}</span>
+								</div>
+							</div>
+							<!-- 查看场地管理员 -->
+							<div class="form-group background">
+								<label class="col-sm-3 control-label">场地管理员</label>
+								<div class="controls form-group">
+									<span>${site.siteManager.name}</span>
 								</div>
 							</div>
 							
-								<!-- 添加课室编号 -->
-							<div class="form-group background">
-								<label class="col-sm-3 control-label">课室编号</label>
-								<div class="controls form-group">
-									<input type="text" class="form-control" name="classroomCode"
-										value="${site.classroomCode}" />
-								</div>
-							</div>
 							
-								<!-- 添加容纳人数 -->
-							<div class="form-group background">
-								<label class="col-sm-3 control-label">容纳人数</label>
-								<div class="controls form-group">
-									<input type="text" class="form-control" name="num"
-										value="${site.num}" />
-								</div>
-							</div>
 							<!-- 添加学校 -->
 							<div class="form-group background">
-								<label class="col-sm-3 control-label">所属公司</label>
+								<label class="col-sm-3 control-label">教师所属公司</label>
 								<div class="controls form-group">
 									<div class="dropdown btn-group" style="width: 50%">
 										<button id="dLabel" class="btn btn-default dropdown-toggle"
 											type="button" data-toggle="dropdown" style="width: 100%">
-											<span id="companyId" value="${site.company.id}">${site.company.name}</span>
+											<span id="companyId" value="${site.trainningTeacher.company.id}">${site.trainningTeacher.company.name}</span>
 											<span class="caret"></span>
 										</button>
 										<input id='company-input' name="company.id"
@@ -195,21 +206,21 @@
 							</div>
 							<!-- 添加专业 -->
 							<div class="form-group background">
-								<label class="col-sm-3 control-label">场地管理员</label>
+								<label class="col-sm-3 control-label">实训教师名称</label>
 								<div class="controls form-group">
 									<div class="dropdown btn-group" style="width: 50%">
 										<button id="dLabel" class="btn btn-default dropdown-toggle"
 											type="button" data-toggle="dropdown" style="width: 100%">
-											<span id="siteManagerId" value="${site.siteManager.id}">${site.siteManager.name}</span>
+											<span id="trainningTeacherId" value="${site.trainningTeacher.id}">${site.trainningTeacher.name}</span>
 											<span class="caret"></span>
 										</button>
-										<input id='siteManager-input' name="siteManager.id"
-											value="${site.siteManager.id}" hidden="true" />
-										<ul class="dropdown-menu siteManager-menu" aria-labelledby="dLabel"
+										<input id='trainningTeacher-input' name="trainningTeacher.id"
+											value="${site.trainningTeacher.id}" hidden="true" />
+										<ul class="dropdown-menu trainningTeacher-menu" aria-labelledby="dLabel"
 											role="menu"
 											style="width: 100%; height: 150px; overflow: scroll;">
-											<c:forEach var="siteManagerList" items="${siteManagerList}">
-												<li><a valueID="${siteManagerList.id}">${siteManagerList.name}</a></li>
+											<c:forEach var="trainningTeacherList" items="${trainningTeacherList}">
+												<li><a valueID="${trainningTeacherList.id}">${trainningTeacherList.name}</a></li>
 											</c:forEach>
 										</ul>
 									</div>
@@ -268,18 +279,18 @@
 			if ($target.is('a')) {
 				//更新新的专业列表
 				var companyId = $target.attr("valueid");
-				updatesiteManagerBycompanyId(companyId);
+				updatetrainningTeacherBycompanyId(companyId);
 			}
 		});
-		$('body').on('click', '.siteManager-menu li', function(e) {
+		$('body').on('click', '.trainningTeacher-menu li', function(e) {
 			var $target = $(e.target);
-			$target.is('a') && $('#siteManagerId').text($target.text());
-			$('#siteManager-input').attr('value', $target.attr("valueid"));
+			$target.is('a') && $('#trainningTeacherId').text($target.text());
+			$('#trainningTeacher-input').attr('value', $target.attr("valueid"));
 			//如果点击的是a标签
 			if ($target.is('a')) {
 				//更新新的专业列表
-				var siteManagerId = $target.attr("valueid");
-				updateClassBysiteManagerId(siteManagerId);
+				var trainningTeacherId = $target.attr("valueid");
+				updateClassBytrainningTeacherId(trainningTeacherId);
 			}
 		});
 		$('body').on('click', '.class-menu', function(e) {
@@ -299,14 +310,14 @@
 							var name = document
 									.getElementById('add-class-input').value;
 							document.getElementById('add-class-input').value = '';
-							var siteManagerId = document
-									.getElementById('siteManager-input').value;
+							var trainningTeacherId = document
+									.getElementById('trainningTeacher-input').value;
 							$
 									.ajax({
 										type : "POST",
 										dataType : 'json',
 										data : {
-											siteManagerId : siteManagerId,
+											trainningTeacherId : trainningTeacherId,
 											name : name
 										},
 										url : "/class/add",
@@ -511,20 +522,20 @@
 
 									});
 						});
-		$('body').on('click', '#add-siteManager-btn', function(e) {
-			$('.siteManager-menu').parent().hide();
-			$('.new-siteManager').show();
+		$('body').on('click', '#add-trainningTeacher-btn', function(e) {
+			$('.trainningTeacher-menu').parent().hide();
+			$('.new-trainningTeacher').show();
 		});
-		$('#add-siteManager')
+		$('#add-trainningTeacher')
 				.on(
 						'click',
 						function(e) {
 
 							var name = document
-									.getElementById('add-siteManager-input').value;
+									.getElementById('add-trainningTeacher-input').value;
 							var companyId = document
 									.getElementById('company-input').value;
-							document.getElementById('add-siteManager-input').value = '';
+							document.getElementById('add-trainningTeacher-input').value = '';
 							$
 									.ajax({
 										type : "POST",
@@ -534,44 +545,44 @@
 											companyId : companyId,
 											name : name
 										},
-										url : "/siteManager/add",
+										url : "/trainningTeacher/add",
 
 										complete : function(msg) {
 											var message = eval("("
 													+ msg.responseText + ")");
 											if (message.length == 1) {
 												var data = message.object;
-												var siteManagerList = '${siteManagerList}';
+												var trainningTeacherList = '${trainningTeacherList}';
 
-												if (document.siteManagerFlag
-														&& document.siteManagerFlag == 1) {
+												if (document.trainningTeacherFlag
+														&& document.trainningTeacherFlag == 1) {
 													var list = new Array();
-													document.siteManagerFlag = 0;
+													document.trainningTeacherFlag = 0;
 												} else {
 													var list;
-													if (document.wsiteManagerLists) {
-														list = document.wsiteManagerLists;
+													if (document.wtrainningTeacherLists) {
+														list = document.wtrainningTeacherLists;
 													} else {
 														list = JSON
-																.parse(siteManagerList);
+																.parse(trainningTeacherList);
 													}
 												}
 
 												list.push(data);
-												document.wsiteManagerLists = list;
+												document.wtrainningTeacherLists = list;
 												list
 														.sort(keysrt('name',
 																false));
 
 												console.log(list);
 
-												var pul = $('.siteManager-menu')
+												var pul = $('.trainningTeacher-menu')
 														.parent();
-												$('.siteManager-menu').remove();
+												$('.trainningTeacher-menu').remove();
 
 												var ul = $('<ul></ul>')
 														.addClass(
-																'dropdown-menu siteManager-menu')
+																'dropdown-menu trainningTeacher-menu')
 														.attr(
 																'aria-labelledby',
 																'dLabel')
@@ -599,7 +610,7 @@
 														.addClass('btn')
 														.attr('type', 'button')
 														.attr('id',
-																'add-siteManager-btn')
+																'add-trainningTeacher-btn')
 														.attr('style',
 																'width: 100%');
 
@@ -614,15 +625,15 @@
 												li.appendTo(ul);
 
 												ul.appendTo(pul);
-												$('.siteManager-menu').parent()
+												$('.trainningTeacher-menu').parent()
 														.show();
-												$('.new-siteManager').hide();
+												$('.new-trainningTeacher').hide();
 
 											} else {
 												alert("添加专业失败");
-												$('.siteManager-menu').parent()
+												$('.trainningTeacher-menu').parent()
 														.show();
-												$('.new-siteManager').hide();
+												$('.new-trainningTeacher').hide();
 											}
 
 										}
@@ -636,7 +647,7 @@
 			}
 		}
 
-		function updateClassBysiteManagerId(siteManagerId) {
+		function updateClassBytrainningTeacherId(trainningTeacherId) {
 			//更新新的班级列表
 			var companyId = companyId;
 			$
@@ -645,9 +656,9 @@
 						dataType : 'json',
 						async : false,
 						data : {
-							id : siteManagerId
+							id : trainningTeacherId
 						},
-						url : "/student/findBysiteManagerId",
+						url : "/student/findBytrainningTeacherId",
 						complete : function(msg) {
 							console.log(msg);
 							var message = eval("(" + msg.responseText + ")");
@@ -712,7 +723,7 @@
 		}
 	</script>
 	<script>
-		function updatesiteManagerBycompanyId(id) {
+		function updatetrainningTeacherBycompanyId(id) {
 			$
 					.ajax({
 						type : "POST",
@@ -721,7 +732,7 @@
 						data : {
 							id : id
 						},
-						url : "/site/findByCompanyId",
+						url : "/site/findTrainningTeacher",
 						complete : function(msg) {
 							flag = 0;
 							var message = eval("(" + msg.responseText + ")");
@@ -730,14 +741,14 @@
 								console.log(list);
 								if (list && list.length > 0) {
 									//列表的初始值更改
-									$('#siteManagerId').text(list[0].name);
-									$('#siteManagerId').attr('value', list[0].id);
-									$('#siteManager-input').attr('value', list[0].id);
-									var pul = $('.siteManager-menu').parent();
-									$('.siteManager-menu').remove();
+									$('#trainningTeacherId').text(list[0].name);
+									$('#trainningTeacherId').attr('value', list[0].id);
+									$('#trainningTeacher-input').attr('value', list[0].id);
+									var pul = $('.trainningTeacher-menu').parent();
+									$('.trainningTeacher-menu').remove();
 									var ul = $('<ul></ul>')
 											.addClass(
-													'dropdown-menu siteManager-menu')
+													'dropdown-menu trainningTeacher-menu')
 											.attr('aria-labelledby', 'dLabel')
 											.attr('role', 'menu')
 											.attr('style',
@@ -760,7 +771,7 @@
 									var button = $('<button></button>')
 											.addClass('btn').attr('type',
 													'button').attr('id',
-													'add-siteManager-btn').attr(
+													'add-trainningTeacher-btn').attr(
 													'style', 'width: 100%');
 
 									$('<i></i>').addClass('fa fa-plus')
@@ -774,14 +785,14 @@
 
 									ul.appendTo(pul);
 
-									updateClassBysiteManagerId(list[0].id);
+									updateClassBytrainningTeacherId(list[0].id);
 								}
 							} else {
 								alert("暂无相关专业");
 								document.classFlag = 1;
-								document.siteManagerFlag = 1;
-								$('.siteManager-menu').parent().hide();
-								$('.new-siteManager').show();
+								document.trainningTeacherFlag = 1;
+								$('.trainningTeacher-menu').parent().hide();
+								$('.new-trainningTeacher').show();
 
 								alert("暂无相关班级");
 								$('.class-menu').parent().hide();

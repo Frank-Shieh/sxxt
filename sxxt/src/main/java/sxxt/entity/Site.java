@@ -18,9 +18,10 @@ public class Site {
 	private TrainningTeacher trainningTeacher;
 	private double rentFee;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date rentDATE;
+	private Date rentDate;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date returnDate;
+	private String rentPeople;
 	private Company company;
 
 	public int getId() {
@@ -103,12 +104,12 @@ public class Site {
 		this.rentFee = rentFee;
 	}
 
-	public Date getRentDATE() {
-		return rentDATE;
+	public Date getRentDate() {
+		return rentDate;
 	}
 
-	public void setRentDATE(Date rentDATE) {
-		this.rentDATE = rentDATE;
+	public void setRentDate(Date rentDATE) {
+		this.rentDate = rentDATE;
 	}
 
 	public Date getReturnDate() {
@@ -131,8 +132,22 @@ public class Site {
 	public String toString() {
 		return "Site [id=" + id + ", areaName=" + areaName + ", building=" + building + ", floor=" + floor
 				+ ", classroomCode=" + classroomCode + ", num=" + num + ", state=" + state + ", siteManager="
-				+ siteManager + ", trainningTeacher=" + trainningTeacher + ", rentFee=" + rentFee + ", rentDATE="
-				+ rentDATE + ", returnDate=" + returnDate + ", company=" + company + "]";
+				+ siteManager + ", trainningTeacher=" + trainningTeacher + ", rentFee=" + rentFee + ", rentDate="
+				+ rentDate + ", returnDate=" + returnDate + ", company=" + company + "]";
+	}
+
+	/**
+	 * @return the rentPeople
+	 */
+	public String getRentPeople() {
+		return rentPeople;
+	}
+
+	/**
+	 * @param rentPeople the rentPeople to set
+	 */
+	public void setRentPeople(String rentPeople) {
+		this.rentPeople = rentPeople;
 	}
 
 }

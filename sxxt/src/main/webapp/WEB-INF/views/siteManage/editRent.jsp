@@ -116,104 +116,106 @@
 
 				<div class="panel panel-primary">
 					<div class="panel-heading">
-						<h3 class="panel-title">修改单个场地信息</h3>
+						<h3 class="panel-title">租借场地信息</h3>
 					</div>
 					<div id="breadcrumb">
 						<a href="#" title="首页" class="tip-bottom"> <i
 							class="icon-home"></i> Home
-						</a> <a href="listClass.html">场地信息</a> <a href="#" class="current">修改单个场地信息</a>
+						</a> <a href="listClass.html">场地信息</a> <a href="#" class="current">租借场地信息</a>
 					</div>
 					<div class="panel-body">
-						<form class="form-horizontal" method="post" action="/site/doEdit"
+						<form class="form-horizontal" method="post" action="/site/doRent"
 							id="registerForm">
 							<input type="hidden" class="form-control" name="id"
 								value="${site.id}" />
-							<!-- 添加区域名称 -->
+							<!-- 查看区域名称 -->
 							<div class="form-group background">
-								<label class="col-sm-3 control-label">区域名称</label>
+								<label class="col-sm-3 control-label">区域名称 </label>
 								<div class="controls form-group">
-									<input type="text" class="form-control" name="areaName"
-										value="${site.areaName}" />
+									<span>${site.areaName}</span>
 								</div>
 							</div>
-							<!-- 添加所属建筑物 -->
+							<!-- 查看所属建筑物 -->
 							<div class="form-group background">
-								<label class="col-sm-3 control-label">所属建筑物</label>
+								<label class="col-sm-3 control-label">所属建筑物 </label>
 								<div class="controls form-group">
-									<input type="text" class="form-control" name="building"
-										value="${site.building}" />
+									<span>${site.building}</span>
 								</div>
 							</div>
-							<!-- 添加楼层 -->
+							<!-- 查看楼层 -->
 							<div class="form-group background">
-								<label class="col-sm-3 control-label">楼层</label>
+								<label class="col-sm-3 control-label">楼层 </label>
 								<div class="controls form-group">
-									<input type="text" class="form-control" name="floor"
-										value="${site.floor}" />
+									<span>${site.floor}</span>
 								</div>
 							</div>
-							
-								<!-- 添加课室编号 -->
+							<!-- 查看课室编号 -->
 							<div class="form-group background">
-								<label class="col-sm-3 control-label">课室编号</label>
+								<label class="col-sm-3 control-label">课室编号 </label>
 								<div class="controls form-group">
-									<input type="text" class="form-control" name="classroomCode"
-										value="${site.classroomCode}" />
+									<span>${site.classroomCode}</span>
 								</div>
 							</div>
-							
-								<!-- 添加容纳人数 -->
+							<!-- 查看容纳人数 -->
 							<div class="form-group background">
-								<label class="col-sm-3 control-label">容纳人数</label>
+								<label class="col-sm-3 control-label">容纳人数 </label>
 								<div class="controls form-group">
-									<input type="text" class="form-control" name="num"
-										value="${site.num}" />
+									<span>${site.num}</span>
 								</div>
 							</div>
-							<!-- 添加学校 -->
+							<!-- 查看所属公司 -->
 							<div class="form-group background">
 								<label class="col-sm-3 control-label">所属公司</label>
 								<div class="controls form-group">
-									<div class="dropdown btn-group" style="width: 50%">
-										<button id="dLabel" class="btn btn-default dropdown-toggle"
-											type="button" data-toggle="dropdown" style="width: 100%">
-											<span id="companyId" value="${site.company.id}">${site.company.name}</span>
-											<span class="caret"></span>
-										</button>
-										<input id='company-input' name="company.id"
-											value="${site.company.id}" hidden="true" />
-										<ul class="dropdown-menu company-menu" aria-labelledby="dLabel"
-											role="menu"
-											style="width: 100%; height: 150px; overflow: scroll;">
-											<c:forEach var="companyList" items="${companyList}">
-												<li><a valueID="${companyList.id}">${companyList.name}</a></li>
-											</c:forEach>
-										</ul>
-									</div>
-
+									<span>${site.company.name}</span>
 								</div>
 							</div>
-							<!-- 添加专业 -->
+							<!-- 查看场地管理员 -->
 							<div class="form-group background">
 								<label class="col-sm-3 control-label">场地管理员</label>
 								<div class="controls form-group">
-									<div class="dropdown btn-group" style="width: 50%">
-										<button id="dLabel" class="btn btn-default dropdown-toggle"
-											type="button" data-toggle="dropdown" style="width: 100%">
-											<span id="siteManagerId" value="${site.siteManager.id}">${site.siteManager.name}</span>
-											<span class="caret"></span>
-										</button>
-										<input id='siteManager-input' name="siteManager.id"
-											value="${site.siteManager.id}" hidden="true" />
-										<ul class="dropdown-menu siteManager-menu" aria-labelledby="dLabel"
-											role="menu"
-											style="width: 100%; height: 150px; overflow: scroll;">
-											<c:forEach var="siteManagerList" items="${siteManagerList}">
-												<li><a valueID="${siteManagerList.id}">${siteManagerList.name}</a></li>
-											</c:forEach>
-										</ul>
-									</div>
-
+									<span>${site.siteManager.name}</span>
+								</div>
+							</div>
+							<!-- 修改租借日期 -->
+							<div class="form-group background">
+								<label class="col-sm-3 control-label">租借日期 </label>
+								<div class="controls form-group">
+									<input type="date" class="form-control" name="rentDate"
+										value="<fmt:formatDate  pattern="yyyy-MM-dd" value="${site.rentDate}"  type="date" dateStyle="default"/>" />
+								</div>
+							</div>
+							<!-- 修改归还日期 -->
+							<div class="form-group background">
+								<label class="col-sm-3 control-label">归还日期 </label>
+								<div class="controls form-group">
+									<input type="date" class="form-control" name="returnDate"
+										value="<fmt:formatDate  pattern="yyyy-MM-dd" value="${site.returnDate}"  type="date" dateStyle="default"/>" />
+								</div>
+							</div>
+							<!-- 修改租借金额 -->
+							<div class="form-group background">
+								<label class="col-sm-3 control-label">租借金额</label>
+								<div class="controls form-group">
+									<input type="text" class="form-control" name="rentFee"
+										value="${site.rentFee}" />
+								</div>
+							</div>
+							<!-- 修改租借单位 -->
+							<div class="form-group background">
+								<label class="col-sm-3 control-label">租借单位</label>
+								<div class="controls form-group">
+									<input type="text" class="form-control" name="rentPeople"
+										value="${site.rentPeople}" />
+								</div>
+							</div>
+							<div class="form-group background">
+								<label class="col-sm-3 control-label">租与借</label>
+								<div class="controls form-group">
+										<input type="radio" name="state" value="4" <c:if test="${site.state eq 1}">checked</c:if>>
+										<label class="radio-label">租用</label>
+										<input type="radio" name="state" value="3" <c:if test="${site.state eq 0}">checked</c:if>> 
+										<label class="radio-label">借用</label>
 								</div>
 							</div>
 							<div class="form-actions">
@@ -251,7 +253,7 @@
 	<script src="<%=path%>/assets/js/bootstrapValidator.js"></script>
 	<script src="<%=path%>/assets/js/icheck.js"></script>
 
-	
+
 	<script>
 		$(document).ready(function() {
 			$('input').iCheck({
@@ -731,8 +733,10 @@
 								if (list && list.length > 0) {
 									//列表的初始值更改
 									$('#siteManagerId').text(list[0].name);
-									$('#siteManagerId').attr('value', list[0].id);
-									$('#siteManager-input').attr('value', list[0].id);
+									$('#siteManagerId').attr('value',
+											list[0].id);
+									$('#siteManager-input').attr('value',
+											list[0].id);
 									var pul = $('.siteManager-menu').parent();
 									$('.siteManager-menu').remove();
 									var ul = $('<ul></ul>')
@@ -760,8 +764,8 @@
 									var button = $('<button></button>')
 											.addClass('btn').attr('type',
 													'button').attr('id',
-													'add-siteManager-btn').attr(
-													'style', 'width: 100%');
+													'add-siteManager-btn')
+											.attr('style', 'width: 100%');
 
 									$('<i></i>').addClass('fa fa-plus')
 											.appendTo(button);

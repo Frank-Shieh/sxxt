@@ -9,9 +9,15 @@ public interface SiteService {
 
 	int editSite(Site site);
 
+	int editRent(Site site);
+
+	int editAssign(Site site);
+
 	Site findById(int id);
 
 	List<Site> findAll();
 
 	int delSite(int id);
+
+	int delState(int id);
 }

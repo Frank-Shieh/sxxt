@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import sxxt.dao.TrainningTeacherDao;
 import sxxt.entity.TrainningTeacher;
 import sxxt.service.interfaces.TrainningTeacherService;
+
 @Service
 public class TrainningTeacherServiceImpl implements TrainningTeacherService {
 	@Autowired
@@ -45,6 +46,13 @@ public class TrainningTeacherServiceImpl implements TrainningTeacherService {
 	public int delTrainningTeacher(int id) {
 		// TODO Auto-generated method stub
 		int result = TrainningTeacherDao.delTrainningTeacher(id);
+		return result;
+	}
+
+	@Override
+	public List<TrainningTeacher> findByCompanyId(int id) {
+		// TODO Auto-generated method stub
+		List<TrainningTeacher> result = TrainningTeacherDao.findByCompanyId(id);
 		return result;
 	}
 }

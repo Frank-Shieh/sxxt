@@ -75,6 +75,9 @@
 						<ul class="treeview-menu">
 							<li><a href="/site/add"><i class="fa fa-circle-o"></i>添加实训场地信息</a></li>
 							<li><a href="/site/list"><i class="fa fa-circle-o"></i>查看实训场地列表</a></li>
+							<li><a href="/site/rentAndAssign"><i
+									class="fa fa-circle-o"></i>租借与分配管理</a></li>
+
 						</ul></li>
 					<li><a href="#"><i class="fa fa-circle-o"></i> 场地设备信息管理 <span
 							class="pull-right-container"> <i
@@ -100,25 +103,28 @@
 						</span> </a>
 						<ul class="treeview-menu">
 							<li><a href="/siteManager/add"><i class="fa fa-circle-o"></i>添加场地管理员信息</a></li>
-							<li><a href="/siteManager/listAll"><i class="fa fa-circle-o"></i>查看场地管理员列表</a></li>
+							<li><a href="/siteManager/listAll"><i
+									class="fa fa-circle-o"></i>查看场地管理员列表</a></li>
 						</ul></li>
 					<li><a href="#"><i class="fa fa-circle-o"></i> 设备管理员信息 <span
 							class="pull-right-container"> <i
 								class="fa fa-angle-left pull-right"></i>
 						</span> </a>
 						<ul class="treeview-menu">
-							<li><a href="/equipmentManager/add"><i class="fa fa-circle-o"></i>添加
-									设备管理员信息</a></li>
-							<li><a href="/equipmentManager/list"><i class="fa fa-circle-o"></i>查看
-									设备管理员列表</a></li>
+							<li><a href="/equipmentManager/add"><i
+									class="fa fa-circle-o"></i>添加 设备管理员信息</a></li>
+							<li><a href="/equipmentManager/list"><i
+									class="fa fa-circle-o"></i>查看 设备管理员列表</a></li>
 						</ul></li>
 					<li><a href="#"><i class="fa fa-circle-o"></i> 实训教师信息 <span
 							class="pull-right-container"> <i
 								class="fa fa-angle-left pull-right"></i>
 						</span> </a>
 						<ul class="treeview-menu">
-							<li><a href="/trainningTeacher/add"><i class="fa fa-circle-o"></i>添加实训教师信息</a></li>
-							<li><a href="/trainningTeacher/list"><i class="fa fa-circle-o"></i>查看实训教师列表</a></li>
+							<li><a href="/trainningTeacher/add"><i
+									class="fa fa-circle-o"></i>添加实训教师信息</a></li>
+							<li><a href="/trainningTeacher/list"><i
+									class="fa fa-circle-o"></i>查看实训教师列表</a></li>
 						</ul></li>
 					<li><a href="#"><i class="fa fa-circle-o"></i> 教务主管信息 <span
 							class="pull-right-container"> <i

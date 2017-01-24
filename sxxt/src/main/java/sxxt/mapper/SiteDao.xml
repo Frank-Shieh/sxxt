@@ -17,6 +17,7 @@
 		`trainningTeacher.id`,
 		site_info.rent_fee,
 		site_info.rent_date,
+		site_info.rent_people,
 		site_info.return_date,
 		site_info.company_id
 		`company.id`,
@@ -25,7 +26,8 @@
 		`company.name`
 		FROM
 		site_info
-		INNER JOIN site_manager ON
+		INNER JOIN site_manager
+		ON
 		site_info.manager_id =
 		site_manager.id
 		INNER JOIN company_info ON
@@ -53,6 +55,7 @@
 		`trainningTeacher.id`,
 		site_info.rent_fee,
 		site_info.rent_date,
+		site_info.rent_people,
 		site_info.return_date,
 		site_info.company_id
 		`company.id`,
@@ -61,7 +64,8 @@
 		`company.name`
 		FROM
 		site_info
-		INNER JOIN site_manager ON
+		INNER JOIN site_manager
+		ON
 		site_info.manager_id =
 		site_manager.id
 		INNER JOIN company_info ON
@@ -113,6 +117,34 @@
 		(`id` = #{id});
 	</update>
 
+	<update id="editRent" parameterType="Site" flushCache="true">
+		UPDATE
+		`sxxt`.`site_info`
+		SET
+		`rent_fee` = #{rentFee},
+		`rent_date` =
+		#{rentDate},
+		`return_date` = #{returnDate},
+		`rent_people` =
+		#{rentPeople},
+		`state` = #{state}
+		WHERE
+		(`id` = #{id});
+
+	</update>
+
+	<update id="editAssign" parameterType="Site" flushCache="true">
+		UPDATE
+		`sxxt`.`site_info`
+		SET
+		`teacher_id` = #{trainningTeacher.id},
+		`state` = #{state}
+		WHERE
+		(`id` = #{id});
+
+	</update>
+
+
 	<update id="delSite" parameterType="int" flushCache="true">
 		UPDATE `sxxt`.`site_info`
 		<set>
@@ -120,4 +152,12 @@
 		</set>
 		WHERE (`id` = #{id});
 	</update>
+	<update id="delState" parameterType="int" flushCache="true">
+		UPDATE `sxxt`.`site_info`
+		<set>
+			`state` = 1,
+		</set>
+		WHERE (`id` = #{id});
+	</update>
+	
 </mapper>

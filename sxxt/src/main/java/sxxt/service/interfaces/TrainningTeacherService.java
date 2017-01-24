@@ -13,5 +13,7 @@ public interface TrainningTeacherService {
 
 	TrainningTeacher findById(int id);
 
+	List<TrainningTeacher> findByCompanyId(int id);
+	
 	int delTrainningTeacher(int id);
 }
