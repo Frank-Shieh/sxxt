@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sxxt.dao.SchoolTeacherDao">
+	<select id="findById" resultType="SchoolTeacher" parameterType="int">
+		SELECT
+		school_teacher.id,
+		school_teacher.`name`,
+		school_teacher.`code`,
+		school_teacher.school_id `school.id`,
+		school_teacher.position_name,
+		school_teacher.`password`,
+		school_teacher.role_id `role.id`,
+		school_teacher.state,
+		school_table.`name` `school.name`
+		FROM
+		school_teacher
+		INNER JOIN
+		school_table ON school_teacher.school_id =
+		school_table.id
+		WHERE
+		school_table.state = 1 AND
+		school_teacher.state = 1
+		AND
+		school_teacher.id =#{id}
+
+	</select>
+	<select id="findAll" resultType="SchoolTeacher" parameterType="int">
+		SELECT
+		school_teacher.id,
+		school_teacher.`name`,
+		school_teacher.`code`,
+		school_teacher.school_id `school.id`,
+		school_teacher.position_name,
+		school_teacher.`password`,
+		school_teacher.role_id `role.id`,
+		school_teacher.state,
+		school_table.`name` `school.name`
+		FROM
+		school_teacher
+		INNER JOIN
+		school_table ON school_teacher.school_id =
+		school_table.id
+		WHERE
+		school_table.state = 1 AND
+		school_teacher.state = 1
+	</select>
+
+
+	<select id="findBySchoolId" resultType="SchoolTeacher"
+		parameterType="int">
+		SELECT
+		school_teacher.id,
+		school_teacher.`name`,
+		school_teacher.`code`,
+		school_teacher.school_id `school.id`,
+		school_teacher.position_name,
+		school_teacher.`password`,
+		school_teacher.role_id `role.id`,
+		school_teacher.state,
+		school_table.`name` `school.name`
+		FROM
+		school_teacher
+		INNER JOIN
+		school_table ON school_teacher.school_id =
+		school_table.id
+		WHERE
+		school_table.state = 1 AND
+		school_teacher.state = 1
+		AND
+		school_teacher.school_id =#{id}
+	</select>
+
+
+	<insert id="addSchoolTeacher" parameterType="SchoolTeacher"
+		flushCache="true" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO
+		`sxxt`.`school_teacher` (
+		`name`,
+		`code`,
+		`school_id`,
+		`position_name`,
+		`password`,
+		`role_id`,
+		`state`
+		)
+		VALUES
+		(
+		#{name},
+		#{code},
+		#{school.id},
+		#{positionName},
+		#{password},
+		4,
+		1
+		);
+	</insert>
+	<update id="editSchoolTeacher" parameterType="SchoolTeacher"
+		flushCache="true">
+		UPDATE `sxxt`.`school_teacher`
+		SET
+		`name` = #{name},
+		`code` =
+		#{code},
+		`school_id` = #{school.id},
+		`position_name` = #{positionName},
+		`password` = #{password}
+		WHERE
+		(`id` = #{id});
+	</update>
+
+	<update id="delSchoolTeacher" parameterType="int" flushCache="true">
+		UPDATE `sxxt`.`school_teacher`
+		<set>
+			`state` = 0,
+		</set>
+		WHERE (`id` = #{id});
+	</update>
+</mapper>
