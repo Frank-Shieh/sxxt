@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sxxt.dao.EducationManagerDao">
+	<select id="findById" resultType="EducationManager"
+		parameterType="int">
+		SELECT
+		education_manager.id,
+		education_manager.`code`,
+		education_manager.`name`,
+		education_manager.company_id `company.id`,
+		education_manager.`password`,
+		education_manager.role_id `role.id`,
+		education_manager.state,
+		company_info.`name` `company.name`
+		FROM
+		education_manager
+		INNER JOIN company_info ON
+		education_manager.company_id = company_info.id
+		WHERE
+		company_info.state
+		= 1
+		AND education_manager.state = 1
+		AND education_manager.id = #{id}
+	</select>
+
+	<select id="findByCompanyId" resultType="EducationManager"
+		parameterType="int">
+		SELECT
+		education_manager.id,
+		education_manager.`code`,
+		education_manager.`name`,
+		education_manager.company_id `company.id`,
+		education_manager.`password`,
+		education_manager.role_id `role.id`,
+		education_manager.state,
+		company_info.`name` `company.name`
+		FROM
+		education_manager
+		INNER JOIN company_info ON
+		education_manager.company_id = company_info.id
+		WHERE
+		company_info.state
+		= 1
+		AND education_manager.state = 1
+		AND education_manager.company_id =
+		#{id}
+	</select>
+
+
+	<select id="findAll" resultType="EducationManager"
+		parameterType="int">
+		SELECT
+		education_manager.id,
+		education_manager.`code`,
+		education_manager.`name`,
+		education_manager.company_id `company.id`,
+		education_manager.`password`,
+		education_manager.role_id `role.id`,
+		education_manager.state,
+		company_info.`name` `company.name`
+		FROM
+		education_manager
+		INNER JOIN company_info ON
+		education_manager.company_id = company_info.id
+		WHERE
+		company_info.state
+		= 1
+		AND
+		education_manager.state = 1
+	</select>
+	<insert id="addEducationManager" parameterType="EducationManager"
+		flushCache="true" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO
+		`sxxt`.`education_manager`
+		(
+		`code`,
+		`name`,
+		`company_id`,
+		`password`,
+		`role_id`,
+		`state`
+		)
+		VALUES
+		(
+		#{code},
+		#{name},
+		#{company.id},
+		#{password},
+		5,
+		1
+		);
+	</insert>
+	<update id="editEducationManager" parameterType="EducationManager"
+		flushCache="true">
+		UPDATE `sxxt`.`education_manager`
+		SET
+		`code` = #{code},
+		`name` =
+		#{name},
+		`company_id` = #{company.id},
+		`password` =
+		#{password}
+		WHERE
+		(`id` = #{id});
+	</update>
+
+	<update id="delEducationManager" parameterType="int" flushCache="true">
+		UPDATE `sxxt`.`education_manager`
+		<set>
+			`state` = 0,
+		</set>
+		WHERE (`id` = #{id});
+	</update>
+</mapper>
