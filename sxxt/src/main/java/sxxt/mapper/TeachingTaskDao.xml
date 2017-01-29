@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sxxt.dao.TeachingTaskDao">
+	<select id="findById" resultType="TeachingTask" parameterType="int">
+		SELECT
+		teaching_task.id,
+		teaching_task.`name`,
+		teaching_task.content,
+		teaching_task.release_date,
+		teaching_task.start_date,
+		teaching_task.end_date,
+		teaching_task.state,
+		teaching_task.manager_id
+		`educationManager.id`,
+		education_manager.`name`
+		`educationManager.name`,
+		education_manager.`code`
+		`educationManager.code`
+		FROM
+		education_manager
+		INNER JOIN teaching_task
+		ON teaching_task.manager_id
+		=
+		education_manager.id
+		WHERE
+		teaching_task.state = 1
+		AND
+		education_manager.state = 1
+		AND
+		teaching_task.id = #{id}
+	</select>
+
+	<select id="findAll" resultType="TeachingTask">
+		SELECT
+		teaching_task.id,
+		teaching_task.`name`,
+		teaching_task.content,
+		teaching_task.release_date,
+		teaching_task.start_date,
+		teaching_task.end_date,
+		teaching_task.state,
+		teaching_task.manager_id
+		`educationManager.id`,
+		education_manager.`name`
+		`educationManager.name`,
+		education_manager.`code`
+		`educationManager.code`
+		FROM
+		education_manager
+		INNER JOIN teaching_task
+		ON teaching_task.manager_id
+		=
+		education_manager.id
+		WHERE
+		teaching_task.state = 1
+		AND
+		education_manager.state = 1
+	</select>
+
+	<insert id="addTeachingTask" parameterType="TeachingTask"
+		flushCache="true" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO
+		`sxxt`.`teaching_task` (
+		`name`,
+		`content`,
+		`release_date`,
+		`start_date`,
+		`end_date`,
+		`state`,
+		`manager_id`
+		)
+		VALUES
+		(
+		#{name},
+		#{content},
+		#{releaseDate},
+		#{startDate},
+		#{endDate},
+		1,
+		#{educationManager.id}
+		);
+	</insert>
+
+	<update id="editTeachingTask" parameterType="TeachingTask"
+		flushCache="true" useGeneratedKeys="true">
+		UPDATE `sxxt`.`teaching_task`
+		SET
+		`name` = #{name},
+		`content` = #{content},
+		`release_date` =
+		#{releaseDate},
+		`start_date` = #{startDate},
+		`end_date` = #{endDate},
+		`manager_id` = #{educationManager.id}
+		WHERE
+		(`id` =#{id});
+	</update>
+
+	<delete id="delTeachingTask" parameterType="int" flushCache="true">
+		UPDATE `sxxt`.`teaching_task`
+		SET
+		`state` = 0
+		WHERE
+		(`id` =#{id});
+	</delete>
+
+
+
+	<!-- 下面是操作实训教师和教学任务之间的表即task_teacher_relationship -->
+	<insert id="addTaskTeacher" parameterType="int" flushCache="true">
+		INSERT INTO `sxxt`.`task_teacher_relationship` (
+		`task_id`,
+		`teacher_id`,
+		`remind_state`
+		)
+		VALUES
+		(#{taskId}, #{teacherId}, '1');
+	</insert>
+	<select id="findByTaskId" resultType="TaskTeacherRelationship"
+		parameterType="int">
+		SELECT
+		task_teacher_relationship.id,
+		task_teacher_relationship.task_id,
+		task_teacher_relationship.teacher_id,
+		task_teacher_relationship.remind_state,
+		training_teacher.`id`
+		`trainningTeacher.id`,
+		training_teacher.`name`
+		`trainningTeacher.name`,
+		training_teacher.`code`
+		`trainningTeacher.code`,
+		teaching_task.`id`
+		`teachingTask.id`,
+		teaching_task.`name` `teachingTask.name`
+		FROM
+		task_teacher_relationship
+		INNER JOIN teaching_task ON
+		task_teacher_relationship.task_id =
+		teaching_task.id
+		INNER JOIN
+		training_teacher ON task_teacher_relationship.teacher_id =
+		training_teacher.id
+		WHERE
+		task_teacher_relationship.task_id =#{taskId}
+		AND teaching_task.state = 1
+		AND training_teacher.state = 1
+	</select>
+
+	<update id="editTaskTeacher" flushCache="true">
+		UPDATE `sxxt`.`task_teacher_relationship`
+		<set>
+			`teacher_id` = #{teacherId},
+			`remind_state` = '1'
+		</set>
+		WHERE
+		(`id` = #{id});
+	</update>
+
+	<delete id="delTasktTeacher" parameterType="int" flushCache="true">
+		DELETE FROM
+		`sxxt`.`task_teacher_relationship`
+		WHERE
+		`task_id` =
+		#{id}
+	</delete>
+
+</mapper>

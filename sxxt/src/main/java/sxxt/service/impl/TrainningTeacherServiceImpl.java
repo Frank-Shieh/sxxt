@@ -43,6 +43,13 @@ public class TrainningTeacherServiceImpl implements TrainningTeacherService {
 	}
 
 	@Override
+	public TrainningTeacher findByCode(String code) {
+		// TODO Auto-generated method stub
+		TrainningTeacher result = TrainningTeacherDao.findByCode(code);
+		return result;
+	}
+
+	@Override
 	public int delTrainningTeacher(int id) {
 		// TODO Auto-generated method stub
 		int result = TrainningTeacherDao.delTrainningTeacher(id);

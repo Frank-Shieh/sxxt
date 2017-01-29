@@ -13,7 +13,9 @@ public interface TrainningTeacherService {
 
 	TrainningTeacher findById(int id);
 
+	TrainningTeacher findByCode(String code);
+
 	List<TrainningTeacher> findByCompanyId(int id);
-	
+
 	int delTrainningTeacher(int id);
 }

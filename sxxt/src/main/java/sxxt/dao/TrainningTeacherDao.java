@@ -14,6 +14,8 @@ public interface TrainningTeacherDao {
 	TrainningTeacher findById(int id);
 
 	List<TrainningTeacher> findByCompanyId(int id);
-	
+
+	TrainningTeacher findByCode(String teacherCode);
+
 	int delTrainningTeacher(int id);
 }

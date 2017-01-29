@@ -24,6 +24,28 @@
 		training_teacher.id = #{id} AND
 		company_info.state =1
 	</select>
+	<select id="findByCode" resultType="TrainningTeacher"
+		parameterType="String">
+		<bind name="pattern" value="_parameter" />
+		SELECT
+		training_teacher.id,
+		training_teacher.`name`,
+		training_teacher.`code`,
+		training_teacher.position_name,
+		training_teacher.`password`,
+		training_teacher.role_id `role.id`,
+		training_teacher.company_id `company.id`,
+		training_teacher.state,
+		company_info.`name` `company.name`
+		FROM
+		training_teacher
+		INNER JOIN
+		company_info ON training_teacher.company_id = company_info.id
+		WHERE
+		training_teacher.state =1 AND
+		training_teacher.code LIKE #{pattern} AND
+		company_info.state =1
+	</select>
 	<select id="findAll" resultType="TrainningTeacher"
 		parameterType="int">
 		SELECT
