@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sxxt.dao.TrainningTaskDao">
+	<select id="findById" resultType="TrainningTask" parameterType="int">
+		SELECT
+		training_task.id,
+		training_task.`name`,
+		training_task.content,
+		training_task.release_date,
+		training_task.start_date,
+		training_task.end_date,
+		training_task.teacher_id `trainningTeacher.id`,
+		training_task.state,
+		training_teacher.`name` `trainningTeacher.name`,
+		training_teacher.`code` `trainningTeacher.code`
+		FROM
+		training_task
+		INNER
+		JOIN training_teacher ON training_task.teacher_id =
+		training_teacher.id
+		WHERE
+		training_teacher.state = 1 AND
+		training_task.state = 1 AND
+		training_task.id = #{id}
+	</select>
+
+	<select id="findAll" resultType="TrainningTask">
+		SELECT
+		training_task.id,
+		training_task.`name`,
+		training_task.content,
+		training_task.release_date,
+		training_task.start_date,
+		training_task.end_date,
+		training_task.teacher_id `trainningTeacher.id`,
+		training_task.state,
+		training_teacher.`name` `trainningTeacher.name`,
+		training_teacher.`code` `trainningTeacher.code`
+		FROM
+		training_task
+		INNER
+		JOIN training_teacher ON training_task.teacher_id =
+		training_teacher.id
+		WHERE
+		training_teacher.state = 1 AND
+		training_task.state = 1
+	</select>
+
+	<insert id="addTrainningTask" parameterType="TrainningTask"
+		flushCache="true" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO
+		`sxxt`.`training_task` (
+		`name`,
+		`content`,
+		`release_date`,
+		`start_date`,
+		`end_date`,
+		`teacher_id`,
+		`state`
+		)
+		VALUES
+		(
+		#{name},
+		#{content},
+		#{releaseDate},
+		#{startDate},
+		#{endDate},
+		#{trainningTeacher.id},
+		1
+		);
+	</insert>
+
+	<update id="editTrainningTask" parameterType="TrainningTask"
+		flushCache="true" useGeneratedKeys="true">
+		UPDATE `sxxt`.`training_task`
+		SET
+		`name` = #{name},
+		`content` = #{content},
+		`release_date` =
+		#{releaseDate},
+		`start_date` = #{startDate},
+		`end_date` = #{endDate},
+		`teacher_id` = #{trainningTeacher.id}
+		WHERE
+		(`id` =
+		#{id});
+	</update>
+
+	<delete id="delTrainningTask" parameterType="int" flushCache="true">
+		UPDATE `sxxt`.`training_task`
+		SET
+		`state` = 0
+		WHERE
+		(`id` =#{id});
+	</delete>
+
+
+
+	<!-- 下面是操作教学任务和班级之间的表即task_class_relationship -->
+	<insert id="addTaskClass" parameterType="int" flushCache="true">
+		INSERT
+		INTO `sxxt`.`task_class_relationship` (
+		`task_id`,
+		`class_id`
+		)
+		VALUES
+		(#{taskId}, #{classId});
+	</insert>
+	<select id="findByTaskId" resultType="TaskClassRelationship"
+		parameterType="int">
+		SELECT
+		task_class_relationship.id,
+		task_class_relationship.task_id `trainningTask.id`,
+		task_class_relationship.class_id `className.id`,
+		training_task.`name`
+		`trainningTask.name`,
+		class_table.`name` `className.name`,
+		major_table.`name` `className.major.name`,
+		class_table.major_id
+		`className.major.id`,
+		major_table.school_id
+		`className.major.school.id`,
+		school_table.`name`
+		`className.major.school.name`
+		FROM
+		task_class_relationship
+		INNER JOIN
+		training_task ON
+		task_class_relationship.task_id =
+		training_task.id
+		INNER JOIN
+		class_table ON task_class_relationship.class_id =
+		class_table.id
+		INNER
+		JOIN major_table ON class_table.major_id =
+		major_table.id
+		INNER JOIN
+		school_table ON major_table.school_id =
+		school_table.id
+		WHERE
+		training_task.state = 1 AND
+		class_table.state = 1
+		AND
+		school_table.state = 1 AND
+		major_table.state = 1 AND
+		task_class_relationship.task_id =#{taskId}
+	</select>
+
+	<update id="editTaskClass" flushCache="true">
+		UPDATE `sxxt`.`task_class_relationship`
+		<set>
+			`class_id` = #{classId},
+		</set>
+		WHERE
+		(`task_id` = #{taskId});
+	</update>
+
+	<delete id="delTasktClass" parameterType="int" flushCache="true">
+		DELETE FROM
+		`sxxt`.`task_class_relationship`
+		WHERE
+		`task_id` =
+		#{id}
+	</delete>
+
+</mapper>

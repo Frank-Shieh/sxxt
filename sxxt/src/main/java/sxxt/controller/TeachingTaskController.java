@@ -94,4 +94,11 @@ public class TeachingTaskController {
 		return "redirect:/teachingTask/list";
 	}
 
+	// 请求跳转到删除单个实训教师信息
+	@RequestMapping(value = "delete")
+	public String delTeachingTask(int id, Model model) {
+		teachingTaskService.delTeachingTask(id);
+		return "redirect:/teachingTask/list";
+	}
+
 }
