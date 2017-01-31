@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sxxt.dao.EquipmentManagerDao">
+	<select id="findById" resultType="EquipmentManager"
+		parameterType="int">
+		SELECT
+		equipment_manager.id,
+		equipment_manager.`code`,
+		equipment_manager.`name`,
+		equipment_manager.company_id `company.id`,
+		equipment_manager.`password`,
+		equipment_manager.role_id `role.id`,
+		equipment_manager.state,
+		company_info.`name` `company.name`
+		FROM
+		equipment_manager
+		INNER JOIN company_info ON
+		equipment_manager.company_id = company_info.id
+		WHERE
+		company_info.state
+		= 1
+		AND equipment_manager.state = 1
+		AND equipment_manager.id = #{id}
+	</select>
+
+	<select id="findByCompanyId" resultType="EquipmentManager"
+		parameterType="int">
+		SELECT
+		equipment_manager.id,
+		equipment_manager.`code`,
+		equipment_manager.`name`,
+		equipment_manager.company_id `company.id`,
+		equipment_manager.`password`,
+		equipment_manager.role_id `role.id`,
+		equipment_manager.state,
+		company_info.`name` `company.name`
+		FROM
+		equipment_manager
+		INNER JOIN company_info ON
+		equipment_manager.company_id = company_info.id
+		WHERE
+		company_info.state
+		= 1
+		AND equipment_manager.state = 1
+		AND equipment_manager.company_id =
+		#{id}
+	</select>
+
+
+	<select id="findAll" resultType="EquipmentManager"
+		parameterType="int">
+		SELECT
+		equipment_manager.id,
+		equipment_manager.`code`,
+		equipment_manager.`name`,
+		equipment_manager.company_id `company.id`,
+		equipment_manager.`password`,
+		equipment_manager.role_id `role.id`,
+		equipment_manager.state,
+		company_info.`name` `company.name`
+		FROM
+		equipment_manager
+		INNER JOIN company_info ON
+		equipment_manager.company_id = company_info.id
+		WHERE
+		company_info.state
+		= 1
+		AND
+		equipment_manager.state = 1
+	</select>
+	<insert id="addEquipmentManager" parameterType="EquipmentManager"
+		flushCache="true" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO
+		`sxxt`.`equipment_manager`
+		(
+		`code`,
+		`name`,
+		`company_id`,
+		`password`,
+		`role_id`,
+		`state`
+		)
+		VALUES
+		(
+		#{code},
+		#{name},
+		#{company.id},
+		#{password},
+		6,
+		1
+		);
+	</insert>
+	<update id="editEquipmentManager" parameterType="EquipmentManager"
+		flushCache="true">
+		UPDATE `sxxt`.`equipment_manager`
+		SET
+		`code` = #{code},
+		`name` =
+		#{name},
+		`company_id` = #{company.id},
+		`password` =
+		#{password}
+		WHERE
+		(`id` = #{id});
+	</update>
+
+	<update id="delEquipmentManager" parameterType="int" flushCache="true">
+		UPDATE `sxxt`.`equipment_manager`
+		<set>
+			`state` = 0,
+		</set>
+		WHERE (`id` = #{id});
+	</update>
+</mapper>

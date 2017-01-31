@@ -110,16 +110,16 @@
 
 				<div class="panel panel-primary">
 					<div class="panel-heading">
-						<h3 class="panel-title">查看实训教务主管信息</h3>
+						<h3 class="panel-title">查看实训设备管理员信息</h3>
 					</div>
 					<div id="breadcrumb">
 						<a href="#" title="首页" class="tip-bottom"> <i
 							class="icon-home"></i> Home
-						</a> <a href="listClass.html">实训教务主管信息</a> <a href="#" class="current">查看实训教务主管信息</a>
+						</a> <a href="listClass.html">实训设备管理员信息</a> <a href="#" class="current">查看实训设备管理员信息</a>
 					</div>
 					<div class="panel-body">
 						<form class="form-horizontal" method="post"
-							action="/educationManager/list" id="registerForm">
+							action="/equipmentManager/list" id="registerForm">
 							<!-- 查看工号 -->
 							<div class="form-group background">
 								<label class="col-sm-3 control-label">工号</label>
