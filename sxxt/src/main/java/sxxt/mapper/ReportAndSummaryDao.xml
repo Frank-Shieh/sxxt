@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sxxt.dao.ReportAndSummaryDao">
+	<select id="findById" resultType="ReportAndSummary"
+		parameterType="int">
+		SELECT
+		report_and_summary.id,
+		report_and_summary.self_comment,
+		report_and_summary.student_id
+		`student.id`,
+		report_and_summary.write_date,
+		report_and_summary.teacher_comment,
+		report_and_summary.teacher_id
+		`trainningTeacher.id`,
+		report_and_summary.comment_date,
+		report_and_summary.state,
+		student_table.`name` `student.name`,
+		training_teacher.`name` `trainningTeacher.name`,
+		class_table.`name`
+		`student.classId.name`,
+		school_table.`name` `student.school.name`
+		FROM
+		report_and_summary
+		INNER JOIN student_table ON
+		report_and_summary.student_id =
+		student_table.id
+		INNER JOIN
+		training_teacher ON report_and_summary.teacher_id =
+		training_teacher.id
+		INNER JOIN class_table ON student_table.class_id =
+		class_table.id
+		INNER JOIN school_table ON student_table.school_id =
+		school_table.id
+		WHERE
+		report_and_summary.state = 1 AND
+		student_table.state = 1 AND
+		training_teacher.state = 1 AND
+		class_table.state = 1 AND
+		school_table.state = 1 AND
+		report_and_summary.id = #{id}
+
+	</select>
+	<select id="findByStudentId" resultType="ReportAndSummary"
+		parameterType="int">
+		SELECT
+		report_and_summary.id,
+		report_and_summary.self_comment,
+		report_and_summary.student_id
+		`student.id`,
+		report_and_summary.write_date,
+		report_and_summary.teacher_comment,
+		report_and_summary.teacher_id
+		`trainningTeacher.id`,
+		report_and_summary.comment_date,
+		report_and_summary.state,
+		student_table.`name` `student.name`,
+		training_teacher.`name` `trainningTeacher.name`,
+		class_table.`name`
+		`student.classId.name`,
+		school_table.`name` `student.school.name`
+		FROM
+		report_and_summary
+		INNER JOIN student_table ON
+		report_and_summary.student_id =
+		student_table.id
+		INNER JOIN
+		training_teacher ON report_and_summary.teacher_id =
+		training_teacher.id
+		INNER JOIN class_table ON student_table.class_id =
+		class_table.id
+		INNER JOIN school_table ON student_table.school_id =
+		school_table.id
+		WHERE
+		report_and_summary.state = 1 AND
+		student_table.state = 1 AND
+		training_teacher.state = 1 AND
+		class_table.state = 1 AND
+		school_table.state = 1 AND
+		report_and_summary.student_id = #{id}
+
+	</select>
+	<select id="findAll" resultType="ReportAndSummary">
+		SELECT
+		report_and_summary.id,
+		report_and_summary.self_comment,
+		report_and_summary.student_id
+		`student.id`,
+		report_and_summary.write_date,
+		report_and_summary.teacher_comment,
+		report_and_summary.teacher_id
+		`trainningTeacher.id`,
+		report_and_summary.comment_date,
+		report_and_summary.state,
+		student_table.`name` `student.name`,
+		training_teacher.`name` `trainningTeacher.name`,
+		class_table.`name`
+		`student.classId.name`,
+		school_table.`name` `student.school.name`
+		FROM
+		report_and_summary
+		INNER JOIN student_table ON
+		report_and_summary.student_id =
+		student_table.id
+		INNER JOIN
+		training_teacher ON report_and_summary.teacher_id =
+		training_teacher.id
+		INNER JOIN class_table ON student_table.class_id =
+		class_table.id
+		INNER JOIN school_table ON student_table.school_id =
+		school_table.id
+		WHERE
+		report_and_summary.state = 1 AND
+		student_table.state = 1 AND
+		training_teacher.state = 1 AND
+		class_table.state = 1 AND
+		school_table.state = 1
+	</select>
+	<insert id="addReportAndSummary" parameterType="ReportAndSummary"
+		flushCache="true" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO
+		`sxxt`.`report_and_summary` (
+		`self_comment`,
+		`student_id`,
+		`write_date`,
+		`state`
+		)
+		VALUES
+		(
+		#{selfComment},
+		#{student.id},
+		#{writeDate},
+		1
+		);
+	</insert>
+	<update id="editReportByStudent" parameterType="ReportAndSummary"
+		flushCache="true">
+		UPDATE `sxxt`.`report_and_summary`
+		SET
+		`self_comment` =
+		#{selfComment},
+		`student_id` = #{student.id},
+		`write_date` =
+		#{writeDate}
+		WHERE
+		(`id` = #{id});
+	</update>
+
+	<update id="editReportByTeacher" parameterType="ReportAndSummary"
+		flushCache="true">
+
+		UPDATE `sxxt`.`report_and_summary`
+		SET
+		`teacher_comment` = #{teacherComment},
+		`teacher_id` = #{trainningTeacher.id},
+		`comment_date` = #{commentDate}
+		WHERE
+		(`id` = #{id});
+
+	</update>
+</mapper>

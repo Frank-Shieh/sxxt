@@ -161,5 +161,22 @@ public class StudentController {
 
 		return reponseDto;
 	}
+	// 请求查找新的学生列表
+		@RequestMapping(value = "findByClassId")
+		public @ResponseBody reponseDto findByClassId(int id, Model model) {
+			reponseDto reponseDto = new reponseDto();
 
+			List<Student> studentList = studentService.findByClassId(id);
+			if (studentList != null && studentList.size() > 0) {
+				String jsonClass = JSON.toJSONString(studentList);
+				JSONArray jsonArrayClass = JSON.parseArray(jsonClass);
+				reponseDto.setObject(jsonArrayClass);
+				reponseDto.setLength(studentList.size());
+			} else {
+				reponseDto.setObject(null);
+				reponseDto.setLength(0);
+			}
+
+			return reponseDto;
+		}
 }
