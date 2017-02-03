@@ -17,6 +17,7 @@
 		report_and_summary.comment_date,
 		report_and_summary.state,
 		student_table.`name` `student.name`,
+		student_table.`code` `student.code`,
 		training_teacher.`name` `trainningTeacher.name`,
 		class_table.`name`
 		`student.classId.name`,
@@ -56,6 +57,7 @@
 		report_and_summary.comment_date,
 		report_and_summary.state,
 		student_table.`name` `student.name`,
+		student_table.`code` `student.code`,
 		training_teacher.`name` `trainningTeacher.name`,
 		class_table.`name`
 		`student.classId.name`,
@@ -94,6 +96,7 @@
 		report_and_summary.comment_date,
 		report_and_summary.state,
 		student_table.`name` `student.name`,
+		student_table.`code` `student.code`,
 		training_teacher.`name` `trainningTeacher.name`,
 		class_table.`name`
 		`student.classId.name`,

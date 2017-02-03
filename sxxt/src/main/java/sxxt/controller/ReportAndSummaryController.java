@@ -14,6 +14,7 @@ import sxxt.entity.Class;
 import sxxt.entity.Major;
 import sxxt.entity.ReportAndSummary;
 import sxxt.entity.School;
+import sxxt.entity.SchoolTeacher;
 import sxxt.entity.Student;
 import sxxt.service.interfaces.ClassService;
 import sxxt.service.interfaces.MajorService;
@@ -65,7 +66,7 @@ public class ReportAndSummaryController {
 		return "ReportAndSummary/addReportAndSummary";
 	}
 
-	// 请求跳转到添加總結
+	// 请求跳转到添加总结
 	@RequestMapping(value = "doAdd")
 	public String doAdd(ReportAndSummary reportAndSummary) {
 		System.out.println(11111111);
@@ -73,4 +74,79 @@ public class ReportAndSummaryController {
 		return "redirect:/reportAndSummary/list";
 	}
 
+	// 请求跳转到添加总结
+	@RequestMapping(value = "list")
+	public String list(Model model) {
+		List<ReportAndSummary> result = reportAndSummaryService.findAll();
+		if (result.size() == 0) {
+			model.addAttribute("errorMsg", "暂无报告与总结信息");
+		} else {
+			model.addAttribute("result", result);
+		}
+		return "ReportAndSummary/listReportAndSummary";
+	}
+
+	// 请求跳转到查看学校教师信息
+	@RequestMapping(value = "view")
+	public String view(int id, Model model) {
+		ReportAndSummary result = reportAndSummaryService.findById(id);
+		System.out.println(result);
+		model.addAttribute("result", result);
+		return "ReportAndSummary/viewReportAndSummary";
+	}
+
+	// 教师评价学生总结
+	@RequestMapping(value = "comment")
+	public String comment(int id, Model model) {
+		ReportAndSummary result = reportAndSummaryService.findById(id);
+		model.addAttribute("result", result);
+		return "ReportAndSummary/commentReportAndSummary";
+	}
+
+	// 请求跳转到添加总结
+	@RequestMapping(value = "doComment")
+	public String editByTeacher(ReportAndSummary reportAndSummary) {
+		System.out.println(reportAndSummary);
+		reportAndSummaryService.editReportByTeacher(reportAndSummary);
+		return "redirect:/reportAndSummary/list";
+	}
+
+	// 学生修改总结
+	@RequestMapping(value = "edit")
+	public String editByStudent(int id, Model model) {
+		
+		List<School> schoolList = schoolService.findAll();
+		String jsonSchool = JSON.toJSONString(schoolList);
+		JSONArray jsonArraySchool = JSON.parseArray(jsonSchool);
+		model.addAttribute("schoolList", jsonArraySchool);
+		System.out.println(schoolList);
+		List<Major> majorList = majorService.findBySchoolId(schoolList.get(0).getId());
+		String jsonMajor = JSON.toJSONString(majorList);
+		JSONArray jsonArrayMajor = JSON.parseArray(jsonMajor);
+		model.addAttribute("majorList", jsonArrayMajor);
+		System.out.println(majorList);
+		List<Class> classList = classService.findByMajorId(majorList.get(0).getId());
+		String jsonClass = JSON.toJSONString(classList);
+		JSONArray jsonArrayClass = JSON.parseArray(jsonClass);
+		model.addAttribute("classList", jsonArrayClass);
+		System.out.println(classList);
+		System.out.println(classList.get(0).getId());
+		List<Student> studentList = studentService.findByClassId(classList.get(0).getId());
+		String jsonStudent = JSON.toJSONString(studentList);
+		JSONArray jsonArrayStudent = JSON.parseArray(jsonStudent);
+		model.addAttribute("studentList", jsonArrayStudent);
+		
+		
+		ReportAndSummary result = reportAndSummaryService.findById(id);
+		model.addAttribute("result", result);
+		return "ReportAndSummary/editReportAndSummary";
+	}
+
+	// 请求跳转到添加总结
+	@RequestMapping(value = "doEdit")
+	public String doEdit(ReportAndSummary reportAndSummary) {
+		System.out.println(reportAndSummary);
+		reportAndSummaryService.editReportByStudent(reportAndSummary);
+		return "redirect:/reportAndSummary/list";
+	}
 }

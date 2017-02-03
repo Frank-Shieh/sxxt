@@ -10,10 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 
-import sxxt.entity.Company;
 import sxxt.entity.School;
 import sxxt.entity.SchoolTeacher;
-import sxxt.entity.SiteManager;
 import sxxt.service.interfaces.SchoolService;
 import sxxt.service.interfaces.SchoolTeacherService;
 
