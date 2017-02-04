@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sxxt.dao.AllocateClassDao">
+	<select id="findById" resultType="ClassTeacherRelationship"
+		parameterType="int">
+		SELECT
+		class_teacher_relationship.id,
+		class_teacher_relationship.class_id `classId.id`,
+		class_teacher_relationship.teacher_id `trainningTeacher.id`,
+		class_table.`name` `classId.name`,
+		major_table.`name`
+		`classId.major.name`,
+		school_table.`name` `classId.major.school.name`,
+		school_table.id `classId.major.school.id`,
+		major_table.id
+		`classId.major.id`,
+		training_teacher.`name` `trainningTeacher.name`,
+		training_teacher.`code` `trainningTeacher.code`,
+		company_info.`name`
+		`trainningTeacher.company.name`,
+		company_info.id
+		`trainningTeacher.company.id`
+		FROM
+		class_teacher_relationship
+		INNER JOIN
+		class_table ON class_teacher_relationship.class_id =
+		class_table.id
+		INNER JOIN major_table ON class_table.major_id =
+		major_table.id
+		INNER
+		JOIN school_table ON major_table.school_id =
+		school_table.id
+		INNER JOIN
+		training_teacher ON
+		class_teacher_relationship.teacher_id =
+		training_teacher.id
+		INNER JOIN
+		company_info ON
+		training_teacher.company_id = company_info.id
+		WHERE
+		class_teacher_relationship.id = #{id}
+	</select>
+	<select id="findByClassId" resultType="ClassTeacherRelationship"
+		parameterType="int">
+		SELECT
+		class_teacher_relationship.id,
+		class_teacher_relationship.class_id
+		`classId.id`,
+		class_teacher_relationship.teacher_id
+		`trainningTeacher.id`,
+		class_table.`name` `classId.name`,
+		major_table.`name`
+		`classId.major.name`,
+		school_table.`name`
+		`classId.major.school.name`,
+		school_table.id `classId.major.school.id`,
+		major_table.id
+		`classId.major.id`,
+		training_teacher.`name`
+		`trainningTeacher.name`,
+		training_teacher.`code`
+		`trainningTeacher.code`,
+		company_info.`name`
+		`trainningTeacher.company.name`,
+		company_info.id
+		`trainningTeacher.company.id`
+		FROM
+		class_teacher_relationship
+		INNER JOIN
+		class_table ON class_teacher_relationship.class_id =
+		class_table.id
+		INNER JOIN major_table ON class_table.major_id =
+		major_table.id
+		INNER
+		JOIN school_table ON major_table.school_id =
+		school_table.id
+		INNER JOIN
+		training_teacher ON
+		class_teacher_relationship.teacher_id =
+		training_teacher.id
+		INNER JOIN
+		company_info ON
+		training_teacher.company_id = company_info.id
+		WHERE
+		class_teacher_relationship.class_id = #{id}
+	</select>
+	<select id="findAll" resultType="ClassTeacherRelationship">
+		SELECT
+		class_teacher_relationship.id,
+		class_teacher_relationship.class_id
+		`classId.id`,
+		class_teacher_relationship.teacher_id
+		`trainningTeacher.id`,
+		class_table.`name` `classId.name`,
+		major_table.`name`
+		`classId.major.name`,
+		school_table.`name`
+		`classId.major.school.name`,
+		school_table.id `classId.major.school.id`,
+		major_table.id
+		`classId.major.id`,
+		training_teacher.`name`
+		`trainningTeacher.name`,
+		training_teacher.`code`
+		`trainningTeacher.code`,
+		company_info.`name`
+		`trainningTeacher.company.name`,
+		company_info.id
+		`trainningTeacher.company.id`
+		FROM
+		class_teacher_relationship
+		INNER JOIN
+		class_table ON class_teacher_relationship.class_id =
+		class_table.id
+		INNER JOIN major_table ON class_table.major_id =
+		major_table.id
+		INNER
+		JOIN school_table ON major_table.school_id =
+		school_table.id
+		INNER JOIN
+		training_teacher ON
+		class_teacher_relationship.teacher_id =
+		training_teacher.id
+		INNER JOIN
+		company_info ON
+		training_teacher.company_id = company_info.id
+		GROUP BY
+		class_teacher_relationship.class_id
+	</select>
+	<insert id="addRelationship" parameterType="int" flushCache="true">
+		INSERT INTO
+		`sxxt`.`class_teacher_relationship` (
+		`class_id`,
+		`teacher_id`
+		)
+		VALUES
+		(#{classId}, #{teacherId});
+	</insert>
+	<update id="editRelationship" parameterType="int" flushCache="true">
+		UPDATE
+		`sxxt`.`class_teacher_relationship`
+		SET
+		`class_id` =
+		#{classId},
+		`teacher_id` =
+		#{teacherId}
+		WHERE
+		(`id` = #{id});
+	</update>
+
+	<delete id="delRelationship" parameterType="int" flushCache="true">
+		DELETE FROM
+		`sxxt`.`class_teacher_relationship`
+		WHERE
+		`class_id` =
+		#{id}
+	</delete>
+</mapper>

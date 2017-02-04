@@ -13,7 +13,6 @@ import com.alibaba.fastjson.JSONArray;
 import sxxt.entity.EducationManager;
 import sxxt.entity.TaskTeacherRelationship;
 import sxxt.entity.TeachingTask;
-import sxxt.entity.TrainningTeacher;
 import sxxt.service.interfaces.EducationManagerService;
 import sxxt.service.interfaces.TeachingTaskService;
 import sxxt.service.interfaces.TrainningTeacherService;

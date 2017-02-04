@@ -18,13 +18,15 @@
 		report_and_summary.state,
 		student_table.`name` `student.name`,
 		student_table.`code` `student.code`,
-		training_teacher.`name` `trainningTeacher.name`,
+		training_teacher.`name`
+		`trainningTeacher.name`,
 		class_table.`name`
 		`student.classId.name`,
 		school_table.`name` `student.school.name`
 		FROM
 		report_and_summary
-		INNER JOIN student_table ON
+		INNER
+		JOIN student_table ON
 		report_and_summary.student_id =
 		student_table.id
 		INNER JOIN
@@ -58,13 +60,15 @@
 		report_and_summary.state,
 		student_table.`name` `student.name`,
 		student_table.`code` `student.code`,
-		training_teacher.`name` `trainningTeacher.name`,
+		training_teacher.`name`
+		`trainningTeacher.name`,
 		class_table.`name`
 		`student.classId.name`,
 		school_table.`name` `student.school.name`
 		FROM
 		report_and_summary
-		INNER JOIN student_table ON
+		INNER
+		JOIN student_table ON
 		report_and_summary.student_id =
 		student_table.id
 		INNER JOIN
@@ -97,13 +101,15 @@
 		report_and_summary.state,
 		student_table.`name` `student.name`,
 		student_table.`code` `student.code`,
-		training_teacher.`name` `trainningTeacher.name`,
+		training_teacher.`name`
+		`trainningTeacher.name`,
 		class_table.`name`
 		`student.classId.name`,
 		school_table.`name` `student.school.name`
 		FROM
 		report_and_summary
-		INNER JOIN student_table ON
+		INNER
+		JOIN student_table ON
 		report_and_summary.student_id =
 		student_table.id
 		INNER JOIN
@@ -127,6 +133,7 @@
 		`self_comment`,
 		`student_id`,
 		`write_date`,
+		`teacher_id`,
 		`state`
 		)
 		VALUES
@@ -134,6 +141,7 @@
 		#{selfComment},
 		#{student.id},
 		#{writeDate},
+		#{trainningTeacher.id},
 		1
 		);
 	</insert>
@@ -144,6 +152,7 @@
 		`self_comment` =
 		#{selfComment},
 		`student_id` = #{student.id},
+		`teacher_id`=#{trainningTeacher.id},
 		`write_date` =
 		#{writeDate}
 		WHERE
@@ -155,7 +164,8 @@
 
 		UPDATE `sxxt`.`report_and_summary`
 		SET
-		`teacher_comment` = #{teacherComment},
+		`teacher_comment` =
+		#{teacherComment},
 		`teacher_id` = #{trainningTeacher.id},
 		`comment_date` = #{commentDate}
 		WHERE
