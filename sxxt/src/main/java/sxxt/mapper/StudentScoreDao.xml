@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sxxt.dao.StudentScoreDao">
+	<select id="findById" resultType="StudentScore" parameterType="int">
+		SELECT
+		student_score.id,
+		student_score.class_id `classId.id`,
+		student_score.student_id `student.id`,
+		student_score.teacher_id
+		`trainningTeacher.id`,
+		student_score.inducing_ability,
+		student_score.plan_execute,
+		student_score.design_implement,
+		student_score.skill_learning,
+		student_score.team_ability,
+		student_score.professionalism,
+		student_score.writing_level,
+		student_score.score_date,
+		student_score.state,
+		class_table.`name`
+		`classId.name`,
+		major_table.id `classId.major.id`,
+		major_table.`name`
+		`classId.major.name`,
+		school_table.`name` `classId.major.school.name`,
+		school_table.id `classId.major.school.id`,
+		student_table.`code`
+		`student.code`,
+		student_table.`name` `student.name`,
+		training_teacher.`code` `trainningTeacher.code`,
+		training_teacher.`name` `trainningTeacher.name`
+		FROM
+		student_score
+		INNER
+		JOIN class_table ON student_score.class_id = class_table.id
+		INNER JOIN
+		major_table ON class_table.major_id = major_table.id
+		INNER JOIN
+		school_table ON major_table.school_id = school_table.id
+		INNER JOIN
+		student_table ON student_table.class_id = class_table.id AND
+		student_table.school_id = school_table.id AND student_score.student_id
+		= student_table.id
+		INNER JOIN training_teacher ON
+		student_score.teacher_id =
+		training_teacher.id
+		WHERE
+		student_score.id =
+		#{id} AND
+		student_score.state = 1
+
+	</select>
+	<select id="findByClassId" resultType="StudentScore"
+		parameterType="int">
+		SELECT
+		student_score.id,
+		student_score.class_id
+		`classId.id`,
+		student_score.student_id `student.id`,
+		student_score.teacher_id `trainningTeacher.id`,
+		student_score.inducing_ability,
+		student_score.plan_execute,
+		student_score.design_implement,
+		student_score.skill_learning,
+		student_score.team_ability,
+		student_score.professionalism,
+		student_score.writing_level,
+		student_score.score_date,
+		student_score.state,
+		class_table.`name` `classId.name`,
+		major_table.id
+		`classId.major.id`,
+		major_table.`name` `classId.major.name`,
+		school_table.`name` `classId.major.school.name`,
+		school_table.id
+		`classId.major.school.id`,
+		student_table.`code` `student.code`,
+		student_table.`name` `student.name`,
+		training_teacher.`code`
+		`trainningTeacher.code`,
+		training_teacher.`name`
+		`trainningTeacher.name`
+		FROM
+		student_score
+		INNER JOIN class_table ON
+		student_score.class_id = class_table.id
+		INNER JOIN major_table ON
+		class_table.major_id = major_table.id
+		INNER JOIN school_table ON
+		major_table.school_id = school_table.id
+		INNER JOIN student_table ON
+		student_table.class_id = class_table.id AND
+		student_table.school_id =
+		school_table.id AND student_score.student_id
+		= student_table.id
+		INNER
+		JOIN training_teacher ON student_score.teacher_id =
+		training_teacher.id
+		WHERE
+		student_score.class_id = #{id} AND
+		student_score.state = 1
+	</select>
+	<select id="findByStudentId" resultType="StudentScore"
+		parameterType="int">
+		SELECT
+		student_score.id,
+		student_score.class_id
+		`classId.id`,
+		student_score.student_id `student.id`,
+		student_score.teacher_id `trainningTeacher.id`,
+		student_score.inducing_ability,
+		student_score.plan_execute,
+		student_score.design_implement,
+		student_score.skill_learning,
+		student_score.team_ability,
+		student_score.professionalism,
+		student_score.writing_level,
+		student_score.score_date,
+		student_score.state,
+		class_table.`name` `classId.name`,
+		major_table.id
+		`classId.major.id`,
+		major_table.`name` `classId.major.name`,
+		school_table.`name` `classId.major.school.name`,
+		school_table.id
+		`classId.major.school.id`,
+		student_table.`code` `student.code`,
+		student_table.`name` `student.name`,
+		training_teacher.`code`
+		`trainningTeacher.code`,
+		training_teacher.`name`
+		`trainningTeacher.name`
+		FROM
+		student_score
+		INNER JOIN class_table ON
+		student_score.class_id = class_table.id
+		INNER JOIN major_table ON
+		class_table.major_id = major_table.id
+		INNER JOIN school_table ON
+		major_table.school_id = school_table.id
+		INNER JOIN student_table ON
+		student_table.class_id = class_table.id AND
+		student_table.school_id =
+		school_table.id AND student_score.student_id
+		= student_table.id
+		INNER
+		JOIN training_teacher ON student_score.teacher_id =
+		training_teacher.id
+		WHERE
+		student_score.student_id = #{id} AND
+		student_score.state = 1
+	</select>
+	<select id="findByTeacherId" resultType="StudentScore"
+		parameterType="int">
+		SELECT
+		student_score.id,
+		student_score.class_id
+		`classId.id`,
+		student_score.student_id `student.id`,
+		student_score.teacher_id `trainningTeacher.id`,
+		student_score.inducing_ability,
+		student_score.plan_execute,
+		student_score.design_implement,
+		student_score.skill_learning,
+		student_score.team_ability,
+		student_score.professionalism,
+		student_score.writing_level,
+		student_score.score_date,
+		student_score.state,
+		class_table.`name` `classId.name`,
+		major_table.id
+		`classId.major.id`,
+		major_table.`name` `classId.major.name`,
+		school_table.`name` `classId.major.school.name`,
+		school_table.id
+		`classId.major.school.id`,
+		student_table.`code` `student.code`,
+		student_table.`name` `student.name`,
+		training_teacher.`code`
+		`trainningTeacher.code`,
+		training_teacher.`name`
+		`trainningTeacher.name`
+		FROM
+		student_score
+		INNER JOIN class_table ON
+		student_score.class_id = class_table.id
+		INNER JOIN major_table ON
+		class_table.major_id = major_table.id
+		INNER JOIN school_table ON
+		major_table.school_id = school_table.id
+		INNER JOIN student_table ON
+		student_table.class_id = class_table.id AND
+		student_table.school_id =
+		school_table.id AND student_score.student_id
+		= student_table.id
+		INNER
+		JOIN training_teacher ON student_score.teacher_id =
+		training_teacher.id
+		WHERE
+		student_score.teacher_id = #{id} AND
+		student_score.state = 1
+	</select>
+	<select id="findAll" resultType="StudentScore">
+		SELECT
+		student_score.id,
+		student_score.class_id
+		`classId.id`,
+		student_score.student_id
+		`student.id`,
+		student_score.teacher_id `trainningTeacher.id`,
+		student_score.inducing_ability,
+		student_score.plan_execute,
+		student_score.design_implement,
+		student_score.skill_learning,
+		student_score.team_ability,
+		student_score.professionalism,
+		student_score.writing_level,
+		student_score.score_date,
+		student_score.state,
+		class_table.`name` `classId.name`,
+		major_table.id
+		`classId.major.id`,
+		major_table.`name` `classId.major.name`,
+		school_table.`name` `classId.major.school.name`,
+		school_table.id
+		`classId.major.school.id`,
+		student_table.`code` `student.code`,
+		student_table.`name` `student.name`,
+		training_teacher.`code`
+		`trainningTeacher.code`,
+		training_teacher.`name`
+		`trainningTeacher.name`
+		FROM
+		student_score
+		INNER JOIN class_table ON
+		student_score.class_id = class_table.id
+		INNER JOIN major_table ON
+		class_table.major_id = major_table.id
+		INNER JOIN school_table ON
+		major_table.school_id = school_table.id
+		INNER JOIN student_table ON
+		student_table.class_id = class_table.id AND
+		student_table.school_id =
+		school_table.id AND student_score.student_id
+		= student_table.id
+		INNER
+		JOIN training_teacher ON student_score.teacher_id =
+		training_teacher.id
+		WHERE
+		student_score.state = 1
+	</select>
+	<insert id="addStudentScore" parameterType="StudentScore"
+		flushCache="true" useGeneratedKeys="true" keyProperty="id">
+
+		INSERT INTO
+		`sxxt`.`student_score` (
+		`class_id`,
+		`student_id`,
+		`teacher_id`,
+		`inducing_ability`,
+		`plan_execute`,
+		`design_implement`,
+		`skill_learning`,
+		`team_ability`,
+		`professionalism`,
+		`writing_level`,
+		`score_date`,
+		`state`
+		)
+		VALUES
+		(
+		#{classId.id},
+		#{student.id},
+		#{trainningTeacher.id},
+		#{inducingAbility},
+		#{planExecute},
+		#{designImplement},
+		#{skillLearning},
+		#{teamAbility},
+		#{professionalism},
+		#{writingLevel},
+		#{scoreDate},
+		1
+		);
+	</insert>
+	<update id="editStudentScore" parameterType="StudentScore"
+		flushCache="true">
+		UPDATE `sxxt`.`student_score`
+		SET
+		`class_id` = #{classId.id},
+		`student_id` = #{student.id},
+		`teacher_id` = #{trainningTeacher.id},
+		`inducing_ability` = #{inducingAbility},
+		`plan_execute` =
+		#{planExecute},
+		`design_implement` = #{designImplement},
+		`skill_learning` = #{skillLearning},
+		`team_ability` = #{teamAbility},
+		`professionalism` = #{professionalism},
+		`writing_level` =
+		#{writingLevel},
+		`score_date` = #{scoreDate}
+		WHERE
+		(`id` = #{id});
+	</update>
+
+	<update id="delStudentSocre" parameterType="int" flushCache="true">
+		UPDATE `sxxt`.`student_score`
+		SET
+		`state` = 0
+		WHERE (`id` = #{id});
+	</update>
+</mapper>

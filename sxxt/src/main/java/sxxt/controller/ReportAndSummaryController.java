@@ -14,7 +14,6 @@ import sxxt.entity.Class;
 import sxxt.entity.Major;
 import sxxt.entity.ReportAndSummary;
 import sxxt.entity.School;
-import sxxt.entity.SchoolTeacher;
 import sxxt.entity.Student;
 import sxxt.service.interfaces.ClassService;
 import sxxt.service.interfaces.MajorService;
@@ -45,18 +44,17 @@ public class ReportAndSummaryController {
 		String jsonSchool = JSON.toJSONString(schoolList);
 		JSONArray jsonArraySchool = JSON.parseArray(jsonSchool);
 		model.addAttribute("schoolList", jsonArraySchool);
-		System.out.println(schoolList);
+		
 		List<Major> majorList = majorService.findBySchoolId(schoolList.get(0).getId());
 		String jsonMajor = JSON.toJSONString(majorList);
 		JSONArray jsonArrayMajor = JSON.parseArray(jsonMajor);
 		model.addAttribute("majorList", jsonArrayMajor);
-		System.out.println(majorList);
+		
 		List<Class> classList = classService.findByMajorId(majorList.get(0).getId());
 		String jsonClass = JSON.toJSONString(classList);
 		JSONArray jsonArrayClass = JSON.parseArray(jsonClass);
 		model.addAttribute("classList", jsonArrayClass);
-		System.out.println(classList);
-		System.out.println(classList.get(0).getId());
+		
 		List<Student> studentList = studentService.findByClassId(classList.get(0).getId());
 		String jsonStudent = JSON.toJSONString(studentList);
 		JSONArray jsonArrayStudent = JSON.parseArray(jsonStudent);

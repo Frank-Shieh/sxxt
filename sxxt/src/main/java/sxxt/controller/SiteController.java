@@ -13,7 +13,6 @@ import com.alibaba.fastjson.JSONArray;
 
 import sxxt.dto.reponseDto;
 import sxxt.entity.Company;
-import sxxt.entity.Major;
 import sxxt.entity.Site;
 import sxxt.entity.SiteManager;
 import sxxt.entity.TrainningTeacher;

@@ -12,11 +12,8 @@ import com.alibaba.fastjson.JSONArray;
 
 import sxxt.entity.Class;
 import sxxt.entity.ClassTeacherRelationship;
-import sxxt.entity.EducationManager;
 import sxxt.entity.Major;
 import sxxt.entity.School;
-import sxxt.entity.TaskTeacherRelationship;
-import sxxt.entity.TeachingTask;
 import sxxt.service.interfaces.AllocateClassService;
 import sxxt.service.interfaces.ClassService;
 import sxxt.service.interfaces.MajorService;

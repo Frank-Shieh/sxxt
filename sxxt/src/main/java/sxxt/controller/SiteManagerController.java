@@ -6,24 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 
-import sxxt.entity.Major;
-import sxxt.entity.School;
 import sxxt.entity.SiteManager;
-import sxxt.entity.Student;
-import sxxt.dto.reponseDto;
-import sxxt.entity.Class;
 import sxxt.entity.Company;
-import sxxt.service.interfaces.ClassService;
 import sxxt.service.interfaces.CompanyService;
-import sxxt.service.interfaces.MajorService;
-import sxxt.service.interfaces.SchoolService;
 import sxxt.service.interfaces.SiteManagerService;
-import sxxt.service.interfaces.StudentService;
 
 @Controller
 @RequestMapping(value = "/siteManager")
