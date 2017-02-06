@@ -18,32 +18,43 @@
 		student_score.professionalism,
 		student_score.writing_level,
 		student_score.score_date,
+		student_score.total_score,
 		student_score.state,
 		class_table.`name`
 		`classId.name`,
-		major_table.id `classId.major.id`,
+		major_table.id
+		`classId.major.id`,
 		major_table.`name`
 		`classId.major.name`,
 		school_table.`name` `classId.major.school.name`,
-		school_table.id `classId.major.school.id`,
+		school_table.id
+		`classId.major.school.id`,
 		student_table.`code`
 		`student.code`,
 		student_table.`name` `student.name`,
-		training_teacher.`code` `trainningTeacher.code`,
-		training_teacher.`name` `trainningTeacher.name`
+		training_teacher.`code`
+		`trainningTeacher.code`,
+		training_teacher.`name`
+		`trainningTeacher.name`
 		FROM
 		student_score
 		INNER
-		JOIN class_table ON student_score.class_id = class_table.id
+		JOIN class_table ON
+		student_score.class_id = class_table.id
 		INNER JOIN
-		major_table ON class_table.major_id = major_table.id
+		major_table ON
+		class_table.major_id = major_table.id
 		INNER JOIN
-		school_table ON major_table.school_id = school_table.id
+		school_table ON
+		major_table.school_id = school_table.id
 		INNER JOIN
-		student_table ON student_table.class_id = class_table.id AND
-		student_table.school_id = school_table.id AND student_score.student_id
+		student_table ON
+		student_table.class_id = class_table.id AND
+		student_table.school_id =
+		school_table.id AND student_score.student_id
 		= student_table.id
-		INNER JOIN training_teacher ON
+		INNER
+		JOIN training_teacher ON
 		student_score.teacher_id =
 		training_teacher.id
 		WHERE
@@ -67,16 +78,20 @@
 		student_score.team_ability,
 		student_score.professionalism,
 		student_score.writing_level,
+		student_score.total_score,
 		student_score.score_date,
 		student_score.state,
-		class_table.`name` `classId.name`,
+		class_table.`name`
+		`classId.name`,
 		major_table.id
 		`classId.major.id`,
-		major_table.`name` `classId.major.name`,
+		major_table.`name`
+		`classId.major.name`,
 		school_table.`name` `classId.major.school.name`,
 		school_table.id
 		`classId.major.school.id`,
-		student_table.`code` `student.code`,
+		student_table.`code`
+		`student.code`,
 		student_table.`name` `student.name`,
 		training_teacher.`code`
 		`trainningTeacher.code`,
@@ -84,19 +99,24 @@
 		`trainningTeacher.name`
 		FROM
 		student_score
-		INNER JOIN class_table ON
+		INNER
+		JOIN class_table ON
 		student_score.class_id = class_table.id
-		INNER JOIN major_table ON
+		INNER JOIN
+		major_table ON
 		class_table.major_id = major_table.id
-		INNER JOIN school_table ON
+		INNER JOIN
+		school_table ON
 		major_table.school_id = school_table.id
-		INNER JOIN student_table ON
+		INNER JOIN
+		student_table ON
 		student_table.class_id = class_table.id AND
 		student_table.school_id =
 		school_table.id AND student_score.student_id
 		= student_table.id
 		INNER
-		JOIN training_teacher ON student_score.teacher_id =
+		JOIN training_teacher ON
+		student_score.teacher_id =
 		training_teacher.id
 		WHERE
 		student_score.class_id = #{id} AND
@@ -117,16 +137,20 @@
 		student_score.team_ability,
 		student_score.professionalism,
 		student_score.writing_level,
+		student_score.total_score,
 		student_score.score_date,
 		student_score.state,
-		class_table.`name` `classId.name`,
+		class_table.`name`
+		`classId.name`,
 		major_table.id
 		`classId.major.id`,
-		major_table.`name` `classId.major.name`,
+		major_table.`name`
+		`classId.major.name`,
 		school_table.`name` `classId.major.school.name`,
 		school_table.id
 		`classId.major.school.id`,
-		student_table.`code` `student.code`,
+		student_table.`code`
+		`student.code`,
 		student_table.`name` `student.name`,
 		training_teacher.`code`
 		`trainningTeacher.code`,
@@ -134,19 +158,24 @@
 		`trainningTeacher.name`
 		FROM
 		student_score
-		INNER JOIN class_table ON
+		INNER
+		JOIN class_table ON
 		student_score.class_id = class_table.id
-		INNER JOIN major_table ON
+		INNER JOIN
+		major_table ON
 		class_table.major_id = major_table.id
-		INNER JOIN school_table ON
+		INNER JOIN
+		school_table ON
 		major_table.school_id = school_table.id
-		INNER JOIN student_table ON
+		INNER JOIN
+		student_table ON
 		student_table.class_id = class_table.id AND
 		student_table.school_id =
 		school_table.id AND student_score.student_id
 		= student_table.id
 		INNER
-		JOIN training_teacher ON student_score.teacher_id =
+		JOIN training_teacher ON
+		student_score.teacher_id =
 		training_teacher.id
 		WHERE
 		student_score.student_id = #{id} AND
@@ -167,16 +196,20 @@
 		student_score.team_ability,
 		student_score.professionalism,
 		student_score.writing_level,
+		student_score.total_score,
 		student_score.score_date,
 		student_score.state,
-		class_table.`name` `classId.name`,
+		class_table.`name`
+		`classId.name`,
 		major_table.id
 		`classId.major.id`,
-		major_table.`name` `classId.major.name`,
+		major_table.`name`
+		`classId.major.name`,
 		school_table.`name` `classId.major.school.name`,
 		school_table.id
 		`classId.major.school.id`,
-		student_table.`code` `student.code`,
+		student_table.`code`
+		`student.code`,
 		student_table.`name` `student.name`,
 		training_teacher.`code`
 		`trainningTeacher.code`,
@@ -184,19 +217,24 @@
 		`trainningTeacher.name`
 		FROM
 		student_score
-		INNER JOIN class_table ON
+		INNER
+		JOIN class_table ON
 		student_score.class_id = class_table.id
-		INNER JOIN major_table ON
+		INNER JOIN
+		major_table ON
 		class_table.major_id = major_table.id
-		INNER JOIN school_table ON
+		INNER JOIN
+		school_table ON
 		major_table.school_id = school_table.id
-		INNER JOIN student_table ON
+		INNER JOIN
+		student_table ON
 		student_table.class_id = class_table.id AND
 		student_table.school_id =
 		school_table.id AND student_score.student_id
 		= student_table.id
 		INNER
-		JOIN training_teacher ON student_score.teacher_id =
+		JOIN training_teacher ON
+		student_score.teacher_id =
 		training_teacher.id
 		WHERE
 		student_score.teacher_id = #{id} AND
@@ -217,39 +255,58 @@
 		student_score.team_ability,
 		student_score.professionalism,
 		student_score.writing_level,
+		student_score.total_score,
 		student_score.score_date,
 		student_score.state,
-		class_table.`name` `classId.name`,
+		class_table.`name`
+		`classId.name`,
 		major_table.id
 		`classId.major.id`,
-		major_table.`name` `classId.major.name`,
+		major_table.`name`
+		`classId.major.name`,
 		school_table.`name` `classId.major.school.name`,
 		school_table.id
 		`classId.major.school.id`,
-		student_table.`code` `student.code`,
+		student_table.`code`
+		`student.code`,
 		student_table.`name` `student.name`,
 		training_teacher.`code`
 		`trainningTeacher.code`,
 		training_teacher.`name`
-		`trainningTeacher.name`
+		`trainningTeacher.name`,
+		COALESCE(avg(student_score.total_score),0) `avgScore`
 		FROM
 		student_score
-		INNER JOIN class_table ON
-		student_score.class_id = class_table.id
-		INNER JOIN major_table ON
-		class_table.major_id = major_table.id
-		INNER JOIN school_table ON
-		major_table.school_id = school_table.id
-		INNER JOIN student_table ON
-		student_table.class_id = class_table.id AND
+		INNER
+		JOIN class_table ON
+		student_score.class_id =
+		class_table.id
+		INNER JOIN
+		major_table ON
+		class_table.major_id =
+		major_table.id
+		INNER JOIN
+		school_table ON
+		major_table.school_id =
+		school_table.id
+		INNER JOIN
+		student_table ON
+		student_table.class_id =
+		class_table.id AND
 		student_table.school_id =
-		school_table.id AND student_score.student_id
+		school_table.id AND
+		student_score.student_id
 		= student_table.id
 		INNER
-		JOIN training_teacher ON student_score.teacher_id =
+		JOIN training_teacher
+		ON
+		student_score.teacher_id =
 		training_teacher.id
 		WHERE
-		student_score.state = 1
+		student_score.state
+		= 1
+		GROUP BY
+		student_score.class_id
 	</select>
 	<insert id="addStudentScore" parameterType="StudentScore"
 		flushCache="true" useGeneratedKeys="true" keyProperty="id">
@@ -266,6 +323,7 @@
 		`team_ability`,
 		`professionalism`,
 		`writing_level`,
+		`total_score`,
 		`score_date`,
 		`state`
 		)
@@ -281,6 +339,7 @@
 		#{teamAbility},
 		#{professionalism},
 		#{writingLevel},
+		#{totalScore},
 		#{scoreDate},
 		1
 		);
@@ -301,7 +360,9 @@
 		`professionalism` = #{professionalism},
 		`writing_level` =
 		#{writingLevel},
-		`score_date` = #{scoreDate}
+		`total_score` = #{totalScore},
+		`score_date` =
+		#{scoreDate}
 		WHERE
 		(`id` = #{id});
 	</update>

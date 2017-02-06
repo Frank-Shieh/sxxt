@@ -235,7 +235,7 @@
 						<ul class="treeview-menu">
 							<li><a href="/studentScore/add"><i
 									class="fa fa-circle-o"></i>添加学生实训成绩</a></li>
-							<li><a href="/studentScore/list"><i
+							<li><a href="/studentScore/listClass"><i
 									class="fa fa-circle-o"></i>学生实训成绩列表</a></li>
 						</ul></li>
 					<li><a href="#"><i class="fa fa-circle-o"></i>学生出勤情况 <span

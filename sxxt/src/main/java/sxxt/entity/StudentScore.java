@@ -10,16 +10,18 @@ public class StudentScore {
 	private Class classId;
 	private Student student;
 	private TrainningTeacher trainningTeacher;
-	private int inducingAbility;
-	private int planExecute;
-	private int designImplement;
-	private int skillLearning;
-	private int teamAbility;
-	private int professionalism;
-	private int writingLevel;
+	private double inducingAbility;
+	private double planExecute;
+	private double designImplement;
+	private double skillLearning;
+	private double teamAbility;
+	private double professionalism;
+	private double writingLevel;
+	private double totalScore;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date scoreDate;
 	private int state;
+	private double avgScore;
 
 	public int getId() {
 		return id;
@@ -27,6 +29,14 @@ public class StudentScore {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public Class getClassId() {
+		return classId;
+	}
+
+	public void setClassId(Class classId) {
+		this.classId = classId;
 	}
 
 	public Student getStudent() {
@@ -45,60 +55,68 @@ public class StudentScore {
 		this.trainningTeacher = trainningTeacher;
 	}
 
-	public int getInducingAbility() {
+	public double getInducingAbility() {
 		return inducingAbility;
 	}
 
-	public void setInducingAbility(int inducingAbility) {
+	public void setInducingAbility(double inducingAbility) {
 		this.inducingAbility = inducingAbility;
 	}
 
-	public int getPlanExecute() {
+	public double getPlanExecute() {
 		return planExecute;
 	}
 
-	public void setPlanExecute(int planExecute) {
+	public void setPlanExecute(double planExecute) {
 		this.planExecute = planExecute;
 	}
 
-	public int getDesignImplement() {
+	public double getDesignImplement() {
 		return designImplement;
 	}
 
-	public void setDesignImplement(int designImplement) {
+	public void setDesignImplement(double designImplement) {
 		this.designImplement = designImplement;
 	}
 
-	public int getSkillLearning() {
+	public double getSkillLearning() {
 		return skillLearning;
 	}
 
-	public void setSkillLearning(int skillLearning) {
+	public void setSkillLearning(double skillLearning) {
 		this.skillLearning = skillLearning;
 	}
 
-	public int getTeamAbility() {
+	public double getTeamAbility() {
 		return teamAbility;
 	}
 
-	public void setTeamAbility(int teamAbility) {
+	public void setTeamAbility(double teamAbility) {
 		this.teamAbility = teamAbility;
 	}
 
-	public int getProfessionalism() {
+	public double getProfessionalism() {
 		return professionalism;
 	}
 
-	public void setProfessionalism(int professionalism) {
+	public void setProfessionalism(double professionalism) {
 		this.professionalism = professionalism;
 	}
 
-	public int getWritingLevel() {
+	public double getWritingLevel() {
 		return writingLevel;
 	}
 
-	public void setWritingLevel(int writing_level) {
-		this.writingLevel = writing_level;
+	public void setWritingLevel(double writingLevel) {
+		this.writingLevel = writingLevel;
+	}
+
+	public double getTotalScore() {
+		return totalScore;
+	}
+
+	public void setTotalScore(double totalScore) {
+		this.totalScore = totalScore;
 	}
 
 	public Date getScoreDate() {
@@ -117,21 +135,27 @@ public class StudentScore {
 		this.state = state;
 	}
 
-	public Class getClassId() {
-		return classId;
-	}
-
-	public void setClassId(Class classId) {
-		this.classId = classId;
-	}
-
 	@Override
 	public String toString() {
 		return "StudentScore [id=" + id + ", classId=" + classId + ", student=" + student + ", trainningTeacher="
 				+ trainningTeacher + ", inducingAbility=" + inducingAbility + ", planExecute=" + planExecute
 				+ ", designImplement=" + designImplement + ", skillLearning=" + skillLearning + ", teamAbility="
 				+ teamAbility + ", professionalism=" + professionalism + ", writingLevel=" + writingLevel
-				+ ", scoreDate=" + scoreDate + ", state=" + state + "]";
+				+ ", totalScore=" + totalScore + ", scoreDate=" + scoreDate + ", state=" + state + "]";
+	}
+
+	/**
+	 * @return the avgScore
+	 */
+	public double getAvgScore() {
+		return avgScore;
+	}
+
+	/**
+	 * @param avgScore the avgScore to set
+	 */
+	public void setAvgScore(double avgScore) {
+		this.avgScore = avgScore;
 	}
 
 }

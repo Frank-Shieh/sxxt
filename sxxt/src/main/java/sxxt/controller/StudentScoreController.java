@@ -35,6 +35,35 @@ public class StudentScoreController {
 	@Autowired
 	private StudentService studentService;
 
+	// 请求跳转到班级成绩列表信息
+	@RequestMapping(value = "listClass")
+	public String listClass(Model model) {
+
+		List<StudentScore> result = studentScoreService.findAll();
+		if (result.size() == 0) {
+			model.addAttribute("errorMsg", "该班级成绩信息");
+		} else {
+			model.addAttribute("result", result);
+		}
+
+		return "studentScore/listClass";
+
+	}
+
+	// 请求跳转到学生成绩列表信息
+	@RequestMapping(value = "list")
+	public String list(int id, Model model) {
+		List<StudentScore> result = studentScoreService.findByClassId(id);
+		if (result.size() == 0) {
+			model.addAttribute("errorMsg", "该班级成绩信息");
+		} else {
+			model.addAttribute("result", result);
+		}
+
+		return "studentScore/listStudent";
+
+	}
+
 	// 请求跳转到添加学生成绩信息
 	@RequestMapping(value = "add")
 	public String add(Model model) {
@@ -66,6 +95,6 @@ public class StudentScoreController {
 	public String doAdd(StudentScore studentScore, Model model) {
 		System.out.println(studentScore);
 		studentScoreService.addStudentScore(studentScore);
-		return "redirect:/studentScore/list";
+		return "redirect:/studentScore/listClass";
 	}
 }
