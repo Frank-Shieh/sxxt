@@ -95,6 +95,52 @@ public class StudentScoreController {
 	public String doAdd(StudentScore studentScore, Model model) {
 		System.out.println(studentScore);
 		studentScoreService.addStudentScore(studentScore);
-		return "redirect:/studentScore/listClass";
+		return "redirect:/studentScore/list?id=" + studentScore.getClassId().getId();
 	}
+
+	// 请求跳转到添加学生成绩信息
+	@RequestMapping(value = "edit")
+	public String eidt(int id, Model model) {
+		StudentScore studentScore = studentScoreService.findById(id);
+		model.addAttribute("studentScore", studentScore);
+
+		List<School> schoolList = schoolService.findAll();
+		String jsonSchool = JSON.toJSONString(schoolList);
+		JSONArray jsonArraySchool = JSON.parseArray(jsonSchool);
+		model.addAttribute("schoolList", jsonArraySchool);
+
+		List<Major> majorList = majorService.findBySchoolId(schoolList.get(0).getId());
+		String jsonMajor = JSON.toJSONString(majorList);
+		JSONArray jsonArrayMajor = JSON.parseArray(jsonMajor);
+		model.addAttribute("majorList", jsonArrayMajor);
+
+		List<Class> classList = classService.findByMajorId(majorList.get(0).getId());
+		String jsonClass = JSON.toJSONString(classList);
+		JSONArray jsonArrayClass = JSON.parseArray(jsonClass);
+		model.addAttribute("classList", jsonArrayClass);
+
+		List<Student> studentList = studentService.findByClassId(classList.get(0).getId());
+		String jsonStudent = JSON.toJSONString(studentList);
+		JSONArray jsonArrayStudent = JSON.parseArray(jsonStudent);
+		model.addAttribute("studentList", jsonArrayStudent);
+
+		return "/studentScore/editStudentScore";
+	}
+
+	// 请求跳转到修改学生成绩信息
+	@RequestMapping(value = "doEdit")
+	public String doEdit(StudentScore studentScore, Model model) {
+		System.out.println(studentScore);
+		studentScoreService.editStudentScore(studentScore);
+		return "redirect:/studentScore/list?id=" + studentScore.getClassId().getId();
+	}
+
+	// 请求跳转到查看学生成绩信息
+	@RequestMapping(value = "view")
+	public String view(int id, Model model) {
+		StudentScore result = studentScoreService.findById(id);
+		model.addAttribute("result", result);
+		return "studentScore/viewStudentScore";
+	}
+
 }

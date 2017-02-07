@@ -38,6 +38,10 @@ public class StudentScoreServiceImpl implements StudentScoreService {
 		// TODO Auto-generated method stub
 		List<ClassTeacherRelationship> c = allocateClassDao.findByClassId(studentScore.getClassId().getId());
 		studentScore.setTrainningTeacher(c.get(0).getTrainningTeacher());
+		double totalScore = studentScore.getDesignImplement() + studentScore.getInducingAbility()
+				+ studentScore.getPlanExecute() + studentScore.getProfessionalism() + studentScore.getSkillLearning()
+				+ studentScore.getTeamAbility() + studentScore.getWritingLevel();
+		studentScore.setTotalScore(totalScore);
 		int result = studentScoreDao.editStudentScore(studentScore);
 		return result;
 	}
