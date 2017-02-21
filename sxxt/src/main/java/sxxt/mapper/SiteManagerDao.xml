@@ -25,7 +25,29 @@
 		company_info.state
 		=1
 	</select>
-	
+	<select id="findByCode" resultType="SiteManager" parameterType="String">
+		<bind name="pattern" value="_parameter" />
+		SELECT
+		site_manager.id,
+		site_manager.`code`,
+		site_manager.`name`,
+		site_manager.company_id `company.id`,
+		site_manager.`password`,
+		site_manager.role_id `role.id`,
+		site_manager.state,
+		company_info.`name` `company.name`
+		FROM
+		site_manager
+		INNER JOIN
+		company_info ON site_manager.company_id = company_info.id
+		WHERE
+		site_manager.code LIKE  #{pattern}
+		AND
+		site_manager.state =1
+		AND
+		company_info.state
+		=1
+	</select>
 	<select id="findByCompanyId" resultType="SiteManager" parameterType="int">
 		SELECT
 		site_manager.id,

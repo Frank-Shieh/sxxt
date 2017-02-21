@@ -13,5 +13,7 @@ public interface StudentService {
 
 	Student findById(int id);
 
+	Student findByCode(String code);
+
 	int delStudent(int id);
 }

@@ -14,6 +14,8 @@ public interface EducationManagerDao {
 	List<EducationManager> findByCompanyId(int id);
 
 	EducationManager findById(int id);
+	
+	EducationManager findByCode(String code);
 
 	int delEducationManager(int id);
 }

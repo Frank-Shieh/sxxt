@@ -55,4 +55,11 @@ public class EquipmentManagerServiceImpl implements EquipmentManagerService {
 		return result;
 	}
 
+	@Override
+	public EquipmentManager findByCode(String code) {
+		// TODO Auto-generated method stub
+		EquipmentManager result = EquipmentManagerDao.findByCode(code);
+		return result;
+	}
+
 }

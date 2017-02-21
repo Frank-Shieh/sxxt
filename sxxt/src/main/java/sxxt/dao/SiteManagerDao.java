@@ -12,8 +12,10 @@ public interface SiteManagerDao {
 	List<SiteManager> findAll();
 
 	List<SiteManager> findByCompanyId(int id);
-	
+
 	SiteManager findById(int id);
+
+	SiteManager findByCode(String code);
 
 	int delSiteManager(int id);
 }

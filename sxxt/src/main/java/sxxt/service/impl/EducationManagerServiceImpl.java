@@ -55,4 +55,11 @@ public class EducationManagerServiceImpl implements EducationManagerService {
 		return result;
 	}
 
+	@Override
+	public EducationManager findByCode(String code) {
+		// TODO Auto-generated method stub
+		EducationManager result = EducationManagerDao.findByCode(code);
+		return result;
+	}
+
 }

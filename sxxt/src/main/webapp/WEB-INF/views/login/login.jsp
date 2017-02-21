@@ -10,17 +10,21 @@
 <head>
 <title>Login</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script type="application/x-javascript">
-	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
-</script>
 <meta name="keywords"
 	content="Flat Dark Web Login Form Responsive Templates, Iphone Widget Template, Smartphone login forms,Login form, Widget Template, Responsive Templates, a Ipad 404 Templates, Flat Responsive Templates" />
 <link href="<%=path%>/assets/css/login.css" rel='stylesheet'
 	type='text/css' />
-
-<!--//webfonts-->
+<!-- Bootstrap 3.3.6 -->
+<link rel="stylesheet" href="<%=path%>/assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="<%=path%>/assets/css/bootstrap-select.css">
 <script src="<%=path%>/assets/js/jquery-2.2.3.min.js"></script>
 </head>
+
+<style type="text/css">
+.password{
+margin-bottom : 0;
+}
+</style>
 <body>
 	<script>
 		$(document).ready(function(c) {
@@ -48,15 +52,50 @@
 
 			<input type="text" class="text" name="code" value="UserCode">
 			<div class="key">
-				<input type="password" name="password" value="Password">
+				<input class="password" type="password" name="password" value="Password">
 			</div>
-			<label><input name="role" type="radio" value="1" />学校教师 </label>
+			<div class="form-group">
+				<label class=" control-label"><font color=#9199aa>身份选择</font></label>
+				<div class="controls form-group">
+					<div class="dropdown btn-group" style="width: 50%">
+						<button id="dLabel" class="btn btn-default dropdown-toggle"
+							type="button" data-toggle="dropdown" style="width: 100%">
+							<span id="schoolId" value="1">${roleList.get(0)}</span> <span
+								class="caret"></span>
+						</button>
+						<input id='role-input' name="role" value="1" hidden="true" />
+						<ul class="dropdown-menu role-menu" aria-labelledby="dLabel"
+							role="menu" style="width: 100%; height: 150px; overflow: scroll;">
+							<c:set var="index" value="0" />
+							<c:forEach var="roleList" items="${roleList}">
+								<li><a valueID="${index+1}">${roleList}</a></li>
+								<c:set var="index" value="${index+1}" />
+							</c:forEach>
+						</ul>
+					</div>
+				</div>
+			</div>
 			<div class="signin">
 				<input type="submit" value="Login">
 			</div>
 		</form>
 
 	</div>
+	<script src="<%=path%>/assets/js/bootstrap.min.js"></script>
+	<script src="<%=path%>/assets/js/bootstrap-select.js"></script>
+	<script>
+		$("body").on('click', '.role-menu li', function(e) {
+			var $target = $(e.target);
+			$target.is('a') && $('#schoolId').text($target.text());
+			$('#role-input').attr('value', $target.attr("valueid"));
+
+			//如果点击的是a标签
+			if ($target.is('a')) {
+				//更新新的专业列表
+				var schoolId = $target.attr("valueid");
+			}
+		});
+	</script>
 
 </body>
 </html>

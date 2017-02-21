@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sxxt.dao.DataInfoDao">
+	<select id="findById" resultType="DataInfo" parameterType="int">
+		SELECT
+		data_info.id,
+		data_info.data_name,
+		data_info.url,
+		data_info.upload_id,
+		data_info.upload_role,
+		data_info.data_state,
+		data_info.content,
+		data_info.download_times
+		FROM
+		data_info
+		WHERE
+		data_info.data_state = 1 AND
+		data_info.id = #{id}
+	</select>
+	<select id="findByUploadId" resultType="DataInfo" parameterType="int">
+		SELECT
+		data_info.id,
+		data_info.data_name,
+		data_info.url,
+		data_info.upload_id,
+		data_info.upload_role,
+		data_info.data_state,
+		data_info.content,
+		data_info.download_times
+		FROM
+		data_info
+		WHERE
+		data_info.data_state = 1 AND
+		data_info.upload_id = #{id}
+	</select>
+	<select id="findByRole" resultType="DataInfo" parameterType="int">
+		SELECT
+		data_info.id,
+		data_info.data_name,
+		data_info.url,
+		data_info.upload_id,
+		data_info.upload_role,
+		data_info.data_state,
+		data_info.content,
+		data_info.download_times
+		FROM
+		data_info
+		WHERE
+		data_info.data_state = 1 AND
+		data_info.upload_role = #{id}
+	</select>
+	<select id="findAll" resultType="DataInfo">
+		SELECT
+		data_info.id,
+		data_info.data_name,
+		data_info.url,
+		data_info.upload_id,
+		data_info.upload_role,
+		data_info.data_state,
+		data_info.content,
+		data_info.download_times
+		FROM
+		data_info
+		WHERE
+		data_info.data_state = 1
+	</select>
+	<insert id="addDataInfo" parameterType="DataInfo" flushCache="true"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `sxxt`.`data_info` (
+		`data_name`,
+		`url`,
+		`upload_id`,
+		`upload_role`,
+		`data_state`,
+		`content`,
+		`download_times`
+		)
+		VALUES
+		(
+		#{dataName},
+		#{url},
+		#{uploadId},
+		#{uploadRole},
+		1,
+		#{content},
+		0
+		);
+	</insert>
+	<update id="editDataInfo" parameterType="DataInfo" flushCache="true">
+		UPDATE `sxxt`.`data_info`
+		SET
+		`data_name` = #{dataName},
+		`url` = #{url},
+		`upload_id` = #{uploadId},
+		`upload_role`
+		= #{uploadRole},
+		`content`
+		=#{content},
+		`download_times` = #{downloadTimes}
+		WHERE
+		(`id` =
+		#{id});
+	</update>
+
+	<delete id="delDataInfo" parameterType="int" flushCache="true">
+
+		UPDATE
+		`sxxt`.`data_info`
+		SET
+		`data_state` = 0
+		WHERE
+		(`id` = #{id});
+
+	</delete>
+</mapper>

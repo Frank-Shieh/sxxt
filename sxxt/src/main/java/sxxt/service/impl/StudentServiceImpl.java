@@ -49,4 +49,11 @@ public class StudentServiceImpl implements StudentService {
 		return result;
 	}
 
+	@Override
+	public Student findByCode(String code) {
+		// TODO Auto-generated method stub
+		Student result = studentDao.findByCode(code);
+		return result;
+	}
+
 }

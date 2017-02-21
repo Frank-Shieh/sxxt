@@ -15,5 +15,7 @@ public interface EducationManagerService {
 
 	EducationManager findById(int id);
 
+	EducationManager findByCode(String code);
+
 	int delEducationManager(int id);
 }

@@ -55,4 +55,11 @@ public class SiteManagerServiceImpl implements SiteManagerService {
 		return result;
 	}
 
+	@Override
+	public SiteManager findByCode(String code) {
+		// TODO Auto-generated method stub
+		SiteManager result = siteManagerDao.findByCode(code);
+		return result;
+	}
+
 }
