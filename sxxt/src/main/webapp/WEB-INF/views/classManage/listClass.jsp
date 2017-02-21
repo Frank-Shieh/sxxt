@@ -54,6 +54,7 @@
 
 	<jsp:include page="header.jsp"></jsp:include>
 		<!-- Content Wrapper. Contains page content -->
+
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 

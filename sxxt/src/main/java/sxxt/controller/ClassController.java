@@ -2,6 +2,8 @@ package sxxt.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,10 +33,11 @@ public class ClassController {
 
 	// 请求获取到列表页面
 	@RequestMapping(value = "list")
-	public String list(Model model) {
+	public String list(Model model,HttpSession httpSession ) {
 		try {
 			List<Class> result = classService.findAll();
 			model.addAttribute("result", result);
+			model.addAttribute("user", httpSession.getAttribute("user"));
 			return "classManage/listClass";
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

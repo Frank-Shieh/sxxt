@@ -55,4 +55,11 @@ public class SchoolTeacherServiceImpl implements SchoolTeacherService {
 		List<SchoolTeacher> result = SchoolTeacherDao.findBySchoolId(id);
 		return result;
 	}
+
+	@Override
+	public SchoolTeacher findByCode(String code) {
+		// TODO Auto-generated method stub
+		SchoolTeacher result = SchoolTeacherDao.findByCode(code);
+		return result;
+	}
 }

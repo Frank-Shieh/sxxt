@@ -9,15 +9,21 @@
 		<span class="logo-mini"><b>T</b>S</span> <!-- logo for regular state and mobile devices -->
 		<span class="logo-lg"><b>Training</b>System</span>
 	</a>
+		
 	<!-- Header Navbar: style can be found in header.less -->
 	<nav class="navbar navbar-static-top">
 		<!-- Sidebar toggle button-->
+	<label style="float:right;">欢迎您,${user.name}<a href="/logout"><font color=#333>退出</font></a></label>
+	
+	
 		<a href="#" class="sidebar-toggle" data-toggle="offcanvas"
 			role="button"> <span class="sr-only">Toggle navigation</span>
 		</a>
 	</nav>
+		
 </header>
 <!-- Left side column. contains the logo and sidebar -->
+
 <aside class="main-sidebar">
 	<!-- sidebar: style can be found in sidebar.less -->
 	<section class="sidebar">

@@ -14,5 +14,7 @@ public interface SchoolTeacherDao {
 
 	List<SchoolTeacher> findBySchoolId(int id);
 	
+	SchoolTeacher findByCode(String code);
+	
 	int delSchoolTeacher(int id);
 }
