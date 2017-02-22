@@ -161,19 +161,6 @@
 		});
 	</script>
 	<script type="text/javascript">
-		function delClass(id) {
-			var result = confirm("确定下载该资料吗?");
-			if (result) {
-				console.log(result);
-				var url = '/dataInfo/download?id=' + id;
-				$.get(url, function(data) {
-					console.log('download.');
-					/*  window.location.href='/dataInfo/list';  */
-				});
-			}
-		}
-	</script>
-	<script type="text/javascript">
 		$(document).ready(function() {
 			var msg = "${errorMsg}";
 			console.log(msg);

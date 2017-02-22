@@ -125,7 +125,6 @@ public class DataInfoController {
 			return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file), headers, HttpStatus.CREATED);
 
 		} else {
-
 			System.out.println("资源找不到！！！");
 		}
 
