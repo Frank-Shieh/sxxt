@@ -66,9 +66,10 @@ public class DataInfoController {
 		// 获得原始文件名
 		String fileName = file.getOriginalFilename();
 		System.out.println("原始文件名:" + fileName);
-
+		//获取后缀
+		String last = fileName.substring(fileName.indexOf("."), fileName.length());
 		// 新文件名
-		String newFileName = UUID.randomUUID() + dataInfo.getDataName();
+		String newFileName = UUID.randomUUID() + dataInfo.getDataName()+last;
 
 		// 获得项目的路径
 		ServletContext sc = request.getSession().getServletContext();
