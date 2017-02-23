@@ -8,17 +8,17 @@
 		school_teacher.id,
 		school_teacher.`name`,
 		school_teacher.`code`,
-		school_teacher.school_id `school.id`,
+		school_teacher.school_id AS `school.id`,
 		school_teacher.position_name,
 		school_teacher.`password`,
-		school_teacher.role_id `role.id`,
+		school_teacher.role_id AS `role.id`,
 		school_teacher.state,
-		school_table.`name` `school.name`
+		school_table.`name` AS `school.name`,
+		role_table.`name` AS `role.name`
 		FROM
 		school_teacher
-		INNER JOIN
-		school_table ON school_teacher.school_id =
-		school_table.id
+		INNER JOIN school_table ON school_teacher.school_id = school_table.id
+		INNER JOIN role_table ON school_teacher.role_id = role_table.id
 		WHERE
 		school_table.state = 1 AND
 		school_teacher.state = 1
@@ -72,7 +72,7 @@
 		school_teacher.school_id =#{id}
 	</select>
 
-<select id="findByCode" resultType="SchoolTeacher"
+	<select id="findByCode" resultType="SchoolTeacher"
 		parameterType="String">
 		<bind name="pattern" value="_parameter" />
 		SELECT
@@ -94,7 +94,7 @@
 		school_table.state = 1 AND
 		school_teacher.state = 1
 		AND
-		school_teacher.code LIKE  #{pattern}
+		school_teacher.code LIKE #{pattern}
 	</select>
 	<insert id="addSchoolTeacher" parameterType="SchoolTeacher"
 		flushCache="true" useGeneratedKeys="true" keyProperty="id">

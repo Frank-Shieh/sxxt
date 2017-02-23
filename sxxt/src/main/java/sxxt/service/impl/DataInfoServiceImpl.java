@@ -56,4 +56,11 @@ public class DataInfoServiceImpl implements DataInfoService {
 		return result;
 	}
 
+	@Override
+	public List<DataInfo> findByMyself(int id, int role) {
+		// TODO Auto-generated method stub
+		List<DataInfo> result = dataInfoDao.findByMyself(id, role);
+		return result;
+	}
+
 }

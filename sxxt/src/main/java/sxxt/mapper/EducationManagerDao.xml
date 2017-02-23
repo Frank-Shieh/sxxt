@@ -9,20 +9,26 @@
 		education_manager.id,
 		education_manager.`code`,
 		education_manager.`name`,
-		education_manager.company_id `company.id`,
+		education_manager.company_id AS `company.id`,
 		education_manager.`password`,
-		education_manager.role_id `role.id`,
+		education_manager.role_id AS `role.id`,
 		education_manager.state,
-		company_info.`name` `company.name`
+		company_info.`name` AS `company.name`,
+		role_table.`name` AS `role.name`
 		FROM
 		education_manager
-		INNER JOIN company_info ON
+		INNER JOIN
+		company_info ON
 		education_manager.company_id = company_info.id
+		INNER
+		JOIN role_table ON
+		education_manager.role_id = role_table.id
 		WHERE
 		company_info.state
 		= 1
 		AND education_manager.state = 1
-		AND education_manager.id = #{id}
+		AND
+		education_manager.id = #{id}
 	</select>
 	<select id="findByCode" resultType="EducationManager"
 		parameterType="String">

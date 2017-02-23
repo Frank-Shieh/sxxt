@@ -11,6 +11,9 @@
 	</a>
 	<!-- Header Navbar: style can be found in header.less -->
 	<nav class="navbar navbar-static-top">
+		<label style="float: right;">欢迎您,${user.name}<a href="/logout"><font
+				color=#333>退出</font></a></label>
+
 		<!-- Sidebar toggle button-->
 		<a href="#" class="sidebar-toggle" data-toggle="offcanvas"
 			role="button"> <span class="sr-only">Toggle navigation</span>
@@ -163,7 +166,7 @@
 							<li><a href="#"><i class="fa fa-circle-o"></i>共享资料</a></li>
 						</ul></li>
 					<li><a href="/dataInfo/list"><i class="fa fa-circle-o"></i>浏览共享资料</a></li>
-					<li><a href="index2.html"><i class="fa fa-circle-o"></i>自己的资料</a></li>
+					<li><a href="/dataInfo/listMyself/${user.id}/${user.role.id}"><i class="fa fa-circle-o"></i>自己的资料</a></li>
 				</ul></li>
 			<!-- 实训教学安排 -->
 			<li class="treeview"><a href="#"> <i class="fa fa-file"

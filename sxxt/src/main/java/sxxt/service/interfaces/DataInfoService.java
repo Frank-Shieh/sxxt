@@ -18,6 +18,8 @@ public interface DataInfoService {
 
 	List<DataInfo> findAll();
 
+	List<DataInfo> findByMyself(int id, int role);
+
 	int delDataInfo(int id);
-	
+
 }

@@ -8,15 +8,16 @@
 		site_manager.id,
 		site_manager.`code`,
 		site_manager.`name`,
-		site_manager.company_id `company.id`,
+		site_manager.company_id AS `company.id`,
 		site_manager.`password`,
-		site_manager.role_id `role.id`,
+		site_manager.role_id AS `role.id`,
 		site_manager.state,
-		company_info.`name` `company.name`
+		company_info.`name` AS `company.name`,
+		role_table.`name` AS `role.name`
 		FROM
 		site_manager
-		INNER JOIN
-		company_info ON site_manager.company_id = company_info.id
+		INNER JOIN company_info ON site_manager.company_id = company_info.id
+		INNER JOIN role_table ON site_manager.role_id = role_table.id
 		WHERE
 		site_manager.id = #{id}
 		AND
@@ -35,20 +36,24 @@
 		site_manager.`password`,
 		site_manager.role_id `role.id`,
 		site_manager.state,
-		company_info.`name` `company.name`
+		company_info.`name`
+		`company.name`
 		FROM
 		site_manager
 		INNER JOIN
-		company_info ON site_manager.company_id = company_info.id
+		company_info ON
+		site_manager.company_id = company_info.id
 		WHERE
-		site_manager.code LIKE  #{pattern}
+		site_manager.code LIKE
+		#{pattern}
 		AND
 		site_manager.state =1
 		AND
 		company_info.state
 		=1
 	</select>
-	<select id="findByCompanyId" resultType="SiteManager" parameterType="int">
+	<select id="findByCompanyId" resultType="SiteManager"
+		parameterType="int">
 		SELECT
 		site_manager.id,
 		site_manager.`code`,
@@ -70,9 +75,9 @@
 		company_info.state
 		=1
 	</select>
-	
-	
-	
+
+
+
 	<select id="findAll" resultType="SiteManager" parameterType="int">
 		SELECT
 		site_manager.id,
@@ -82,11 +87,13 @@
 		site_manager.`password`,
 		site_manager.role_id `role.id`,
 		site_manager.state,
-		company_info.`name` `company.name`
+		company_info.`name`
+		`company.name`
 		FROM
 		site_manager
 		INNER JOIN
-		company_info ON site_manager.company_id = company_info.id
+		company_info ON
+		site_manager.company_id = company_info.id
 		WHERE
 		site_manager.state =1
 		AND

@@ -12,33 +12,26 @@
 		student_table.sex,
 		student_table.age,
 		student_table.student_phone,
-		student_table.role_id `role.id`,
+		student_table.role_id AS `role.id`,
 		student_table.family_address,
 		student_table.parent_name,
 		student_table.parent_phone,
 		student_table.`password`,
 		student_table.state,
-		student_table.class_id
-		`classId.id`,
-		class_table.`name` `classId.name`,
-		major_table.`id`
-		`classId.major.id`,
-		major_table.`name` `classId.major.name`,
-		student_table.school_id `school.id`,
-		school_table.`name` `school.name`
+		student_table.class_id AS `classId.id`,
+		class_table.`name` AS `classId.name`,
+		major_table.id AS `classId.major.id`,
+		major_table.`name` AS `classId.major.name`,
+		student_table.school_id AS `school.id`,
+		school_table.`name` AS `school.name`,
+		role_table.`name` AS `role.name`
 		FROM
 		student_table
-		INNER JOIN class_table ON
-		student_table.class_id =
-		class_table.id
-		INNER JOIN major_table ON
-		class_table.major_id =
-		major_table.id
-		INNER JOIN school_table ON
-		student_table.school_id =
-		school_table.id AND
-		major_table.school_id =
-		school_table.id
+		INNER JOIN class_table ON student_table.class_id = class_table.id
+		INNER JOIN major_table ON class_table.major_id = major_table.id
+		INNER JOIN school_table ON student_table.school_id = school_table.id AND
+		major_table.school_id = school_table.id
+		INNER JOIN role_table ON student_table.role_id = role_table.id
 		WHERE
 		student_table.id = #{id}
 		AND
@@ -49,7 +42,6 @@
 		major_table.state=1
 		AND
 		school_table.state=1
-		;
 	</select>
 	<select id="findByCode" resultType="Student" parameterType="String">
 		<bind name="pattern" value="_parameter" />
@@ -73,23 +65,28 @@
 		major_table.`id`
 		`classId.major.id`,
 		major_table.`name` `classId.major.name`,
-		student_table.school_id `school.id`,
+		student_table.school_id
+		`school.id`,
 		school_table.`name` `school.name`
 		FROM
 		student_table
-		INNER JOIN class_table ON
+		INNER
+		JOIN class_table ON
 		student_table.class_id =
 		class_table.id
-		INNER JOIN major_table ON
+		INNER JOIN
+		major_table ON
 		class_table.major_id =
 		major_table.id
-		INNER JOIN school_table ON
+		INNER JOIN
+		school_table ON
 		student_table.school_id =
 		school_table.id AND
 		major_table.school_id =
 		school_table.id
 		WHERE
-		student_table.code LIKE #{pattern}
+		student_table.code LIKE
+		#{pattern}
 		AND
 		student_table.state = 1
 		AND
@@ -115,12 +112,14 @@
 		student_table.parent_phone,
 		student_table.`password`,
 		student_table.class_id `classId.id`,
-		student_table.school_id `school.id`,
+		student_table.school_id
+		`school.id`,
 		student_table.state,
 		class_table.`name` `classId.name`,
 		major_table.`name`
 		`classId.major.name`,
-		school_table.`name` `school.name`
+		school_table.`name`
+		`school.name`
 		FROM
 		student_table
 		INNER JOIN class_table ON

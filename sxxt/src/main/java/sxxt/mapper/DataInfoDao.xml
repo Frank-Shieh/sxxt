@@ -66,6 +66,24 @@
 		WHERE
 		data_info.data_state = 1
 	</select>
+	<select id="findByMyself" resultType="DataInfo" parameterType="int">
+		SELECT
+		data_info.id,
+		data_info.data_name,
+		data_info.url,
+		data_info.upload_id,
+		data_info.upload_role,
+		data_info.data_state,
+		data_info.content,
+		data_info.download_times
+		FROM
+		data_info
+		WHERE
+		data_info.data_state = 1
+		AND data_info.upload_id = #{id}
+		AND data_info.upload_role = #{role}
+	</select>
+
 	<insert id="addDataInfo" parameterType="DataInfo" flushCache="true"
 		useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO `sxxt`.`data_info` (

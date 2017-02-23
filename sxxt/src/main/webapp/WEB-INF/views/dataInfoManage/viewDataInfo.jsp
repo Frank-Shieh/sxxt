@@ -37,9 +37,6 @@
 <!-- DataTables -->
 <link rel="stylesheet"
 	href="<%=path%>/assets/css/dataTables.bootstrap.css">
-<link rel="stylesheet"
-	href="<%=path%>/assets/css/bootstrapValidator.css" />
-<link rel="stylesheet" href="<%=path%>/assets/css/square/blue.css" />
 </head>
 <style type="text/css">
 .content-wrapper, .right-side, .main-footer {
@@ -49,10 +46,6 @@
 	/* transition: transform .3s ease-in-out,margin .3s ease-in-out; */
 	margin-left: 120px;
 	z-index: 820;
-}
-
-.form-horizontal .control-group {
-	background: none repeat scroll 0 0 #F9F9F9;
 }
 
 .form-horizontal .form-group {
@@ -65,10 +58,11 @@
 
 .form-horizontal .control-label {
 	padding-top: 15px;
+	width: 45%;
 }
 
-.form-control {
-	width: 50%;
+.form-horizontal span {
+	line-height: 30px;
 }
 
 .panel-body {
@@ -116,41 +110,64 @@
 
 				<div class="panel panel-primary">
 					<div class="panel-heading">
-						<h3 class="panel-title">上传共享资料</h3>
+						<h3 class="panel-title">查看资料信息</h3>
 					</div>
 					<div id="breadcrumb">
 						<a href="#" title="首页" class="tip-bottom"> <i
 							class="icon-home"></i> Home
-						</a> <a href="listClass.html">共享资料平台</a> <a href="#" class="current">上传共享资料</a>
+						</a> <a href="listClass.html">共享资料</a> <a href="#" class="current">资料信息详情</a>
 					</div>
 					<div class="panel-body">
 						<form class="form-horizontal" method="post"
-							action="/dataInfo/doAdd" id="registerForm" enctype="multipart/form-data"
-							>
+							action="/dataInfo/list" id="registerForm">
+
+							<!-- 查看名字 -->
 							<div class="form-group background">
-								<label class="col-sm-3 control-label">资料名字</label>
+								<label class="col-sm-3 control-label">名字</label>
 								<div class="controls form-group">
-									<input type="text" class="form-control" name="dataName" />
+									<span>${result.dataName}</span>
+								</div>
+							</div>
+
+							<!-- 查看简介 -->
+							<div class="form-group background">
+								<label class="col-sm-3 control-label">简介</label>
+								<div class="controls form-group">
+									<span>${result.content}</span>
+								</div>
+							</div>
+							<!-- 查看上传者职位 -->
+							<div class="form-group background">
+								<label class="col-sm-3 control-label">上传者职位</label>
+								<div class="controls form-group">
+									<span>${uploader.role.name}</span>
+								</div>
+							</div>
+							<!-- 查看上传者编号 -->
+							<div class="form-group background">
+								<label class="col-sm-3 control-label">上传者编号</label>
+								<div class="controls form-group">
+									<span>${uploader.code}</span>
+								</div>
+							</div>
+							<!-- 查看上传者 -->
+							<div class="form-group background">
+								<label class="col-sm-3 control-label">上传者名字</label>
+								<div class="controls form-group">
+									<span>${uploader.name}</span>
 								</div>
 							</div>
 							<div class="form-group background">
-								<label class="col-sm-3 control-label">资料内容</label>
+								<label class="col-sm-3 control-label"></label>
 								<div class="controls form-group">
-									<input type="text" class="form-control" name="content" />
+									<span><a class="btn btn-danger"
+										href="/dataInfo/download/${result.id}" target="download"
+										data-toggle="tooltip" title="文件下载">下载</a></span>
 								</div>
 							</div>
-							<div class="form-group background">
-								<label class="col-sm-3 control-label">资料文件</label>
-								<div class="controls form-group">
-									<input type="file" name="file" />
-								</div>
-							</div>
-							<input type="hidden" name="uploadId" value="${user.id}" /> <input
-								type="hidden" name="uploadRole" value="${user.role.id}" />
 							<div class="form-actions">
-								<input type="submit" value="保存"
-									class="btn btn-primary btn-submit" /> <input type="reset"
-									value="重置" class="btn btn-danger btn-reset">
+								<input type="submit" value="返回"
+									class="btn btn-primary btn-submit" />
 							</div>
 						</form>
 					</div>
@@ -179,9 +196,6 @@
 	<script src="<%=path%>/assets/js/app.min.js"></script>
 	<!-- AdminLTE for demo purposes -->
 	<script src="<%=path%>/assets/js/demo.js"></script>
-	<script src="<%=path%>/assets/js/bootstrapValidator.js"></script>
-	<script src="<%=path%>/assets/js/icheck.js"></script>
-
 
 
 </body>
