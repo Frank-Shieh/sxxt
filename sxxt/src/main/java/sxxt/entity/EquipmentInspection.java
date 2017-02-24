@@ -4,12 +4,20 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-public class equipmentInspection {
+public class EquipmentInspection {
 	int id;
 	EquipmentInfo equipmentInfo;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	Date inspectionDate;
 	String content;
+	int state;
+	public int getState() {
+		return state;
+	}
+
+	public void setState(int state) {
+		this.state = state;
+	}
 
 	public int getId() {
 		return id;

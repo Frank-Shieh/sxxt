@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sxxt.dao.EquipmentInspectionDao">
+	<select id="findById" resultType="EquipmentInspection"
+		parameterType="int">
+		SELECT
+		equipment_inspection.state,
+		equipment_inspection.id,
+		equipment_inspection.equipment_id AS
+		`equipmentInfo.id`,
+		equipment_inspection.inspection_date,
+		equipment_inspection.content,
+		equipment_info.`name` AS
+		`equipmentInfo.name`,
+		equipment_info.num AS `equipmentInfo.num`,
+		site_info.classroom_code AS `equipmentInfo.site.classroomCode`,
+		site_info.id AS `equipmentInfo.site.id`
+		FROM
+		equipment_inspection
+		INNER JOIN equipment_info ON
+		equipment_inspection.equipment_id =
+		equipment_info.id
+		INNER JOIN
+		site_info ON equipment_info.site_id = site_info.id
+		WHERE
+		equipment_inspection.state = 1 AND
+		equipment_info.state > 0 AND
+		site_info.state = 1 AND
+		equipment_inspection.id = #{id}
+
+	</select>
+	<select id="findByEquipmentInfoId" resultType="EquipmentInspection"
+		parameterType="int">
+		SELECT
+		equipment_inspection.state,
+		equipment_inspection.id,
+		equipment_inspection.equipment_id AS
+		`equipmentInfo.id`,
+		equipment_inspection.inspection_date,
+		equipment_inspection.content,
+		equipment_info.`name` AS
+		`equipmentInfo.name`,
+		equipment_info.num AS `equipmentInfo.num`,
+		site_info.classroom_code AS `equipmentInfo.site.classroomCode`,
+		site_info.id AS `equipmentInfo.site.id`
+		FROM
+		equipment_inspection
+		INNER JOIN equipment_info ON
+		equipment_inspection.equipment_id =
+		equipment_info.id
+		INNER JOIN
+		site_info ON equipment_info.site_id = site_info.id
+		WHERE
+		equipment_inspection.state = 1 AND
+		equipment_info.state > 0 AND
+		site_info.state = 1 AND
+		equipment_inspection.equipment_id = #{id}
+	</select>
+	<select id="findAll" resultType="Class">
+		SELECT
+		equipment_inspection.state,
+		equipment_inspection.id,
+		equipment_inspection.equipment_id AS
+		`equipmentInfo.id`,
+		equipment_inspection.inspection_date,
+		equipment_inspection.content,
+		equipment_info.`name` AS
+		`equipmentInfo.name`,
+		equipment_info.num AS
+		`equipmentInfo.num`,
+		site_info.classroom_code AS
+		`equipmentInfo.site.classroomCode`,
+		site_info.id AS `equipmentInfo.site.id`
+		FROM
+		equipment_inspection
+		INNER JOIN
+		equipment_info ON
+		equipment_inspection.equipment_id =
+		equipment_info.id
+		INNER JOIN
+		site_info ON equipment_info.site_id = site_info.id
+		WHERE
+		equipment_inspection.state = 1 AND
+		equipment_info.state > 0 AND
+		site_info.state = 1
+	</select>
+	<insert id="addEquipmentInspection" parameterType="EquipmentInspection"
+		flushCache="true" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO
+		`sxxt`.`equipment_inspection` (
+		`state`,
+		`equipment_id`,
+		`inspection_date`,
+		`content`
+		)
+		VALUES
+		( 1, #{equipmentInfo.id},
+		#{inspectionDate}, #{content});
+	</insert>
+	<update id="editEquipmentInspection" parameterType="EquipmentInspection"
+		flushCache="true">
+		UPDATE
+		`sxxt`.`equipment_inspection`
+		SET
+		`equipment_id` =
+		#{equipmentInfo.id},
+		`inspection_date` = #{inspectionDate},
+		`content` =
+		#{content}
+		WHERE
+		(`id` = #{id});
+	</update>
+
+	<delete id="delEquipmentInspection" parameterType="int"
+		flushCache="true">
+		UPDATE
+		`sxxt`.`equipment_inspection`
+		SET
+		`state` = 0
+		WHERE
+		(`id` = #{id});
+	</delete>
+</mapper>

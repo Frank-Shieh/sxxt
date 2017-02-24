@@ -16,7 +16,9 @@ public interface EquipmentInfoDao {
 	EquipmentInfo findById(int id);
 
 	List<EquipmentInfo> findAll();
-
+	
+	List<EquipmentInfo> findBySiteId(int id);
+	
 	int delEquipmentInfo(int id);
 	
 	int delState(int id);

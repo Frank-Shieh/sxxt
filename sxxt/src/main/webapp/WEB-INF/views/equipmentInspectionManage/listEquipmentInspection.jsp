@@ -73,10 +73,10 @@
 										<span aria-hidden="true">×</span><span class="sr-only">Close</span>
 									</button>
 									<h4>Oh snap! You got an error!</h4>
-									<p>暂无相关的人员信息。请先添加设备信息</p>
+									<p>暂无相关的人员信息。请先添加设备年检信息</p>
 									<p>
-										<a class="btn btn-primary" href="/site/add"
-											style="text-decoration: none;">添加场地设备信息</a>
+										<a class="btn btn-primary" href="/equipmentInspection/add"
+											style="text-decoration: none;">添加场地设备年检信息</a>
 									</p>
 								</div>
 							</div>
@@ -86,7 +86,7 @@
 						<c:if test="${fn:length(result) gt 0}">
 							<div class="panel panel-info">
 								<div class="panel-heading">
-									<h3 class="panel-title">设备信息</h3>
+									<h3 class="panel-title">设备年检信息</h3>
 								</div>
 								<div class="panel-body">
 									<table id="example1" class="table table-bordered table-striped">
@@ -95,9 +95,7 @@
 												<th>设备名称</th>
 												<th>设备数量</th>
 												<th>所属场地</th>
-												<th>目前状态</th>
 												<th>年检情况</th>
-												<th>设备详情</th>
 												<th>修改</th>
 												<th>删除</th>
 											</tr>
@@ -105,29 +103,16 @@
 										<tbody>
 											<c:forEach var="result" items="${result}">
 												<tr>
-													<td>${result.name}</td>
-													<td>${result.num}</td>
-													<td>${result.site.classroomCode}</td>
-													<c:if test="${result.state==1}">
-														<td>可用</td>
-													</c:if>
-													<c:if test="${result.state==2}">
-														<td>自身已用</td>
-													</c:if>
-													<c:if test="${result.state==3}">
-														<td>借用</td>
-													</c:if>
-													<c:if test="${result.state==4}">
-														<td>已出租</td>
-													</c:if>
+													<td>${result.equipmentInfo.name}</td>
+													<td>${result.equipmentInfo.num}</td>
+													<td>${result.equipmentInfo.site.classroomCode}</td>
 													<td><a class="btn btn-danger"
-														href="/equipmentInspection/list/${result.id}">查看</a></td>
-													<td><a class="btn btn-info"
-														href="/equipmentInfo/view?id=${result.id}">查看</a></td>
-													<td><a href="/equipmentInfo/edit?id=${result.id}"
+														href="/equipmentInspection/view?id=${result.id}">查看</a></td>
+													<td><a
+														href="/equipmentInspection/edit?id=${result.id}"
 														class="btn btn-primary">修改</a></td>
 													<td><a class="btn btn-danger"
-														onclick="delEquipmentInfo(${result.id})">删除</a></td>
+														onclick="delEquipmentInspection(${result.id},${result.equipmentInfo.id})">删除</a></td>
 												</tr>
 											</c:forEach>
 
@@ -191,14 +176,14 @@
 		});
 	</script>
 	<script type="text/javascript">
-	function delEquipmentInfo(id) {
+	function delEquipmentInspection(id,eid) {
 		var result = confirm("确定删除编号:"+ id +"吗?");
 		if (result) {
 			console.log(result);
-			var url = '/equipmentInfo/delete?id='+id;
+			var url = '/equipmentInspection/delete/'+id+'/'+eid;
 			$.get(url, function(data) {
 				console.log('deleted.');
-			 	window.location.href='/equipmentInfo/list'; 
+			 	window.location.href='/equipmentInspection/list/'+eid; 
 			});
 		}
 	}

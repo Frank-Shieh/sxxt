@@ -82,6 +82,46 @@
 		equipment_manager.state = 1
 
 	</select>
+	<select id="findBySiteId" resultType="EquipmentInfo" parameterType="int">
+		SELECT
+		equipment_info.id,
+		equipment_info.site_id AS `site.id`,
+		equipment_info.`name`,
+		equipment_info.num,
+		equipment_info.buy_date,
+		equipment_info.produce_date,
+		equipment_info.inspection_date,
+		equipment_info.inspection_time,
+		equipment_info.manager_id AS
+		`equipmentManager.id`,
+		equipment_info.teacher_id AS
+		`trainningTeacher.id`,
+		equipment_info.state,
+		equipment_info.rent_fee,
+		equipment_info.rent_date,
+		equipment_info.return_date,
+		equipment_info.rent_people,
+		equipment_manager.`name` AS
+		`equipmentManager.name`,
+		site_info.classroom_code AS
+		`site.classroomCode`,
+		equipment_manager.`code` AS
+		`equipmentManager.code`
+		FROM
+		equipment_info
+		INNER JOIN equipment_manager
+		ON equipment_info.manager_id =
+		equipment_manager.id
+		INNER JOIN site_info
+		ON equipment_info.site_id = site_info.id
+		WHERE
+		equipment_info.state > 0
+		AND
+		site_info.state > 0 AND
+		equipment_manager.state = 1
+		AND
+		equipment_info.site_id=#{id}
+	</select>
 	<insert id="addEquipmentInfo" parameterType="EquipmentInfo"
 		flushCache="true" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO

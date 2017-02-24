@@ -17,6 +17,8 @@ public interface EquipmentInfoService {
 
 	List<EquipmentInfo> findAll();
 
+	List<EquipmentInfo> findBySiteId(int id);
+
 	int delEquipmentInfo(int id);
 
 	int delState(int id);

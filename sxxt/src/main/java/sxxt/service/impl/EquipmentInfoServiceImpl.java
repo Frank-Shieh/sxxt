@@ -70,4 +70,11 @@ public class EquipmentInfoServiceImpl implements EquipmentInfoService {
 		return result;
 	}
 
+	@Override
+	public List<EquipmentInfo> findBySiteId(int id) {
+		// TODO Auto-generated method stub
+		List<EquipmentInfo> result = equipmentInfoDao.findBySiteId(id);
+		return result;
+	}
+
 }
