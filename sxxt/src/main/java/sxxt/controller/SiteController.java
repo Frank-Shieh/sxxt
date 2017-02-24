@@ -43,9 +43,7 @@ public class SiteController {
 		} else {
 			model.addAttribute("result", result);
 		}
-
 		return "siteManage/listSite";
-
 	}
 
 	// 请求跳转到场地信息列表

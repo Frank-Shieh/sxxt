@@ -148,14 +148,14 @@
 	<update id="delSite" parameterType="int" flushCache="true">
 		UPDATE `sxxt`.`site_info`
 		<set>
-			`state` = 0,
+			`state` = 0
 		</set>
 		WHERE (`id` = #{id});
 	</update>
 	<update id="delState" parameterType="int" flushCache="true">
 		UPDATE `sxxt`.`site_info`
 		<set>
-			`state` = 1,
+			`state` = 1
 		</set>
 		WHERE (`id` = #{id});
 	</update>
