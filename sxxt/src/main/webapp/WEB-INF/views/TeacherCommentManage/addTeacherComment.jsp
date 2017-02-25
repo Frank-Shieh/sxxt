@@ -5,7 +5,6 @@
 %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -117,25 +116,109 @@
 
 				<div class="panel panel-primary">
 					<div class="panel-heading">
-						<h3 class="panel-title">添加实训训练任务信息</h3>
+						<h3 class="panel-title">添加教师评价信息</h3>
 					</div>
 					<div id="breadcrumb">
 						<a href="#" title="首页" class="tip-bottom"> <i
 							class="icon-home"></i> Home
-						</a> <a href="listClass.html">实训训练任务信息</a> <a href="#" class="current">添加实训训练任务信息</a>
+						</a> <a href="listClass.html">教师评价信息</a> <a href="#" class="current">添加教师评价信息</a>
 					</div>
 					<div class="panel-body">
 						<form class="form-horizontal" method="post"
-							action="/trainningTask/doAdd" id="registerForm">
+							action="/teacherComment/doAdd" id="registerForm">
 
-							<!-- 添加名字 -->
+							<!-- 添加学校 -->
 							<div class="form-group background">
-								<label class="col-sm-3 control-label">名字</label>
+								<label class="col-sm-3 control-label">学校名称</label>
 								<div class="controls form-group">
-									<input type="text" class="form-control" name="name" />
+									<div class="dropdown btn-group" style="width: 50%">
+										<button id="dLabel" class="btn btn-default dropdown-toggle"
+											type="button" data-toggle="dropdown" style="width: 100%">
+											<span id="schoolId" value="${schoolList.get(0).id}">${schoolList.get(0).name}</span>
+											<span class="caret"></span>
+										</button>
+										<input id='school-input' value="${schoolList.get(0).id}"
+											hidden="true" />
+										<ul class="dropdown-menu school-menu" aria-labelledby="dLabel"
+											role="menu"
+											style="width: 100%; height: 150px; overflow: scroll;">
+											<c:forEach var="schoolList" items="${schoolList}">
+												<li><a valueID="${schoolList.id}">${schoolList.name}</a></li>
+											</c:forEach>
+										</ul>
+									</div>
+
 								</div>
 							</div>
-							<!-- 添加所属公司 -->
+							<!-- 添加专业 -->
+							<div class="form-group background">
+								<label class="col-sm-3 control-label">专业名称</label>
+								<div class="controls form-group">
+									<div class="dropdown btn-group" style="width: 50%">
+										<button id="dLabel" class="btn btn-default dropdown-toggle"
+											type="button" data-toggle="dropdown" style="width: 100%">
+											<span id="majorId" value="${majorList.get(0).id}">${majorList.get(0).name}</span>
+											<span class="caret"></span>
+										</button>
+										<input id='major-input' value="${majorList.get(0).id}"
+											hidden="true" />
+										<ul class="dropdown-menu major-menu" aria-labelledby="dLabel"
+											role="menu"
+											style="width: 100%; height: 150px; overflow: scroll;">
+											<c:forEach var="majorList" items="${majorList}">
+												<li><a valueID="${majorList.id}">${majorList.name}</a></li>
+											</c:forEach>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<!-- 添加班级 -->
+							<div class="form-group background">
+								<label class="col-sm-3 control-label">班级名称</label>
+								<div class="controls form-group">
+									<div class="dropdown btn-group" style="width: 50%">
+										<button id="dLabel" class="btn btn-default dropdown-toggle"
+											type="button" data-toggle="dropdown" style="width: 100%">
+											<span id="classId" value="${classList.get(0).id}">${classList.get(0).name}</span>
+											<span class="caret"></span>
+										</button>
+										<input id='class-input' name="classId.id" value="${classList.get(0).id}"
+											hidden="true" />
+										<ul class="dropdown-menu class-menu" aria-labelledby="dLabel"
+											role="menu"
+											style="width: 100%; height: 150px; overflow: scroll;">
+											<c:forEach var="classList" items="${classList}">
+												<li><a valueID="${classList.id}">${classList.name}</a></li>
+											</c:forEach>
+										</ul>
+									</div>
+
+								</div>
+							</div>
+							<!-- 添加学生 -->
+							<div class="form-group background">
+								<label class="col-sm-3 control-label">学生名称</label>
+								<div class="controls form-group">
+									<div class="dropdown btn-group" style="width: 50%">
+										<button id="dLabel" class="btn btn-default dropdown-toggle"
+											type="button" data-toggle="dropdown" style="width: 100%">
+											<span id="studentId" value="${studentList.get(0).id}">${studentList.get(0).name}</span>
+											<span class="caret"></span>
+										</button>
+										<input id='student-input' name="student.id"
+											value="${studentList.get(0).id}" hidden="true" />
+										<ul class="dropdown-menu student-menu"
+											aria-labelledby="dLabel" role="menu"
+											style="width: 100%; height: 150px; overflow: scroll;">
+											<c:forEach var="studentList" items="${studentList}">
+												<li><a valueID="${studentList.id}">${studentList.name}</a></li>
+											</c:forEach>
+										</ul>
+									</div>
+
+								</div>
+							</div>
+
 							<div class="form-group background">
 								<label class="col-sm-3 control-label">实训教师</label>
 								<div class="controls form-group">
@@ -160,102 +243,41 @@
 								</div>
 							</div>
 
-							<!-- 添加发布日期 -->
+							<!-- 添加评价内容 -->
 							<div class="form-group background">
-								<label class="col-sm-3 control-label">发布日期</label>
-								<div class="controls form-group">
-									<input type="date" class="form-control" name="releaseDate" />
-								</div>
-							</div>
-							<!-- 添加开始日期 -->
-							<div class="form-group background">
-								<label class="col-sm-3 control-label">开始日期</label>
-								<div class="controls form-group">
-									<input type="date" class="form-control" name="startDate" />
-								</div>
-							</div>
-							<!-- 添加结束日期 -->
-							<div class="form-group background">
-								<label class="col-sm-3 control-label">结束日期</label>
-								<div class="controls form-group">
-									<input type="date" class="form-control" name="endDate" />
-								</div>
-							</div>
-							<!-- 添加内容 -->
-							<div class="form-group background">
-								<label class="col-sm-3 control-label">内容</label>
+								<label class="col-sm-3 control-label">评价内容</label>
 								<div class="controls form-group">
 									<input type="text" class="form-control" name="content" />
 								</div>
 							</div>
-
-							<!-- 添加学校 -->
+							<!-- 添加教学工作的热情 -->
 							<div class="form-group background">
-								<label class="col-sm-3 control-label">学校名称</label>
+								<label class="col-sm-3 control-label">教学工作的热情（满分25分）</label>
 								<div class="controls form-group">
-									<div class="dropdown btn-group" style="width: 50%">
-										<button id="dLabel" class="btn btn-default dropdown-toggle"
-											type="button" data-toggle="dropdown" style="width: 100%">
-											<span id="schoolId" value="${schoolList.get(0).id}">${schoolList.get(0).name}</span>
-											<span class="caret"></span>
-										</button>
-										<input id='school-input' name="school.id"
-											value="${schoolList.get(0).id}" hidden="true" />
-										<ul class="dropdown-menu school-menu" aria-labelledby="dLabel"
-											role="menu"
-											style="width: 100%; height: 150px; overflow: scroll;">
-											<c:forEach var="schoolList" items="${schoolList}">
-												<li><a valueID="${schoolList.id}">${schoolList.name}</a></li>
-											</c:forEach>
-										</ul>
-									</div>
+									<input type="text" class="form-control" name="workHard" />
 								</div>
 							</div>
-							<!-- 添加专业 -->
+							<!-- 添加理论联系实际 -->
 							<div class="form-group background">
-								<label class="col-sm-3 control-label">专业名称</label>
+								<label class="col-sm-3 control-label">理论联系实际（满分25分）</label>
 								<div class="controls form-group">
-									<div class="dropdown btn-group" style="width: 50%">
-										<button id="dLabel" class="btn btn-default dropdown-toggle"
-											type="button" data-toggle="dropdown" style="width: 100%">
-											<span id="majorId" value="${majorList.get(0).id}">${majorList.get(0).name}</span>
-											<span class="caret"></span>
-										</button>
-										<input id='major-input' name="major.id"
-											value="${majorList.get(0).id}" hidden="true" />
-										<ul class="dropdown-menu major-menu" aria-labelledby="dLabel"
-											role="menu"
-											style="width: 100%; height: 150px; overflow: scroll;">
-											<c:forEach var="majorList" items="${majorList}">
-												<li><a valueID="${majorList.id}">${majorList.name}</a></li>
-											</c:forEach>
-										</ul>
-									</div>
+									<input type="text" class="form-control" name="theoryActual" />
 								</div>
 							</div>
-							<!-- 添加班级 -->
+							<!-- 添加讲课思路清晰程度 -->
 							<div class="form-group background">
-								<label class="col-sm-3 control-label">班级名称</label>
+								<label class="col-sm-3 control-label">讲课思路清晰程度（满分25分）</label>
 								<div class="controls form-group">
-									<div class="dropdown btn-group" style="width: 50%">
-										<button id="dLabel" class="btn btn-default dropdown-toggle"
-											type="button" data-toggle="dropdown" style="width: 100%">
-											<span id="classId" value="${classList.get(0).id}">${classList.get(0).name}</span>
-											<span class="caret"></span>
-										</button>
-										<input id='class-input' name="classId"
-											value="${classList.get(0).id}" hidden="true" />
-										<ul class="dropdown-menu class-menu" aria-labelledby="dLabel"
-											role="menu"
-											style="width: 100%; height: 150px; overflow: scroll;">
-											<c:forEach var="classList" items="${classList}">
-												<li><a valueID="${classList.id}">${classList.name}</a></li>
-											</c:forEach>
-										</ul>
-									</div>
+									<input type="text" class="form-control" name="teachingLevel" />
 								</div>
 							</div>
-
+							<!-- 添加作业布置合理 -->
+							<div class="form-group background">
+								<label class="col-sm-3 control-label">作业布置合理性（满分25分）</label>
+								<div class="controls form-group">
+									<input type="text" class="form-control" name="homeworkNum" />
+								</div>
+							</div>
 							<div class="form-actions">
 								<input type="submit" value="保存"
 									class="btn btn-primary btn-submit" /> <input type="reset"
@@ -308,8 +330,6 @@
 					$('#trainningTeacher-input').attr('value',
 							$target.attr("valueid"));
 				});
-	</script>
-	<script>
 		$("body").on('click', '.school-menu li', function(e) {
 			var $target = $(e.target);
 			$target.is('a') && $('#schoolId').text($target.text());
@@ -337,356 +357,101 @@
 			var $target = $(e.target);
 			$target.is('a') && $('#classId').text($target.text());
 			$('#class-input').attr('value', $target.attr("valueid"));
+			//如果点击的是a标签
+			if ($target.is('a')) {
+				//更新新的专业列表
+				var classId = $target.attr("valueid");
+				updateStudentByClassId(classId);
+			}
 		});
-		$('body').on('click', '#add-class-btn', function(e) {
-			$('.class-menu').parent().hide();
-			$('.new-class').show();
+		$('body').on('click', '.student-menu', function(e) {
+			var $target = $(e.target);
+			$target.is('a') && $('#studentId').text($target.text());
+			$('#student-input').attr('value', $target.attr("valueid"));
+			//如果点击的是a标签
+			if ($target.is('a')) {
+				//更新新的专业列表
+				var classId = $target.attr("valueid");
+			}
 		});
-		//添加Class,成功后刷新列表,并且隐藏输入框
-		$('#add-class')
-				.on(
-						'click',
-						function(e) {
-							var name = document
-									.getElementById('add-class-input').value;
-							document.getElementById('add-class-input').value = '';
-							var majorId = document
-									.getElementById('major-input').value;
-							$
-									.ajax({
-										type : "POST",
-										dataType : 'json',
-										data : {
-											majorId : majorId,
-											name : name
-										},
-										url : "/class/add",
-										complete : function(msg) {
-											var message = eval("("
-													+ msg.responseText + ")");
-											if (message.length == 1) {
-												var data = message.object;
-												var classList = '${classList}';
 
-												if (document.classFlag
-														&& document.classFlag == 1) {
-													var list = new Array();
-													document.classFlag = 0;
-												} else {
-													var list;
-													if (document.wclasslists) {
-														list = document.wclasslists;
-													} else {
-
-														list = JSON
-																.parse(classList);
-													}
-												}
-												list.push(data);
-												document.wclasslists = list;
-												list
-														.sort(keysrt('name',
-																false));
-
-												console.log(list);
-
-												var pul = $('.class-menu')
-														.parent();
-												$('.class-menu').remove();
-
-												var ul = $('<ul></ul>')
-														.addClass(
-																'dropdown-menu class-menu')
-														.attr(
-																'aria-labelledby',
-																'dLabel')
-														.attr('role', 'menu')
-														.attr('style',
-																'width: 100%;height:150px;overflow:scroll;');
-
-												for (var i = 0; i < list.length; i++) {
-													var li = $('<li></li>');
-													$('<a></a>').attr(
-															'valueID',
-															list[i].id).html(
-															list[i].name)
-															.appendTo(li);
-													li.appendTo(ul);
-												}
-
-												$('<li></li>').addClass(
-														'divider').appendTo(ul);
-
-												var li = $('<li></li>');
-
-												var button = $(
-														'<button></button>')
-														.addClass('btn')
-														.attr('type', 'button')
-														.attr('id',
-																'add-class-btn')
-														.attr('style',
-																'width: 100%');
-
-												$('<i></i>').addClass(
-														'fa fa-plus').appendTo(
-														button);
-
-												$('<span></span>').html('增加班级')
-														.appendTo(button);
-												button.appendTo(li);
-
-												li.appendTo(ul);
-
-												ul.appendTo(pul);
-												$('.class-menu').parent()
-														.show();
-												$('.new-class').hide();
-
-											} else {
-												alert("添加班级失败");
-												$('.class-menu').parent()
-														.show();
-												$('.new-class').hide();
-											}
-										}
-									});
-
-						});
-		$('body').on('click', '#add-school-btn', function(e) {
-			$('.school-menu').parent().hide();
-			$('.new-school').show();
-		});
-		$('#add-school')
-				.on(
-						'click',
-						function(e) {
-							var name = document
-									.getElementById('add-school-input').value;
-							document.getElementById('add-school-input').value = '';
-							$
-									.ajax({
-										type : "POST",
-										dataType : 'json',
-										async : false,
-										data : {
-											name : name
-										},
-										url : "/school/add",
-
-										complete : function(msg) {
-											var message = eval("("
-													+ msg.responseText + ")");
-											if (message.length == 1) {
-												var data = message.object;
-												var schoolList = '${schoolList}';
-
-												var list;
-
-												if (document.wschoolLists) {
-													list = document.wschoolLists;
-												} else {
-													list = JSON
-															.parse(schoolList);
-												}
-												list.push(data);
-												document.wschoolLists = list;
-
-												list
-														.sort(keysrt('name',
-																false));
-
-												console.log(list);
-
-												var pul = $('.school-menu')
-														.parent();
-												$('.school-menu').remove();
-
-												var ul = $('<ul></ul>')
-														.addClass(
-																'dropdown-menu school-menu')
-														.attr(
-																'aria-labelledby',
-																'dLabel')
-														.attr('role', 'menu')
-														.attr('style',
-																'width: 100%;height:150px;overflow:scroll;');
-
-												for (var i = 0; i < list.length; i++) {
-													var li = $('<li></li>');
-													$('<a></a>').attr(
-															'valueID',
-															list[i].id).html(
-															list[i].name)
-															.appendTo(li);
-													li.appendTo(ul);
-												}
-
-												$('<li></li>').addClass(
-														'divider').appendTo(ul);
-
-												var li = $('<li></li>');
-
-												var button = $(
-														'<button></button>')
-														.addClass('btn')
-														.attr('type', 'button')
-														.attr('id',
-																'add-school-btn')
-														.attr('style',
-																'width: 100%');
-
-												$('<i></i>').addClass(
-														'fa fa-plus').appendTo(
-														button);
-
-												$('<span></span>').html('增加学校')
-														.appendTo(button);
-												button.appendTo(li);
-
-												li.appendTo(ul);
-
-												ul.appendTo(pul);
-												$('.school-menu').parent()
-														.show();
-												$('.new-school').hide();
-
-											} else {
-												alert("添加学校失败");
-												$('.school-menu').parent()
-														.show();
-												$('.new-school').hide();
-											}
-
-										}
-
-									});
-						});
-		$('body').on('click', '#add-major-btn', function(e) {
-			$('.major-menu').parent().hide();
-			$('.new-major').show();
-		});
-		$('#add-major')
-				.on(
-						'click',
-						function(e) {
-
-							var name = document
-									.getElementById('add-major-input').value;
-							var schoolId = document
-									.getElementById('school-input').value;
-							document.getElementById('add-major-input').value = '';
-							$
-									.ajax({
-										type : "POST",
-										dataType : 'json',
-										async : false,
-										data : {
-											schoolId : schoolId,
-											name : name
-										},
-										url : "/major/add",
-
-										complete : function(msg) {
-											var message = eval("("
-													+ msg.responseText + ")");
-											if (message.length == 1) {
-												var data = message.object;
-												var majorList = '${majorList}';
-
-												if (document.majorFlag
-														&& document.majorFlag == 1) {
-													var list = new Array();
-													document.majorFlag = 0;
-												} else {
-													var list;
-													if (document.wmajorLists) {
-														list = document.wmajorLists;
-													} else {
-														list = JSON
-																.parse(majorList);
-													}
-												}
-
-												list.push(data);
-												document.wmajorLists = list;
-												list
-														.sort(keysrt('name',
-																false));
-
-												console.log(list);
-
-												var pul = $('.major-menu')
-														.parent();
-												$('.major-menu').remove();
-
-												var ul = $('<ul></ul>')
-														.addClass(
-																'dropdown-menu major-menu')
-														.attr(
-																'aria-labelledby',
-																'dLabel')
-														.attr('role', 'menu')
-														.attr('style',
-																'width: 100%;height:150px;overflow:scroll;');
-
-												for (var i = 0; i < list.length; i++) {
-													var li = $('<li></li>');
-													$('<a></a>').attr(
-															'valueID',
-															list[i].id).html(
-															list[i].name)
-															.appendTo(li);
-													li.appendTo(ul);
-												}
-
-												$('<li></li>').addClass(
-														'divider').appendTo(ul);
-
-												var li = $('<li></li>');
-
-												var button = $(
-														'<button></button>')
-														.addClass('btn')
-														.attr('type', 'button')
-														.attr('id',
-																'add-major-btn')
-														.attr('style',
-																'width: 100%');
-
-												$('<i></i>').addClass(
-														'fa fa-plus').appendTo(
-														button);
-
-												$('<span></span>').html('增加专业')
-														.appendTo(button);
-												button.appendTo(li);
-
-												li.appendTo(ul);
-
-												ul.appendTo(pul);
-												$('.major-menu').parent()
-														.show();
-												$('.new-major').hide();
-
-											} else {
-												alert("添加专业失败");
-												$('.major-menu').parent()
-														.show();
-												$('.new-major').hide();
-											}
-
-										}
-
-									});
-
-						});
 		function keysrt(key, desc) {
 			return function(a, b) {
 				return desc ? ~~(a[key] < b[key]) : ~~(a[key] > b[key]);
 			}
 		}
+	</script>
 
+	<script>
+		function updateStudentByClassId(id) {
+			$
+					.ajax({
+						type : "POST",
+						dataType : 'json',
+						async : false,
+						data : {
+							id : id
+						},
+						url : "/student/findByClassId",
+						complete : function(msg) {
+							console.log(msg);
+							var message = eval("(" + msg.responseText + ")");
+							if (message.length > 0) {
+								var list = message.object;
+								console.log(list);
+								if (list && list.length > 0) {
+									//列表的初始值更改
+									$('#studentId').text(list[0].name);
+									$('#studentId').attr('value', list[0].id);
+									$('#student-input').attr('value',
+											list[0].id);
+									var pul = $('.student-menu').parent();
+									$('.student-menu').remove();
+									var ul = $('<ul></ul>')
+											.addClass(
+													'dropdown-menu student-menu')
+											.attr('aria-labelledby', 'dLabel')
+											.attr('role', 'menu')
+											.attr('style',
+													'width: 100%;height:150px;overflow:scroll;');
+
+									for (var i = 0; i < list.length; i++) {
+										var li = $('<li></li>');
+										$('<a></a>')
+												.attr('valueID', list[i].id)
+												.html(list[i].name)
+												.appendTo(li);
+										li.appendTo(ul);
+									}
+									$('<li></li>').addClass('divider')
+											.appendTo(ul);
+
+									var li = $('<li></li>');
+
+									var button = $('<button></button>')
+											.addClass('btn').attr('type',
+													'button').attr('id',
+													'add-class-btn').attr(
+													'style', 'width: 100%');
+
+									$('<i></i>').addClass('fa fa-plus')
+											.appendTo(button);
+
+									ul.appendTo(pul);
+									pul.show();
+								}
+							} else {
+
+								alert("暂无相关学生");
+								$('.student-menu').parent().hide();
+								//$('.new-class').show();
+							}
+						}
+					});
+		}
+	</script>
+
+	<script>
 		function updateClassByMajorId(majorId) {
 			//更新新的班级列表
 			var schoolId = schoolId;
@@ -742,26 +507,27 @@
 									$('<i></i>').addClass('fa fa-plus')
 											.appendTo(button);
 
-									$('<span></span>').html('增加班级').appendTo(
-											button);
 									button.appendTo(li);
 
-									li.appendTo(ul);
-
 									ul.appendTo(pul);
+									updateStudentByClassId(list[0].id);
+									pul.show();
 								}
 							} else {
 								alert("暂无相关班级");
 								document.classFlag = 1;
 								$('.class-menu').parent().hide();
-								$('.new-class').show();
+								//	$('.new-class').show();
+
+								alert("暂无相关学生");
+								$('.student-menu').parent().hide();
+								//	$('.new-class').show();
 							}
 						}
-
 					});
-
 		}
 	</script>
+
 	<script>
 		function updateMajorBySchoolId(id) {
 			$
@@ -821,11 +587,10 @@
 											button);
 									button.appendTo(li);
 
-									li.appendTo(ul);
-
 									ul.appendTo(pul);
 
 									updateClassByMajorId(list[0].id);
+									pul.show();//解决消失问题的关键！！！
 								}
 							} else {
 								alert("暂无相关专业");
@@ -837,12 +602,11 @@
 								alert("暂无相关班级");
 								$('.class-menu').parent().hide();
 								$('.new-class').show();
-
 							}
 						}
 					});
-
 		}
 	</script>
+
 </body>
 </html>

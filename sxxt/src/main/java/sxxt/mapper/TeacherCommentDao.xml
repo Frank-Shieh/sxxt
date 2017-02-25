@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sxxt.dao.TeacherCommentDao">
+	<select id="findById" resultType="TeacherComment" parameterType="int">
+		SELECT
+		teacher_comment.id,
+		teacher_comment.class_id AS `classId.id`,
+		teacher_comment.student_id AS `student.id`,
+		teacher_comment.teacher_id
+		AS `trainningTeacher.id`,
+		teacher_comment.content,
+		teacher_comment.work_hard,
+		teacher_comment.teaching_level,
+		teacher_comment.theory_actual,
+		teacher_comment.homework_num,
+		teacher_comment.state,
+		teacher_comment.total_score,
+		class_table.`name`AS `classId.name`,
+		major_table.`id`AS
+		`classId.major.id`,
+		major_table.`name`AS
+		`classId.major.name`,
+		school_table.`id`AS
+		`classId.major.school.id`,
+		school_table.`name`AS
+		`classId.major.school.name`,
+		student_table.`name` AS `student.name`,
+		student_table.`code` AS `student.code`,
+		training_teacher.`name` AS
+		`trainningTeacher.name`,
+		training_teacher.`code` AS
+		`trainningTeacher.code`
+		FROM
+		teacher_comment
+		INNER JOIN class_table ON
+		teacher_comment.class_id = class_table.id
+		INNER JOIN major_table ON
+		class_table.major_id = major_table.id
+		INNER JOIN school_table ON
+		major_table.school_id = school_table.id
+		INNER JOIN training_teacher ON
+		teacher_comment.teacher_id =
+		training_teacher.id
+		INNER JOIN
+		student_table ON student_table.class_id = class_table.id
+		AND
+		student_table.school_id = school_table.id
+		AND
+		teacher_comment.student_id = student_table.id
+		WHERE
+		teacher_comment.state = 1 AND
+		student_table.state = 1 AND
+		training_teacher.state = 1 AND
+		teacher_comment.id
+		= #{id}
+	</select>
+	<select id="findByStudentId" resultType="TeacherComment"
+		parameterType="int">
+		SELECT
+		teacher_comment.id,
+		teacher_comment.class_id AS
+		`classId.id`,
+		teacher_comment.student_id AS `student.id`,
+		teacher_comment.teacher_id AS `trainningTeacher.id`,
+		teacher_comment.content,
+		teacher_comment.work_hard,
+		teacher_comment.teaching_level,
+		teacher_comment.theory_actual,
+		teacher_comment.homework_num,
+		teacher_comment.state,
+		teacher_comment.total_score,
+		class_table.`name`AS `classId.name`,
+		major_table.`id`AS
+		`classId.major.id`,
+		major_table.`name`AS
+		`classId.major.name`,
+		school_table.`id`AS
+		`classId.major.school.id`,
+		school_table.`name`AS
+		`classId.major.school.name`,
+		student_table.`name`
+		AS `student.name`,
+		student_table.`code` AS `student.code`,
+		training_teacher.`name` AS
+		`trainningTeacher.name`,
+		training_teacher.`code` AS
+		`trainningTeacher.code`
+		FROM
+		teacher_comment
+		INNER JOIN class_table ON
+		teacher_comment.class_id = class_table.id
+		INNER JOIN major_table ON
+		class_table.major_id = major_table.id
+		INNER
+		JOIN school_table ON
+		major_table.school_id = school_table.id
+		INNER JOIN
+		training_teacher ON
+		teacher_comment.teacher_id =
+		training_teacher.id
+		INNER JOIN
+		student_table ON student_table.class_id = class_table.id
+		AND
+		student_table.school_id = school_table.id
+		AND
+		teacher_comment.student_id = student_table.id
+		WHERE
+		teacher_comment.state = 1 AND
+		student_table.state = 1 AND
+		training_teacher.state = 1 AND
+		teacher_comment.student_id
+		= #{id}
+	</select>
+	<select id="findByTeacherId" resultType="TeacherComment"
+		parameterType="int">
+		SELECT
+		teacher_comment.id,
+		teacher_comment.class_id AS
+		`classId.id`,
+		teacher_comment.student_id AS `student.id`,
+		teacher_comment.teacher_id AS `trainningTeacher.id`,
+		teacher_comment.content,
+		teacher_comment.work_hard,
+		teacher_comment.teaching_level,
+		teacher_comment.theory_actual,
+		teacher_comment.homework_num,
+		teacher_comment.state,
+		teacher_comment.total_score,
+		class_table.`name`AS `classId.name`,
+		major_table.`id`AS
+		`classId.major.id`,
+		major_table.`name`AS
+		`classId.major.name`,
+		school_table.`id`AS
+		`classId.major.school.id`,
+		school_table.`name`AS
+		`classId.major.school.name`,
+		student_table.`name`
+		AS `student.name`,
+		student_table.`code` AS `student.code`,
+		training_teacher.`name` AS
+		`trainningTeacher.name`,
+		training_teacher.`code` AS
+		`trainningTeacher.code`
+		FROM
+		teacher_comment
+		INNER JOIN class_table ON
+		teacher_comment.class_id = class_table.id
+		INNER JOIN major_table ON
+		class_table.major_id = major_table.id
+		INNER
+		JOIN school_table ON
+		major_table.school_id = school_table.id
+		INNER JOIN
+		training_teacher ON
+		teacher_comment.teacher_id =
+		training_teacher.id
+		INNER JOIN
+		student_table ON student_table.class_id = class_table.id
+		AND
+		student_table.school_id = school_table.id
+		AND
+		teacher_comment.student_id = student_table.id
+		WHERE
+		teacher_comment.state = 1 AND
+		student_table.state = 1 AND
+		training_teacher.state = 1 AND
+		teacher_comment.teacher_id
+		= #{id}
+	</select>
+	<select id="findAll" resultType="TeacherComment">
+		SELECT
+		teacher_comment.id,
+		teacher_comment.class_id AS `classId.id`,
+		teacher_comment.student_id AS
+		`student.id`,
+		teacher_comment.teacher_id AS `trainningTeacher.id`,
+		teacher_comment.content,
+		teacher_comment.work_hard,
+		teacher_comment.teaching_level,
+		teacher_comment.theory_actual,
+		teacher_comment.homework_num,
+		teacher_comment.state,
+		teacher_comment.total_score,
+		class_table.`name`AS `classId.name`,
+		major_table.`id`AS
+		`classId.major.id`,
+		major_table.`name`AS
+		`classId.major.name`,
+		school_table.`id`AS
+		`classId.major.school.id`,
+		school_table.`name`AS
+		`classId.major.school.name`,
+		student_table.`name`
+		AS `student.name`,
+		student_table.`code` AS `student.code`,
+		training_teacher.`name` AS
+		`trainningTeacher.name`,
+		training_teacher.`code` AS
+		`trainningTeacher.code`,
+		COALESCE(avg(teacher_comment.total_score),0)
+		`avgScore`
+		FROM
+		teacher_comment
+		INNER JOIN class_table ON
+		teacher_comment.class_id =
+		class_table.id
+		INNER JOIN major_table ON
+		class_table.major_id =
+		major_table.id
+		INNER JOIN school_table ON
+		major_table.school_id =
+		school_table.id
+		INNER JOIN training_teacher ON
+		teacher_comment.teacher_id =
+		training_teacher.id
+		INNER JOIN
+		student_table ON student_table.class_id = class_table.id
+		AND
+		student_table.school_id = school_table.id
+		AND
+		teacher_comment.student_id = student_table.id
+		WHERE
+		teacher_comment.state = 1 AND
+		student_table.state = 1 AND
+		training_teacher.state = 1
+		GROUP BY
+		teacher_comment.class_id
+	</select>
+
+	<select id="findByClassId" resultType="TeacherComment"
+		parameterType="int">
+		SELECT
+		teacher_comment.id,
+		teacher_comment.class_id AS
+		`classId.id`,
+		teacher_comment.student_id AS `student.id`,
+		teacher_comment.teacher_id AS `trainningTeacher.id`,
+		teacher_comment.content,
+		teacher_comment.work_hard,
+		teacher_comment.teaching_level,
+		teacher_comment.theory_actual,
+		teacher_comment.homework_num,
+		teacher_comment.state,
+		teacher_comment.total_score,
+		class_table.`name`AS `classId.name`,
+		major_table.`id`AS
+		`classId.major.id`,
+		major_table.`name`AS
+		`classId.major.name`,
+		school_table.`id`AS
+		`classId.major.school.id`,
+		school_table.`name`AS
+		`classId.major.school.name`,
+		student_table.`name`
+		AS `student.name`,
+		student_table.`code` AS `student.code`,
+		training_teacher.`name` AS
+		`trainningTeacher.name`,
+		training_teacher.`code` AS
+		`trainningTeacher.code`
+		FROM
+		teacher_comment
+		INNER JOIN class_table ON
+		teacher_comment.class_id = class_table.id
+		INNER JOIN major_table ON
+		class_table.major_id = major_table.id
+		INNER
+		JOIN school_table ON
+		major_table.school_id = school_table.id
+		INNER JOIN
+		training_teacher ON
+		teacher_comment.teacher_id =
+		training_teacher.id
+		INNER JOIN
+		student_table ON student_table.class_id = class_table.id
+		AND
+		student_table.school_id = school_table.id
+		AND
+		teacher_comment.student_id = student_table.id
+		WHERE
+		teacher_comment.state = 1 AND
+		student_table.state = 1 AND
+		training_teacher.state = 1 AND
+		teacher_comment.class_id
+		= #{id}
+	</select>
+
+	<insert id="addTeacherComment" parameterType="TeacherComment"
+		flushCache="true" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO
+		`sxxt`.`teacher_comment` (
+		`class_id`,
+		`student_id`,
+		`teacher_id`,
+		`content`,
+		`work_hard`,
+		`teaching_level`,
+		`theory_actual`,
+		`homework_num`,
+		`state`,
+		`total_score`
+		)
+		VALUES
+		(
+		#{classId.id},
+		#{student.id},
+		#{trainningTeacher.id},
+		#{content},
+		#{workHard},
+		#{teachingLevel},
+		#{theoryActual},
+		#{homeworkNum},
+		1,
+		#{totalScore}
+		);
+	</insert>
+	<update id="editTeacherComment" parameterType="TeacherComment"
+		flushCache="true">
+		UPDATE `sxxt`.`teacher_comment`
+		SET
+		`class_id` =
+		#{classId.id},
+		`student_id` =
+		#{student.id},
+		`teacher_id` =
+		#{trainningTeacher.id},
+		`content` =
+		#{content},
+		`work_hard` =#{workHard},
+		`teaching_level`
+		=#{teachingLevel},
+		`theory_actual` = #{theoryActual},
+		`homework_num` =
+		#{homeworkNum},
+		`total_score` = #{totalScore}
+		WHERE
+		(`id` = #{id});
+	</update>
+
+	<update id="delTeacherComment" parameterType="int" flushCache="true">
+
+		UPDATE `sxxt`.`teacher_comment`
+		SET
+		`state` = 0
+		WHERE
+		(`id` =
+		#{id});
+
+	</update>
+</mapper>
