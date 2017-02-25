@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sxxt.dao.SystemManagerDao">
+	<select id="findById" resultType="SystemManager" parameterType="int">
+		SELECT
+		system_manager.id,
+		system_manager.`name`,
+		system_manager.`code`,
+		system_manager.`password`,
+		system_manager.role_id AS `role.id`,
+		system_manager.state,
+		role_table.`name` AS `role.name`
+		FROM
+		system_manager
+		INNER JOIN role_table ON system_manager.role_id =
+		role_table.id
+		WHERE
+		system_manager.state = 1 AND
+		system_manager.id =
+		#{id}
+	</select>
+	<select id="findByCode" resultType="SystemManager"
+		parameterType="String">
+		<bind name="pattern" value="_parameter" />
+		SELECT
+		system_manager.id,
+		system_manager.`name`,
+		system_manager.`code`,
+		system_manager.`password`,
+		system_manager.role_id AS `role.id`,
+		system_manager.state,
+		role_table.`name` AS `role.name`
+		FROM
+		system_manager
+		INNER JOIN role_table ON system_manager.role_id =
+		role_table.id
+		WHERE
+		system_manager.state = 1 AND
+		system_manager.code LIKE
+		#{pattern}
+	</select>
+
+	<select id="findAll" resultType="SystemManager">
+		SELECT
+		system_manager.id,
+		system_manager.`name`,
+		system_manager.`code`,
+		system_manager.`password`,
+		system_manager.role_id AS `role.id`,
+		system_manager.state,
+		role_table.`name` AS `role.name`
+		FROM
+		system_manager
+		INNER JOIN role_table ON system_manager.role_id =
+		role_table.id
+		WHERE
+		system_manager.state = 1
+	</select>
+	<insert id="addSystemManager" parameterType="SystemManager"
+		flushCache="true" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO
+		`sxxt`.`system_manager` (
+		`name`,
+		`code`,
+		`password`,
+		`role_id`,
+		`state`
+		)
+		VALUES
+		(
+		#{name},
+		#{code},
+		#{password},
+		7,
+		1
+		);
+	</insert>
+	<update id="editSystemManager" parameterType="SystemManager"
+		flushCache="true">
+		UPDATE `sxxt`.`system_manager`
+		SET
+		`name` = #{name},
+		`code` =
+		#{code},
+		`password` = #{password}
+		WHERE
+		(`id` =
+		#{id});
+	</update>
+
+	<update id="delSystemManger" parameterType="int" flushCache="true">
+		UPDATE `sxxt`.`system_manager`
+		<set>
+			`state` = 0
+		</set>
+		WHERE (`id` = #{id});
+	</update>
+</mapper>
