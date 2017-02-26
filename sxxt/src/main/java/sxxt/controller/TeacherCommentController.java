@@ -14,7 +14,6 @@ import sxxt.entity.Class;
 import sxxt.entity.Major;
 import sxxt.entity.School;
 import sxxt.entity.Student;
-import sxxt.entity.StudentScore;
 import sxxt.entity.TeacherComment;
 import sxxt.entity.TrainningTeacher;
 import sxxt.service.interfaces.ClassService;

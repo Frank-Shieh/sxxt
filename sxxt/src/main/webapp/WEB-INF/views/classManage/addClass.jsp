@@ -105,8 +105,8 @@
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
 
-		<jsp:include page="header.jsp"></jsp:include>
-
+		<%-- <jsp:include page="header.jsp"></jsp:include> --%>
+		<jsp:include page="${myheader}"></jsp:include>
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
@@ -124,9 +124,9 @@
 						</a> <a href="listClass.html">班级信息</a> <a href="#" class="current">添加单个班级信息</a>
 					</div>
 					<div class="panel-body">
-						<form class="form-horizontal" method="post"
-							action="/class/doAdd" id="registerForm">
-							
+						<form class="form-horizontal" method="post" action="/class/doAdd"
+							id="registerForm">
+
 							<!-- 添加名字 -->
 							<div class="form-group background">
 								<label class="col-sm-3 control-label">名字</label>
@@ -134,7 +134,7 @@
 									<input type="text" class="form-control" name="name" />
 								</div>
 							</div>
-							
+
 							<!-- 添加学校 -->
 							<div class="form-group background">
 								<label class="col-sm-3 control-label">学校名称</label>
@@ -209,8 +209,8 @@
 
 								</div>
 							</div>
-						
-						
+
+
 
 							<div class="form-actions">
 								<input type="submit" value="保存"
@@ -270,8 +270,8 @@
 			});
 		});
 	</script>
-	
-	
+
+
 	<script>
 		$(document).ready(function() {
 			$('input').iCheck({
@@ -720,7 +720,7 @@
 									ul.appendTo(pul);
 								}
 							} else {
-							//	alert("暂无相关班级");
+								//	alert("暂无相关班级");
 								document.classFlag = 1;
 								$('.class-menu').parent().hide();
 								$('.new-class').show();

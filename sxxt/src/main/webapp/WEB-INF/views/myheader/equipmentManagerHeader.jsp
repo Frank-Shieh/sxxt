@@ -29,7 +29,7 @@
 			<li class="header">MAIN NAVIGATION</li>
 
 			<!-- 学校人员导航列表 -->
-			<li class="treeview"><a href="#"> <i class="fa fa-child"
+			<!-- 	<li class="treeview"><a href="#"> <i class="fa fa-child"
 					aria-hidden="true"></i> <span>学校人员管理</span> <span
 					class="pull-right-container"> <i
 						class="fa fa-angle-left pull-right"></i>
@@ -63,7 +63,7 @@
 							<li><a href="#"><i class="fa fa-circle-o"></i>导入班级人员信息</a></li>
 						</ul></li>
 
-				</ul></li>
+				</ul></li> -->
 
 			<!-- 实训公司信息导航列表 -->
 			<li class="treeview"><a href="#"> <i class="fa fa-child"
@@ -78,7 +78,7 @@
 								class="fa fa-angle-left pull-right"></i>
 						</span> </a>
 						<ul class="treeview-menu">
-							<li><a href="/company/add"><i class="fa fa-circle-o"></i>添加实训公司信息</a></li>
+							<!-- <li><a href="/company/add"><i class="fa fa-circle-o"></i>添加实训公司信息</a></li> -->
 							<li><a href="/company/list"><i class="fa fa-circle-o"></i>查看实训公司列表</a></li>
 						</ul></li>
 					<li><a href="#"><i class="fa fa-circle-o"></i> 实训场地信息管理 <span
@@ -86,21 +86,30 @@
 								class="fa fa-angle-left pull-right"></i>
 						</span> </a>
 						<ul class="treeview-menu">
-							<li><a href="/site/add"><i class="fa fa-circle-o"></i>添加实训场地信息</a></li>
+							<!-- 	<li><a href="/site/add"><i class="fa fa-circle-o"></i>添加实训场地信息</a></li> -->
 							<li><a href="/site/list"><i class="fa fa-circle-o"></i>查看实训场地列表</a></li>
+							<!-- 	<li><a href="/site/rentAndAssign"><i
+									class="fa fa-circle-o"></i>场地租借与分配管理</a></li> -->
+
 						</ul></li>
-					<li><a href="#"><i class="fa fa-circle-o"></i> 场地设备信息管理 <span
+						<li><a href="#"><i class="fa fa-circle-o"></i> 场地设备信息管理 <span
 							class="pull-right-container"> <i
 								class="fa fa-angle-left pull-right"></i>
 						</span> </a>
 						<ul class="treeview-menu">
-							<li><a href="/equipment/add"><i class="fa fa-circle-o"></i>添加场地设备信息</a></li>
-							<li><a href="/equipment/list"><i class="fa fa-circle-o"></i>查看场地设备列表</a></li>
-						</ul></li>
+							<li><a href="/equipmentInfo/add"><i
+									class="fa fa-circle-o"></i>添加场地设备信息</a></li>
+							<li><a href="/equipmentInfo/list"><i
+									class="fa fa-circle-o"></i>查看场地设备列表</a></li>
+							<li><a href="/equipmentInfo/rentAndAssign"><i
+									class="fa fa-circle-o"></i>设备租借与分配管理</a></li>
+							<li><a href="/equipmentInspection/add"><i
+									class="fa fa-circle-o"></i>添加设备年检信息</a></li>
+						</ul></li> 
 				</ul></li>
 
 			<!-- 实训公司人员导航列表 -->
-			<li class="treeview"><a href="#"> <i class="fa fa-child"
+			<!-- 	<li class="treeview"><a href="#"> <i class="fa fa-child"
 					aria-hidden="true"></i> <span>实训公司人员管理</span> <span
 					class="pull-right-container"> <i
 						class="fa fa-angle-left pull-right"></i>
@@ -146,11 +155,20 @@
 							<li><a href="/educationManager/list"><i
 									class="fa fa-circle-o"></i>查看教务主管列表</a></li>
 						</ul></li>
-
-				</ul></li>
+					<li><a href="#"><i class="fa fa-circle-o"></i> 系统管理员信息 <span
+							class="pull-right-container"> <i
+								class="fa fa-angle-left pull-right"></i>
+						</span> </a>
+						<ul class="treeview-menu">
+							<li><a href="/systemManager/add"><i
+									class="fa fa-circle-o"></i>添加系统管理员信息</a></li>
+							<li><a href="/systemManager/list"><i
+									class="fa fa-circle-o"></i>查看系统管理员列表</a></li>
+						</ul></li>
+				</ul></li> -->
 
 			<!-- 资料共享平台 -->
-			<li class="treeview"><a href="#"> <i class="fa fa-book"
+		<%-- 	<li class="treeview"><a href="#"> <i class="fa fa-book"
 					aria-hidden="true"></i> <span>资料共享平台</span> <span
 					class="pull-right-container"> <i
 						class="fa fa-angle-left pull-right"></i>
@@ -166,10 +184,11 @@
 							<li><a href="#"><i class="fa fa-circle-o"></i>共享资料</a></li>
 						</ul></li>
 					<li><a href="/dataInfo/list"><i class="fa fa-circle-o"></i>浏览共享资料</a></li>
-					<li><a href="/dataInfo/listMyself/${user.id}/${user.role.id}"><i class="fa fa-circle-o"></i>自己的资料</a></li>
-				</ul></li>
+					<li><a href="/dataInfo/listMyself/${user.id}/${user.role.id}"><i
+							class="fa fa-circle-o"></i>自己的资料</a></li>
+				</ul></li> --%>
 			<!-- 实训教学安排 -->
-			<li class="treeview"><a href="#"> <i class="fa fa-file"
+		<!-- 	<li class="treeview"><a href="#"> <i class="fa fa-file"
 					aria-hidden="true"></i> <span>实训教学安排</span> <span
 					class="pull-right-container"> <i
 						class="fa fa-angle-left pull-right"></i>
@@ -186,8 +205,7 @@
 							<li><a href="/teachingTask/list"><i
 									class="fa fa-circle-o"></i>实训教学任务列表</a></li>
 						</ul></li>
-				</ul>
-				<ul class="treeview-menu">
+				</ul> 	<ul class="treeview-menu">
 					<li><a href="#"><i class="fa fa-circle-o"></i>实训训练任务 <span
 							class="pull-right-container"> <i
 								class="fa fa-angle-left pull-right"></i>
@@ -210,10 +228,10 @@
 							<li><a href="/allocateClass/list"><i
 									class="fa fa-circle-o"></i>班级教师分配列表</a></li>
 						</ul></li>
-				</ul></li>
+				</ul></li> -->
 
 			<!-- 学生实训情况 -->
-			<li class="treeview"><a href="#"> <i class="fa fa-file"
+			<!-- <li class="treeview"><a href="#"> <i class="fa fa-file"
 					aria-hidden="true"></i> <span>学生实训情况</span> <span
 					class="pull-right-container"> <i
 						class="fa fa-angle-left pull-right"></i>
@@ -226,7 +244,7 @@
 								class="fa fa-angle-left pull-right"></i>
 						</span> </a>
 						<ul class="treeview-menu">
-							<li><a href="/reportAndSummary/add"><i
+								<li><a href="/reportAndSummary/add"><i
 									class="fa fa-circle-o"></i>学生撰写报告</a></li>
 							<li><a href="/reportAndSummary/list"><i
 									class="fa fa-circle-o"></i>学生报告列表</a></li>
@@ -236,20 +254,23 @@
 								class="fa fa-angle-left pull-right"></i>
 						</span> </a>
 						<ul class="treeview-menu">
-							<li><a href="/studentScore/add"><i
+								<li><a href="/studentScore/add"><i
 									class="fa fa-circle-o"></i>添加学生实训成绩</a></li>
 							<li><a href="/studentScore/listClass"><i
 									class="fa fa-circle-o"></i>学生实训成绩列表</a></li>
 						</ul></li>
-					<li><a href="#"><i class="fa fa-circle-o"></i>学生出勤情况 <span
+					<li><a href="#"><i class="fa fa-circle-o"></i>教师评价情况 <span
 							class="pull-right-container"> <i
 								class="fa fa-angle-left pull-right"></i>
 						</span> </a>
 						<ul class="treeview-menu">
-							<li><a href="#"><i class="fa fa-circle-o"></i>学生出勤情况</a></li>
-							<li><a href="#"><i class="fa fa-circle-o"></i>出勤情况统计</a></li>
+								<li><a href="/teacherComment/add"><i
+									class="fa fa-circle-o"></i>添加教师评价情况</a></li>
+							<li><a href="/teacherComment/listAll"> <i
+									class="fa fa-circle-o"></i>教师评价情况列表
+							</a></li>
 						</ul></li>
-				</ul></li>
+				</ul></li> -->
 			<li class="header">INFORMATION</li>
 			<li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>通知与公告</span></a></li>
 			<!-- 个人中心 -->

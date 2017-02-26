@@ -2,6 +2,7 @@ package sxxt.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -19,12 +20,14 @@ import sxxt.entity.EquipmentManager;
 import sxxt.entity.SchoolTeacher;
 import sxxt.entity.SiteManager;
 import sxxt.entity.Student;
+import sxxt.entity.SystemManager;
 import sxxt.entity.TrainningTeacher;
 import sxxt.service.interfaces.EducationManagerService;
 import sxxt.service.interfaces.EquipmentManagerService;
 import sxxt.service.interfaces.SchoolTeacherService;
 import sxxt.service.interfaces.SiteManagerService;
 import sxxt.service.interfaces.StudentService;
+import sxxt.service.interfaces.SystemManagerService;
 import sxxt.service.interfaces.TrainningTeacherService;
 
 @Controller
@@ -44,7 +47,8 @@ public class UserLoginController {
 	private SiteManagerService siteManagerService;
 	@Autowired
 	private TrainningTeacherService trainningTeacherService;
-
+	@Autowired
+	private SystemManagerService systemManagerService;
 
 	@RequestMapping("/login")
 	public String login(Model model, HttpServletRequest req) {
@@ -56,7 +60,7 @@ public class UserLoginController {
 		roleList.add(3, "设备管理员");
 		roleList.add(4, "场地管理员");
 		roleList.add(5, "培训教师");
-
+		roleList.add(6, "系统管理员");
 		model.addAttribute("roleList", roleList);
 		return "/login/login";
 	}
@@ -71,7 +75,7 @@ public class UserLoginController {
 				SchoolTeacher schoolTeacher = schoolTeacherService.findByCode(code);
 				if (schoolTeacher.getPassword().equals(password)) {
 					httpSession.setAttribute("user", schoolTeacher);
-					httpSession.setAttribute("myheader", "../PowerManage/header.jsp");
+					httpSession.setAttribute("myheader", "../myheader/schoolTeacherHeader.jsp");
 					return "redirect:/class/list";
 				} else {
 					model.addAttribute("errorMsg", errorMsg);
@@ -81,8 +85,8 @@ public class UserLoginController {
 				Student student = studentService.findByCode(code);
 				if (student.getPassword().equals(password)) {
 					httpSession.setAttribute("user", student);
-					httpSession.setAttribute("myheader", "../PowerManage/header.jsp");
-					return "redirect:/class/list";
+					httpSession.setAttribute("myheader", "../myheader/studentHeader.jsp");
+					return "redirect:/trainningTask/list";
 				} else {
 					model.addAttribute("errorMsg", errorMsg);
 					return "forward:/login";
@@ -91,8 +95,8 @@ public class UserLoginController {
 				EducationManager educationManager = educationManagerService.findByCode(code);
 				if (educationManager.getPassword().equals(password)) {
 					httpSession.setAttribute("user", educationManager);
-					httpSession.setAttribute("myheader", "../PowerManage/header.jsp");
-					return "redirect:/class/list";
+					httpSession.setAttribute("myheader", "../myheader/educationManagerHeader.jsp");
+					return "redirect:/teachingTask/list";
 				} else {
 					model.addAttribute("errorMsg", errorMsg);
 					return "forward:/login";
@@ -101,8 +105,8 @@ public class UserLoginController {
 				EquipmentManager equipmentManager = equipmentManagerService.findByCode(code);
 				if (equipmentManager.getPassword().equals(password)) {
 					httpSession.setAttribute("user", equipmentManager);
-					httpSession.setAttribute("myheader", "../PowerManage/header.jsp");
-					return "redirect:/class/list";
+					httpSession.setAttribute("myheader", "../myheader/equipmentManagerHeader.jsp");
+					return "redirect:/equipmentInfo/list";
 				} else {
 					model.addAttribute("errorMsg", errorMsg);
 					return "forward:/login";
@@ -111,8 +115,8 @@ public class UserLoginController {
 				SiteManager siteManager = siteManagerService.findByCode(code);
 				if (siteManager.getPassword().equals(password)) {
 					httpSession.setAttribute("user", siteManager);
-					httpSession.setAttribute("myheader", "../PowerManage/header.jsp");
-					return "redirect:/class/list";
+					httpSession.setAttribute("myheader", "../myheader/siteManagerHeader.jsp");
+					return "redirect:/site/list";
 				} else {
 					model.addAttribute("errorMsg", errorMsg);
 					return "forward:/login";
@@ -121,8 +125,18 @@ public class UserLoginController {
 				TrainningTeacher trainningTeacher = trainningTeacherService.findByCode(code);
 				if (trainningTeacher.getPassword().equals(password)) {
 					httpSession.setAttribute("user", trainningTeacher);
-					httpSession.setAttribute("myheader", "../PowerManage/header.jsp");
-					return "redirect:/class/list";
+					httpSession.setAttribute("myheader", "../myheader/trainningTeacherHeader.jsp");
+					return "redirect:/trainningTask/list";
+				} else {
+					model.addAttribute("errorMsg", errorMsg);
+					return "forward:/login";
+				}
+			case 7: // 系统管理员登陆
+				SystemManager systemManager = systemManagerService.findByCode(code);
+				if (systemManager.getPassword().equals(password)) {
+					httpSession.setAttribute("user", systemManager);
+					httpSession.setAttribute("myheader", "../myheader/systemManagerHeader.jsp");
+					return "redirect:/company/list";
 				} else {
 					model.addAttribute("errorMsg", errorMsg);
 					return "forward:/login";
