@@ -17,5 +17,7 @@ public interface SchoolTeacherService {
 
 	SchoolTeacher findByCode(String code);
 
+	int updatePassword(String code, String password);
+
 	int delSchoolTeacher(int id);
 }

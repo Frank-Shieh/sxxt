@@ -16,6 +16,7 @@ public interface EducationManagerService {
 	EducationManager findById(int id);
 
 	EducationManager findByCode(String code);
+	int updatePassword(String code, String password);
 
 	int delEducationManager(int id);
 }

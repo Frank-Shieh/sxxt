@@ -16,8 +16,10 @@
 		role_table.`name` AS `role.name`
 		FROM
 		site_manager
-		INNER JOIN company_info ON site_manager.company_id = company_info.id
-		INNER JOIN role_table ON site_manager.role_id = role_table.id
+		INNER JOIN company_info ON site_manager.company_id =
+		company_info.id
+		INNER JOIN role_table ON site_manager.role_id =
+		role_table.id
 		WHERE
 		site_manager.id = #{id}
 		AND
@@ -134,7 +136,15 @@
 		WHERE
 		(`id` = #{id});
 	</update>
+	<update id="updatePassword" parameterType="String" flushCache="true">
 
+		UPDATE `sxxt`.`site_manager`
+		SET
+		`password` = #{password}
+		WHERE
+		(`code`
+		LIKE #{code});
+	</update>
 	<update id="delSiteManager" parameterType="int" flushCache="true">
 		UPDATE `sxxt`.`site_manager`
 		<set>

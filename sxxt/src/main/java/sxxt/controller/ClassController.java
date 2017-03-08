@@ -38,7 +38,7 @@ public class ClassController {
 			List<Class> result = classService.findAll();
 			model.addAttribute("result", result);
 			model.addAttribute("user", httpSession.getAttribute("user"));
-			model.addAttribute("myheader", httpSession.getAttribute("myheader"));
+		//	model.addAttribute("myheader", httpSession.getAttribute("myheader"));
 			return "classManage/listClass";
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

@@ -29,7 +29,7 @@
 			<li class="header">MAIN NAVIGATION</li>
 
 			<!-- 学校人员导航列表 -->
-			<!-- <li class="treeview"><a href="#"> <i class="fa fa-child"
+			 <li class="treeview"><a href="#"> <i class="fa fa-child"
 					aria-hidden="true"></i> <span>学校人员管理</span> <span
 					class="pull-right-container"> <i
 						class="fa fa-angle-left pull-right"></i>
@@ -46,24 +46,24 @@
 							<li><a href="/schoolTeacher/list"><i
 									class="fa fa-circle-o"></i>查看学校教师列表</a></li>
 						</ul></li>
-					<li><a href="#"><i class="fa fa-circle-o"></i> 学校班级信息 <span
+					<!-- <li><a href="#"><i class="fa fa-circle-o"></i> 学校班级信息 <span
 							class="pull-right-container"> <i
 								class="fa fa-angle-left pull-right"></i>
 						</span> </a>
 						<ul class="treeview-menu">
 							<li><a href="/class/addClass"><i class="fa fa-circle-o"></i>添加班级信息</a></li>
 							<li><a href="/class/list"><i class="fa fa-circle-o"></i>查看班级列表</a></li>
-						</ul></li>
-					<li><a href="#"><i class="fa fa-circle-o"></i> 添加学生信息 <span
+						</ul></li> -->
+				<!-- 	<li><a href="#"><i class="fa fa-circle-o"></i> 添加学生信息 <span
 							class="pull-right-container"> <i
 								class="fa fa-angle-left pull-right"></i>
 						</span> </a>
 						<ul class="treeview-menu">
 							<li><a href="/student/add"><i class="fa fa-circle-o"></i>添加单个学生信息</a></li>
 							<li><a href="#"><i class="fa fa-circle-o"></i>导入班级人员信息</a></li>
-						</ul></li>
+						</ul></li> -->
 
-				</ul></li> -->
+				</ul></li> 
 
 			<!-- 实训公司信息导航列表 -->
 			<li class="treeview"><a href="#"> <i class="fa fa-child"

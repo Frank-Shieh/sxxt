@@ -75,6 +75,7 @@ public class UserLoginController {
 				SchoolTeacher schoolTeacher = schoolTeacherService.findByCode(code);
 				if (schoolTeacher.getPassword().equals(password)) {
 					httpSession.setAttribute("user", schoolTeacher);
+					httpSession.setAttribute("role", 1);
 					httpSession.setAttribute("myheader", "../myheader/schoolTeacherHeader.jsp");
 					return "redirect:/class/list";
 				} else {
@@ -85,6 +86,7 @@ public class UserLoginController {
 				Student student = studentService.findByCode(code);
 				if (student.getPassword().equals(password)) {
 					httpSession.setAttribute("user", student);
+					httpSession.setAttribute("role", 2);
 					httpSession.setAttribute("myheader", "../myheader/studentHeader.jsp");
 					return "redirect:/trainningTask/list";
 				} else {
@@ -95,6 +97,7 @@ public class UserLoginController {
 				EducationManager educationManager = educationManagerService.findByCode(code);
 				if (educationManager.getPassword().equals(password)) {
 					httpSession.setAttribute("user", educationManager);
+					httpSession.setAttribute("role", 3);
 					httpSession.setAttribute("myheader", "../myheader/educationManagerHeader.jsp");
 					return "redirect:/teachingTask/list";
 				} else {
@@ -105,6 +108,7 @@ public class UserLoginController {
 				EquipmentManager equipmentManager = equipmentManagerService.findByCode(code);
 				if (equipmentManager.getPassword().equals(password)) {
 					httpSession.setAttribute("user", equipmentManager);
+					httpSession.setAttribute("role", 4);
 					httpSession.setAttribute("myheader", "../myheader/equipmentManagerHeader.jsp");
 					return "redirect:/equipmentInfo/list";
 				} else {
@@ -115,6 +119,7 @@ public class UserLoginController {
 				SiteManager siteManager = siteManagerService.findByCode(code);
 				if (siteManager.getPassword().equals(password)) {
 					httpSession.setAttribute("user", siteManager);
+					httpSession.setAttribute("role", 5);
 					httpSession.setAttribute("myheader", "../myheader/siteManagerHeader.jsp");
 					return "redirect:/site/list";
 				} else {
@@ -125,6 +130,7 @@ public class UserLoginController {
 				TrainningTeacher trainningTeacher = trainningTeacherService.findByCode(code);
 				if (trainningTeacher.getPassword().equals(password)) {
 					httpSession.setAttribute("user", trainningTeacher);
+					httpSession.setAttribute("role", 6);
 					httpSession.setAttribute("myheader", "../myheader/trainningTeacherHeader.jsp");
 					return "redirect:/trainningTask/list";
 				} else {
@@ -135,6 +141,7 @@ public class UserLoginController {
 				SystemManager systemManager = systemManagerService.findByCode(code);
 				if (systemManager.getPassword().equals(password)) {
 					httpSession.setAttribute("user", systemManager);
+					httpSession.setAttribute("role", 7);
 					httpSession.setAttribute("myheader", "../myheader/systemManagerHeader.jsp");
 					return "redirect:/company/list";
 				} else {

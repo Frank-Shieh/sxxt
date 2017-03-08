@@ -55,5 +55,10 @@ public class SystemManagerServiceImpl implements SystemManagerService {
 		int result = systemManagerDao.delSystemManger(id);
 		return result;
 	}
-
+	@Override
+	public int updatePassword(String code, String password) {
+		// TODO Auto-generated method stub
+		int result = systemManagerDao.updatePassword(code,password);
+		return result;
+	}
 }

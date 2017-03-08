@@ -16,6 +16,7 @@ public interface TrainningTeacherService {
 	TrainningTeacher findByCode(String code);
 
 	List<TrainningTeacher> findByCompanyId(int id);
+	int updatePassword(String code, String password);
 
 	int delTrainningTeacher(int id);
 }

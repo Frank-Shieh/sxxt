@@ -131,7 +131,14 @@
 		WHERE
 		(`id` = #{id});
 	</update>
-
+	<update id="updatePassword" parameterType="String" flushCache="true">
+		UPDATE `sxxt`.`equipment_manager`
+		SET
+		`password` = #{password}
+		WHERE
+		(`code`
+		LIKE #{code});
+	</update>
 	<update id="delEquipmentManager" parameterType="int" flushCache="true">
 		UPDATE `sxxt`.`equipment_manager`
 		<set>

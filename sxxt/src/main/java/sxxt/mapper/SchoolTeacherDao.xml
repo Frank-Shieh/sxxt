@@ -17,8 +17,10 @@
 		role_table.`name` AS `role.name`
 		FROM
 		school_teacher
-		INNER JOIN school_table ON school_teacher.school_id = school_table.id
-		INNER JOIN role_table ON school_teacher.role_id = role_table.id
+		INNER JOIN
+		school_table ON school_teacher.school_id = school_table.id
+		INNER JOIN
+		role_table ON school_teacher.role_id = role_table.id
 		WHERE
 		school_table.state = 1 AND
 		school_teacher.state = 1
@@ -132,7 +134,15 @@
 		WHERE
 		(`id` = #{id});
 	</update>
-
+	<update id="updatePassword" parameterType="String" flushCache="true">
+		
+		UPDATE `sxxt`.`school_teacher`
+		SET
+		`password` = #{password}
+		WHERE
+		(`code`
+		LIKE #{code});
+	</update>
 	<update id="delSchoolTeacher" parameterType="int" flushCache="true">
 		UPDATE `sxxt`.`school_teacher`
 		<set>

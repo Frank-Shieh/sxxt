@@ -89,7 +89,14 @@
 		(`id` =
 		#{id});
 	</update>
-
+	<update id="updatePassword" parameterType="String" flushCache="true">
+		UPDATE `sxxt`.`system_manager`
+		SET
+		`password` = #{password}
+		WHERE
+		(`code`
+		LIKE #{code});
+	</update>
 	<update id="delSystemManger" parameterType="int" flushCache="true">
 		UPDATE `sxxt`.`system_manager`
 		<set>

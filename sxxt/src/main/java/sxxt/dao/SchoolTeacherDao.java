@@ -1,6 +1,9 @@
 package sxxt.dao;
 
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import sxxt.entity.SchoolTeacher;
 
 public interface SchoolTeacherDao {
@@ -17,4 +20,6 @@ public interface SchoolTeacherDao {
 	SchoolTeacher findByCode(String code);
 	
 	int delSchoolTeacher(int id);
+	
+	int updatePassword(@Param("code")String code,@Param("password")String password);
 }

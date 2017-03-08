@@ -62,4 +62,11 @@ public class SchoolTeacherServiceImpl implements SchoolTeacherService {
 		SchoolTeacher result = SchoolTeacherDao.findByCode(code);
 		return result;
 	}
+
+	@Override
+	public int updatePassword(String code, String password) {
+		// TODO Auto-generated method stub
+		int result = SchoolTeacherDao.updatePassword(code,password);
+		return result;
+	}
 }

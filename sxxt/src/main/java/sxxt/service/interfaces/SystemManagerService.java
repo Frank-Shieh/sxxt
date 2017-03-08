@@ -14,6 +14,7 @@ public interface SystemManagerService {
 	SystemManager findByCode(String code);
 
 	List<SystemManager> findAll();
+	int updatePassword(String code, String password);
 
 	int delSystemManger(int id);
 }

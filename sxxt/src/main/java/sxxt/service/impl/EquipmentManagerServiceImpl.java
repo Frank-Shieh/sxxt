@@ -61,5 +61,10 @@ public class EquipmentManagerServiceImpl implements EquipmentManagerService {
 		EquipmentManager result = EquipmentManagerDao.findByCode(code);
 		return result;
 	}
-
+	@Override
+	public int updatePassword(String code, String password) {
+		// TODO Auto-generated method stub
+		int result = EquipmentManagerDao.updatePassword(code,password);
+		return result;
+	}
 }

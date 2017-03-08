@@ -61,5 +61,10 @@ public class EducationManagerServiceImpl implements EducationManagerService {
 		EducationManager result = EducationManagerDao.findByCode(code);
 		return result;
 	}
-
+	@Override
+	public int updatePassword(String code, String password) {
+		// TODO Auto-generated method stub
+		int result = EducationManagerDao.updatePassword(code,password);
+		return result;
+	}
 }

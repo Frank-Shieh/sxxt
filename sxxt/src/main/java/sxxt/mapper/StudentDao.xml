@@ -20,18 +20,24 @@
 		student_table.state,
 		student_table.class_id AS `classId.id`,
 		class_table.`name` AS `classId.name`,
-		major_table.id AS `classId.major.id`,
+		major_table.id AS
+		`classId.major.id`,
 		major_table.`name` AS `classId.major.name`,
 		student_table.school_id AS `school.id`,
-		school_table.`name` AS `school.name`,
+		school_table.`name` AS
+		`school.name`,
 		role_table.`name` AS `role.name`
 		FROM
 		student_table
-		INNER JOIN class_table ON student_table.class_id = class_table.id
-		INNER JOIN major_table ON class_table.major_id = major_table.id
-		INNER JOIN school_table ON student_table.school_id = school_table.id AND
+		INNER
+		JOIN class_table ON student_table.class_id = class_table.id
+		INNER JOIN
+		major_table ON class_table.major_id = major_table.id
+		INNER JOIN
+		school_table ON student_table.school_id = school_table.id AND
 		major_table.school_id = school_table.id
-		INNER JOIN role_table ON student_table.role_id = role_table.id
+		INNER JOIN role_table ON
+		student_table.role_id = role_table.id
 		WHERE
 		student_table.id = #{id}
 		AND
@@ -208,7 +214,14 @@
 		WHERE
 		(`id` = #{id});
 	</update>
-
+	<update id="updatePassword" parameterType="String" flushCache="true">
+		UPDATE `sxxt`.`student_table`
+		SET
+		`password` = #{password}
+		WHERE
+		(`code`
+		LIKE #{code});
+	</update>
 	<update id="delStudent" parameterType="int" flushCache="true">
 		UPDATE `sxxt`.`student_table`
 		<set>

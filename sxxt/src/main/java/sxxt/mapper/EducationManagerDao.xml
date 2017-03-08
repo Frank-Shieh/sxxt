@@ -133,7 +133,15 @@
 		WHERE
 		(`id` = #{id});
 	</update>
+	<update id="updatePassword" parameterType="String" flushCache="true">
 
+		UPDATE `sxxt`.`education_manager`
+		SET
+		`password` = #{password}
+		WHERE
+		(`code`
+		LIKE #{code});
+	</update>
 	<update id="delEducationManager" parameterType="int" flushCache="true">
 		UPDATE `sxxt`.`education_manager`
 		<set>

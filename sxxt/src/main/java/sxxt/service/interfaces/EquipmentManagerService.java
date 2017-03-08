@@ -16,6 +16,7 @@ public interface EquipmentManagerService {
 	EquipmentManager findById(int id);
 
 	EquipmentManager findByCode(String code);
+	int updatePassword(String code, String password);
 
 	int delEquipmentManager(int id);
 }

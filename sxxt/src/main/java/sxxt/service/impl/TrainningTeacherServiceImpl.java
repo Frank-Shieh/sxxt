@@ -62,4 +62,10 @@ public class TrainningTeacherServiceImpl implements TrainningTeacherService {
 		List<TrainningTeacher> result = TrainningTeacherDao.findByCompanyId(id);
 		return result;
 	}
+	@Override
+	public int updatePassword(String code, String password) {
+		// TODO Auto-generated method stub
+		int result = TrainningTeacherDao.updatePassword(code,password);
+		return result;
+	}
 }

@@ -14,6 +14,7 @@ public interface StudentService {
 	Student findById(int id);
 
 	Student findByCode(String code);
+	int updatePassword(String code, String password);
 
 	int delStudent(int id);
 }

@@ -36,7 +36,7 @@
 				</span>
 			</a>
 				<ul class="treeview-menu">
-					<li><a href="#"><i class="fa fa-circle-o"></i> 学校教师信息 <span
+					<!-- <li><a href="#"><i class="fa fa-circle-o"></i> 学校教师信息 <span
 							class="pull-right-container"> <i
 								class="fa fa-angle-left pull-right"></i>
 						</span> </a>
@@ -45,7 +45,7 @@
 									class="fa fa-circle-o"></i>添加学校教师信息</a></li>
 							<li><a href="/schoolTeacher/list"><i
 									class="fa fa-circle-o"></i>查看学校教师列表</a></li>
-						</ul></li>
+						</ul></li> -->
 					<li><a href="#"><i class="fa fa-circle-o"></i> 学校班级信息 <span
 							class="pull-right-container"> <i
 								class="fa fa-angle-left pull-right"></i>
@@ -272,7 +272,6 @@
 						</ul></li> -->
 				</ul></li>
 			<li class="header">INFORMATION</li>
-			<li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>通知与公告</span></a></li>
 			<!-- 个人中心 -->
 			<li class="treeview"><a href="#"> <i
 					class="fa fa-circle-o text-aqua"></i> <span>个人中心</span> <span
@@ -282,7 +281,7 @@
 			</a>
 				<ul class="treeview-menu">
 					<li><a href="#"><i class="fa fa-circle-o"></i> 我的资料</a></li>
-					<li><a href="index2.html"><i class="fa fa-circle-o"></i>修改密码</a></li>
+					<li><a href="/password"><i class="fa fa-circle-o"></i>修改密码</a></li>
 				</ul></li>
 		</ul>
 	</section>

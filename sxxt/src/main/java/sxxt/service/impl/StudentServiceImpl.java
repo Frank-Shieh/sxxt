@@ -55,5 +55,10 @@ public class StudentServiceImpl implements StudentService {
 		Student result = studentDao.findByCode(code);
 		return result;
 	}
-
+	@Override
+	public int updatePassword(String code, String password) {
+		// TODO Auto-generated method stub
+		int result = studentDao.updatePassword(code,password);
+		return result;
+	}
 }

@@ -61,5 +61,10 @@ public class SiteManagerServiceImpl implements SiteManagerService {
 		SiteManager result = siteManagerDao.findByCode(code);
 		return result;
 	}
-
+	@Override
+	public int updatePassword(String code, String password) {
+		// TODO Auto-generated method stub
+		int result = siteManagerDao.updatePassword(code,password);
+		return result;
+	}
 }

@@ -16,6 +16,7 @@ public interface SiteManagerService {
 	SiteManager findById(int id);
 
 	SiteManager findByCode(String code);
+	int updatePassword(String code, String password);
 
 	int delSiteManager(int id);
 }
