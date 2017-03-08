@@ -75,8 +75,6 @@
 											<th>联系电话</th>
 											<th>详情</th>
 											<!-- <th>查看</th> -->
-											<th>修改</th>
-											<th>删除</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -85,13 +83,9 @@
 												<td>${result.name}</td>
 												<td>${result.phone}</td>
 												<td><a class="btn btn-info"
-													href="/company/view?id=${result.id}">详情</a></td>
+													href="/company/viewOnly?id=${result.id}">详情</a></td>
 												<%-- <td><a class="btn btn-info"
-													href="/site/list?id=${result.id}">查看</a></td> --%>
-												<td><a href="/company/edit?id=${result.id}"
-													class="btn btn-primary">修改</a></td>
-												<td><a class="btn btn-danger"
-													onclick="delCompany(${result.id})">删除</a></td>
+													href="/site/listByCompanyId?id=${result.id}">查看</a></td> --%>
 											</tr>
 										</c:forEach>
 									</tbody>

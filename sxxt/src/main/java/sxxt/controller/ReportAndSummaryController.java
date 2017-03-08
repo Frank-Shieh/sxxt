@@ -83,7 +83,17 @@ public class ReportAndSummaryController {
 		}
 		return "ReportAndSummary/listReportAndSummary";
 	}
-
+	// 请求跳转到添加总结
+	@RequestMapping(value = "listOnly")
+	public String listOnly(Model model) {
+		List<ReportAndSummary> result = reportAndSummaryService.findAll();
+		if (result.size() == 0) {
+			model.addAttribute("errorMsg", "暂无报告与总结信息");
+		} else {
+			model.addAttribute("result", result);
+		}
+		return "ReportAndSummary/listOnly";
+	}
 	// 请求跳转到查看学校教师信息
 	@RequestMapping(value = "view")
 	public String view(int id, Model model) {
@@ -92,7 +102,14 @@ public class ReportAndSummaryController {
 		model.addAttribute("result", result);
 		return "ReportAndSummary/viewReportAndSummary";
 	}
-
+	// 请求跳转到查看学校教师信息
+		@RequestMapping(value = "viewOnly")
+		public String viewOnly(int id, Model model) {
+			ReportAndSummary result = reportAndSummaryService.findById(id);
+			System.out.println(result);
+			model.addAttribute("result", result);
+			return "ReportAndSummary/viewOnly";
+		}
 	// 教师评价学生总结
 	@RequestMapping(value = "comment")
 	public String comment(int id, Model model) {

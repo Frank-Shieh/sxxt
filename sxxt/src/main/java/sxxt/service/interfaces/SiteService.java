@@ -16,7 +16,7 @@ public interface SiteService {
 	Site findById(int id);
 
 	List<Site> findAll();
-
+	List<Site> findByCompanyId(int id);
 	int delSite(int id);
 
 	int delState(int id);

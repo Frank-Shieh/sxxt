@@ -45,7 +45,27 @@ public class SiteController {
 		}
 		return "siteManage/listSite";
 	}
-
+	@RequestMapping(value = "listOnly")
+	public String listOnly(Model model) {
+		List<Site> result = siteService.findAll();
+		if (result.size() == 0) {
+			model.addAttribute("errorMsg", "暂无场地信息");
+		} else {
+			model.addAttribute("result", result);
+		}
+		return "siteManage/listOnly";
+	}
+	// 请求跳转到场地信息列表
+		@RequestMapping(value = "listByCompanyId")
+		public String listByCompanyId(int id,Model model) {
+			List<Site> result = siteService.findByCompanyId(id);
+			if (result.size() == 0) {
+				model.addAttribute("errorMsg", "暂无场地信息");
+			} else {
+				model.addAttribute("result", result);
+			}
+			return "siteManage/listByCompanyId";
+		}
 	// 请求跳转到场地信息列表
 	@RequestMapping(value = "rentAndAssign")
 	public String rentAndAssign(Model model) {
@@ -67,6 +87,15 @@ public class SiteController {
 		System.out.println(result);
 		model.addAttribute("result", result);
 		return "siteManage/viewSite";
+	}
+
+	// 请求跳转到查看场地信息
+	@RequestMapping(value = "viewOnly")
+	public String viewOnly(int id, Model model) {
+		Site result = siteService.findById(id);
+		System.out.println(result);
+		model.addAttribute("result", result);
+		return "siteManage/viewOnly";
 	}
 
 	// 请求跳转到添加场地管理员信息

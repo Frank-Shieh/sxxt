@@ -73,4 +73,11 @@ public class SiteServiceImpl implements SiteService {
 		int result = SiteDao.delState(id);
 		return result;
 	}
+
+	@Override
+	public List<Site> findByCompanyId(int id) {
+		// TODO Auto-generated method stub
+		List<Site> result = SiteDao.findByCompanyId(id);
+		return result;
+	}
 }

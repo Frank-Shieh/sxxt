@@ -54,14 +54,15 @@
 							<li><a href="/class/addClass"><i class="fa fa-circle-o"></i>添加班级信息</a></li>
 							<li><a href="/class/list"><i class="fa fa-circle-o"></i>查看班级列表</a></li>
 						</ul></li>
-					<li><a href="#"><i class="fa fa-circle-o"></i> 添加学生信息 <span
+						<li><a href="/student/add"><i class="fa fa-circle-o"></i>添加学生信息</a></li>
+					<!-- <li><a href="/student/add"><i class="fa fa-circle-o"></i> 添加学生信息 <span
 							class="pull-right-container"> <i
 								class="fa fa-angle-left pull-right"></i>
 						</span> </a>
-						<ul class="treeview-menu">
+					 	<ul class="treeview-menu">
 							<li><a href="/student/add"><i class="fa fa-circle-o"></i>添加单个学生信息</a></li>
 							<li><a href="#"><i class="fa fa-circle-o"></i>导入班级人员信息</a></li>
-						</ul></li>
+						</ul> </li> -->
 
 				</ul></li>
 
@@ -79,7 +80,7 @@
 						</span> </a>
 						<ul class="treeview-menu">
 							<!-- <li><a href="/company/add"><i class="fa fa-circle-o"></i>添加实训公司信息</a></li> -->
-							<li><a href="/company/list"><i class="fa fa-circle-o"></i>查看实训公司列表</a></li>
+							<li><a href="/company/listOnly"><i class="fa fa-circle-o"></i>查看实训公司列表</a></li>
 						</ul></li>
 					<li><a href="#"><i class="fa fa-circle-o"></i> 实训场地信息管理 <span
 							class="pull-right-container"> <i
@@ -87,7 +88,7 @@
 						</span> </a>
 						<ul class="treeview-menu">
 						<!-- 	<li><a href="/site/add"><i class="fa fa-circle-o"></i>添加实训场地信息</a></li> -->
-							<li><a href="/site/list"><i class="fa fa-circle-o"></i>查看实训场地列表</a></li>
+							<li><a href="/site/listOnly"><i class="fa fa-circle-o"></i>查看实训场地列表</a></li>
 						<!-- 	<li><a href="/site/rentAndAssign"><i
 									class="fa fa-circle-o"></i>场地租借与分配管理</a></li> -->
 
@@ -181,11 +182,11 @@
 						</span> </a>
 						<ul class="treeview-menu">
 							<li><a href="/dataInfo/add"><i class="fa fa-circle-o"></i>上传资料</a></li>
-							<li><a href="#"><i class="fa fa-circle-o"></i>共享资料</a></li>
+							<li><a href="/dataInfo/listMyself/${user.id}/${user.role.id}"><i class="fa fa-circle-o"></i>自己的资料</a></li>
 						</ul></li>
 					<li><a href="/dataInfo/list"><i class="fa fa-circle-o"></i>浏览共享资料</a></li>
-					<li><a href="/dataInfo/listMyself/${user.id}/${user.role.id}"><i
-							class="fa fa-circle-o"></i>自己的资料</a></li>
+				<%-- 	<li><a href="/dataInfo/listMyself/${user.id}/${user.role.id}"><i
+							class="fa fa-circle-o"></i>自己的资料</a></li> --%>
 				</ul></li>
 			<!-- 实训教学安排 -->
 		<!-- 	<li class="treeview"><a href="#"> <i class="fa fa-file"
@@ -247,7 +248,7 @@
 						<ul class="treeview-menu">
 						<!-- 	<li><a href="/reportAndSummary/add"><i
 									class="fa fa-circle-o"></i>学生撰写报告</a></li> -->
-							<li><a href="/reportAndSummary/list"><i
+							<li><a href="/reportAndSummary/listOnly"><i
 									class="fa fa-circle-o"></i>学生报告列表</a></li>
 						</ul></li>
 					<li><a href="index2.html"><i class="fa fa-circle-o"></i>学生实训成绩
@@ -280,7 +281,7 @@
 				</span>
 			</a>
 				<ul class="treeview-menu">
-					<li><a href="#"><i class="fa fa-circle-o"></i> 我的资料</a></li>
+					<!-- <li><a href="#"><i class="fa fa-circle-o"></i> 我的资料</a></li> -->
 					<li><a href="/password"><i class="fa fa-circle-o"></i>修改密码</a></li>
 				</ul></li>
 		</ul>

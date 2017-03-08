@@ -29,6 +29,20 @@ public class CompanyController {
 			return "companyManage/listCompany";
 		}
 	}
+	// 请求获取到列表页面
+		@RequestMapping(value = "listOnly")
+		public String listOnly(Model model) {
+			try {
+				List<Company> result = companyService.findAll();
+				model.addAttribute("result", result);
+				return "companyManage/listOnly";
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				model.addAttribute("errorMsg", "查找公司信息失败");
+				return "companyManage/listOnly";
+			}
+		}
 
 	// 请求获取到详情页面
 	@RequestMapping(value = "view")
@@ -45,6 +59,20 @@ public class CompanyController {
 		}
 	}
 
+	@RequestMapping(value = "viewOnly")
+	public String viewOnly(int id, Model model) {
+		try {
+			Company result = companyService.findById(id);
+			model.addAttribute("result", result);
+			return "companyManage/viewOnly";
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			model.addAttribute("errorMsg", "查找公司信息失败");
+			return "companyManage/listOnly";
+		}
+	}
+	
 	// 请求跳转到添加实训公司信息
 	@RequestMapping(value = "add")
 	public String add(Model model) {
