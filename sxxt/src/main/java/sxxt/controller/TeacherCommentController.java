@@ -2,6 +2,8 @@ package sxxt.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -65,27 +67,33 @@ public class TeacherCommentController {
 
 	// 请求跳转到添加教师评价信息
 	@RequestMapping(value = "add")
-	public String add(Model model) {
+	public String add(HttpSession httpSession, Model model) {
 
-		List<School> schoolList = schoolService.findAll();
-		String jsonSchool = JSON.toJSONString(schoolList);
-		JSONArray jsonArraySchool = JSON.parseArray(jsonSchool);
-		model.addAttribute("schoolList", jsonArraySchool);
-
-		List<Major> majorList = majorService.findBySchoolId(schoolList.get(0).getId());
-		String jsonMajor = JSON.toJSONString(majorList);
-		JSONArray jsonArrayMajor = JSON.parseArray(jsonMajor);
-		model.addAttribute("majorList", jsonArrayMajor);
-
-		List<Class> classList = classService.findByMajorId(majorList.get(0).getId());
-		String jsonClass = JSON.toJSONString(classList);
-		JSONArray jsonArrayClass = JSON.parseArray(jsonClass);
-		model.addAttribute("classList", jsonArrayClass);
-
-		List<Student> studentList = studentService.findByClassId(classList.get(0).getId());
-		String jsonStudent = JSON.toJSONString(studentList);
-		JSONArray jsonArrayStudent = JSON.parseArray(jsonStudent);
-		model.addAttribute("studentList", jsonArrayStudent);
+		/*
+		 * List<School> schoolList = schoolService.findAll(); String jsonSchool
+		 * = JSON.toJSONString(schoolList); JSONArray jsonArraySchool =
+		 * JSON.parseArray(jsonSchool); model.addAttribute("schoolList",
+		 * jsonArraySchool);
+		 * 
+		 * List<Major> majorList =
+		 * majorService.findBySchoolId(schoolList.get(0).getId()); String
+		 * jsonMajor = JSON.toJSONString(majorList); JSONArray jsonArrayMajor =
+		 * JSON.parseArray(jsonMajor); model.addAttribute("majorList",
+		 * jsonArrayMajor);
+		 * 
+		 * List<Class> classList =
+		 * classService.findByMajorId(majorList.get(0).getId()); String
+		 * jsonClass = JSON.toJSONString(classList); JSONArray jsonArrayClass =
+		 * JSON.parseArray(jsonClass); model.addAttribute("classList",
+		 * jsonArrayClass);
+		 * 
+		 * List<Student> studentList =
+		 * studentService.findByClassId(classList.get(0).getId()); String
+		 * jsonStudent = JSON.toJSONString(studentList); JSONArray
+		 * jsonArrayStudent = JSON.parseArray(jsonStudent);
+		 * model.addAttribute("studentList", jsonArrayStudent);
+		 */
+		model.addAttribute("user", httpSession.getAttribute("user"));
 
 		List<TrainningTeacher> trainningTeacherList = trainningTeacherService.findAll();
 		String jsonTrainningTeacher = JSON.toJSONString(trainningTeacherList);
@@ -98,8 +106,8 @@ public class TeacherCommentController {
 	// 请求跳转到添加教师评价信息
 	@RequestMapping(value = "doAdd")
 	public String doAdd(TeacherComment teacherComment) {
-		teacherCommentService.addTeacherComment(teacherComment);
-		return "redirect:/teacherComment/list?id=" + teacherComment.getClassId().getId();
+		int id=teacherCommentService.addTeacherComment(teacherComment);
+		return "redirect:/teacherComment/view?id=" + id;
 	}
 
 	// 请求跳转到添加教师评价信息

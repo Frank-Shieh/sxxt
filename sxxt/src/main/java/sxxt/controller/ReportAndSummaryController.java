@@ -2,6 +2,8 @@ package sxxt.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,37 +41,22 @@ public class ReportAndSummaryController {
 
 	// 请求添加总结
 	@RequestMapping(value = "add")
-	public String add(Model model) {
-		List<School> schoolList = schoolService.findAll();
-		String jsonSchool = JSON.toJSONString(schoolList);
-		JSONArray jsonArraySchool = JSON.parseArray(jsonSchool);
-		model.addAttribute("schoolList", jsonArraySchool);
-		
-		List<Major> majorList = majorService.findBySchoolId(schoolList.get(0).getId());
-		String jsonMajor = JSON.toJSONString(majorList);
-		JSONArray jsonArrayMajor = JSON.parseArray(jsonMajor);
-		model.addAttribute("majorList", jsonArrayMajor);
-		
-		List<Class> classList = classService.findByMajorId(majorList.get(0).getId());
-		String jsonClass = JSON.toJSONString(classList);
-		JSONArray jsonArrayClass = JSON.parseArray(jsonClass);
-		model.addAttribute("classList", jsonArrayClass);
-		
-		List<Student> studentList = studentService.findByClassId(classList.get(0).getId());
-		String jsonStudent = JSON.toJSONString(studentList);
-		JSONArray jsonArrayStudent = JSON.parseArray(jsonStudent);
-		model.addAttribute("studentList", jsonArrayStudent);
+	public String add(int id, HttpSession httpSession, Model model) {
 
-		System.out.println(studentList);
-		return "ReportAndSummary/addReportAndSummary";
+		if (reportAndSummaryService.findByStudentId(id) == null) {
+			model.addAttribute("user", httpSession.getAttribute("user"));
+			return "ReportAndSummary/addReportAndSummary";
+		} else {
+			return "redirect:/reportAndSummary/edit?id=" + reportAndSummaryService.findByStudentId(id).getId();
+		}
 	}
 
 	// 请求跳转到添加总结
 	@RequestMapping(value = "doAdd")
 	public String doAdd(ReportAndSummary reportAndSummary) {
-		System.out.println(11111111);
 		reportAndSummaryService.addReportAndSummary(reportAndSummary);
-		return "redirect:/reportAndSummary/list";
+		int r= reportAndSummary.getStudent().getId();
+		return "redirect:/reportAndSummary/viewByStudent?id="+r;
 	}
 
 	// 请求跳转到添加总结
@@ -83,6 +70,7 @@ public class ReportAndSummaryController {
 		}
 		return "ReportAndSummary/listReportAndSummary";
 	}
+
 	// 请求跳转到添加总结
 	@RequestMapping(value = "listOnly")
 	public String listOnly(Model model) {
@@ -94,6 +82,7 @@ public class ReportAndSummaryController {
 		}
 		return "ReportAndSummary/listOnly";
 	}
+
 	// 请求跳转到查看学校教师信息
 	@RequestMapping(value = "view")
 	public String view(int id, Model model) {
@@ -102,13 +91,22 @@ public class ReportAndSummaryController {
 		model.addAttribute("result", result);
 		return "ReportAndSummary/viewReportAndSummary";
 	}
+
 	// 请求跳转到查看学校教师信息
-		@RequestMapping(value = "viewOnly")
-		public String viewOnly(int id, Model model) {
-			ReportAndSummary result = reportAndSummaryService.findById(id);
+	@RequestMapping(value = "viewOnly")
+	public String viewOnly(int id, Model model) {
+		ReportAndSummary result = reportAndSummaryService.findById(id);
+		System.out.println(result);
+		model.addAttribute("result", result);
+		return "ReportAndSummary/viewOnly";
+	}
+	// 请求跳转到查看学校教师信息
+		@RequestMapping(value = "viewByStudent")
+		public String viewByStudent(int id, Model model) {
+			ReportAndSummary result = reportAndSummaryService.findByStudentId(id);
 			System.out.println(result);
 			model.addAttribute("result", result);
-			return "ReportAndSummary/viewOnly";
+			return "ReportAndSummary/viewByStudent";
 		}
 	// 教师评价学生总结
 	@RequestMapping(value = "comment")
@@ -129,29 +127,7 @@ public class ReportAndSummaryController {
 	// 学生修改总结
 	@RequestMapping(value = "edit")
 	public String editByStudent(int id, Model model) {
-		
-		List<School> schoolList = schoolService.findAll();
-		String jsonSchool = JSON.toJSONString(schoolList);
-		JSONArray jsonArraySchool = JSON.parseArray(jsonSchool);
-		model.addAttribute("schoolList", jsonArraySchool);
-		System.out.println(schoolList);
-		List<Major> majorList = majorService.findBySchoolId(schoolList.get(0).getId());
-		String jsonMajor = JSON.toJSONString(majorList);
-		JSONArray jsonArrayMajor = JSON.parseArray(jsonMajor);
-		model.addAttribute("majorList", jsonArrayMajor);
-		System.out.println(majorList);
-		List<Class> classList = classService.findByMajorId(majorList.get(0).getId());
-		String jsonClass = JSON.toJSONString(classList);
-		JSONArray jsonArrayClass = JSON.parseArray(jsonClass);
-		model.addAttribute("classList", jsonArrayClass);
-		System.out.println(classList);
-		System.out.println(classList.get(0).getId());
-		List<Student> studentList = studentService.findByClassId(classList.get(0).getId());
-		String jsonStudent = JSON.toJSONString(studentList);
-		JSONArray jsonArrayStudent = JSON.parseArray(jsonStudent);
-		model.addAttribute("studentList", jsonArrayStudent);
-		
-		
+
 		ReportAndSummary result = reportAndSummaryService.findById(id);
 		model.addAttribute("result", result);
 		return "ReportAndSummary/editReportAndSummary";
@@ -160,8 +136,8 @@ public class ReportAndSummaryController {
 	// 请求跳转到添加总结
 	@RequestMapping(value = "doEdit")
 	public String doEdit(ReportAndSummary reportAndSummary) {
-		System.out.println(reportAndSummary);
 		reportAndSummaryService.editReportByStudent(reportAndSummary);
-		return "redirect:/reportAndSummary/list";
+		int r= reportAndSummary.getStudent().getId();
+		return "redirect:/reportAndSummary/viewByStudent?id="+r;
 	}
 }

@@ -127,7 +127,7 @@
 						<form class="form-horizontal" method="post"
 							action="/teacherComment/doAdd" id="registerForm">
 
-							<!-- 添加学校 -->
+							<%-- <!-- 添加学校 -->
 							<div class="form-group background">
 								<label class="col-sm-3 control-label">学校名称</label>
 								<div class="controls form-group">
@@ -217,8 +217,9 @@
 									</div>
 
 								</div>
-							</div>
-
+							</div> --%>
+							<input id='student-input' name="student.id" value="${user.id}"
+								hidden="true" />
 							<div class="form-group background">
 								<label class="col-sm-3 control-label">实训教师</label>
 								<div class="controls form-group">

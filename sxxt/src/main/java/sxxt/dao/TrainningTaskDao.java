@@ -18,7 +18,9 @@ public interface TrainningTaskDao {
 	List<TrainningTask> findAll();
 
 	TrainningTask findById(int id);
-
+	
+	List<TrainningTask> findByClassId(int id);
+	
 	@Transactional
 	int delTrainningTask(int id);
 

@@ -88,7 +88,7 @@ public class UserLoginController {
 					httpSession.setAttribute("user", student);
 					httpSession.setAttribute("role", 2);
 					httpSession.setAttribute("myheader", "../myheader/studentHeader.jsp");
-					return "redirect:/trainningTask/list";
+					return "redirect:/trainningTask/listOnly?id="+student.getClassId().getId();
 				} else {
 					model.addAttribute("errorMsg", errorMsg);
 					return "forward:/login";

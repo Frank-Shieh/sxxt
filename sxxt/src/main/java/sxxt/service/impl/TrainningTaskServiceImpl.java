@@ -10,6 +10,7 @@ import sxxt.dao.TrainningTaskDao;
 import sxxt.entity.TaskClassRelationship;
 import sxxt.entity.TrainningTask;
 import sxxt.service.interfaces.TrainningTaskService;
+
 @Service
 public class TrainningTaskServiceImpl implements TrainningTaskService {
 	@Autowired
@@ -77,6 +78,13 @@ public class TrainningTaskServiceImpl implements TrainningTaskService {
 	public int delTasktClass(int id) {
 		// TODO Auto-generated method stub
 		int result = TrainningTaskDao.delTasktClass(id);
+		return result;
+	}
+
+	@Override
+	public List<TrainningTask> findByClassId(int id) {
+		// TODO Auto-generated method stub
+		List<TrainningTask> result = TrainningTaskDao.findByClassId(id);
 		return result;
 	}
 

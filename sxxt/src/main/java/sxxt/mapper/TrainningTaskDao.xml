@@ -47,7 +47,32 @@
 		training_teacher.state = 1 AND
 		training_task.state = 1
 	</select>
-
+	<select id="findByClassId" resultType="TrainningTask"
+		parameterType="int">
+		SELECT
+		training_task.id,
+		training_task.`name`,
+		training_task.content,
+		training_task.release_date,
+		training_task.start_date,
+		training_task.end_date,
+		training_task.teacher_id `trainningTeacher.id`,
+		training_task.state,
+		training_teacher.`name` `trainningTeacher.name`,
+		training_teacher.`code` `trainningTeacher.code`
+		FROM
+		task_class_relationship
+		INNER JOIN training_task ON
+		task_class_relationship.task_id =
+		training_task.id
+		INNER JOIN
+		training_teacher ON training_task.teacher_id =
+		training_teacher.id
+		WHERE
+		training_teacher.state = 1 AND
+		training_task.state = 1 AND
+		task_class_relationship.class_id = #{id}
+	</select>
 	<insert id="addTrainningTask" parameterType="TrainningTask"
 		flushCache="true" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO

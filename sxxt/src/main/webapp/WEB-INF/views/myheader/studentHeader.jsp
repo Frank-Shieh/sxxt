@@ -181,11 +181,11 @@
 						</span> </a>
 						<ul class="treeview-menu">
 							<li><a href="/dataInfo/add"><i class="fa fa-circle-o"></i>上传资料</a></li>
-							<li><a href="#"><i class="fa fa-circle-o"></i>共享资料</a></li>
+							<li><a href="/dataInfo/listMyself/${user.id}/${user.role.id}"><i class="fa fa-circle-o"></i>自己的资料</a></li>
 						</ul></li>
 					<li><a href="/dataInfo/list"><i class="fa fa-circle-o"></i>浏览共享资料</a></li>
-					<li><a href="/dataInfo/listMyself/${user.id}/${user.role.id}"><i
-							class="fa fa-circle-o"></i>自己的资料</a></li>
+				<%-- 	<li><a href="/dataInfo/listMyself/${user.id}/${user.role.id}"><i
+							class="fa fa-circle-o"></i>自己的资料</a></li> --%>
 				</ul></li>
 			<!-- 实训教学安排 -->
 			<li class="treeview"><a href="#"> <i class="fa fa-file"
@@ -214,7 +214,7 @@
 						<ul class="treeview-menu">
 							<!-- <li><a href="/trainningTask/add"><i
 									class="fa fa-circle-o"></i>添加实训训练任务</a></li> -->
-							<li><a href="/trainningTask/list"><i
+							<li><a href="/trainningTask/listOnly?id=${user.classId.id}"><i
 									class="fa fa-circle-o"></i>实训训练任务列表</a></li>
 						</ul></li>
 				</ul>
@@ -246,8 +246,10 @@
 								class="fa fa-angle-left pull-right"></i>
 						</span> </a>
 						<ul class="treeview-menu">
-						 	<li><a href="/reportAndSummary/add"><i
+						 	<li><a href="/reportAndSummary/add?id=${user.id}"><i
 									class="fa fa-circle-o"></i>学生撰写报告</a></li> 
+							<li><a href="/reportAndSummary/viewByStudent?id=${user.id}"><i
+									class="fa fa-circle-o"></i>查看个人报告</a></li> 
 							<!-- <li><a href="/reportAndSummary/list"><i
 									class="fa fa-circle-o"></i>学生报告列表</a></li> -->
 						</ul></li>
@@ -273,8 +275,7 @@
 						</ul></li>
 				</ul></li>
 			<li class="header">INFORMATION</li>
-			<li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>通知与公告</span></a></li>
-			<!-- 个人中心 -->
+		<!-- 个人中心 -->
 			<li class="treeview"><a href="#"> <i
 					class="fa fa-circle-o text-aqua"></i> <span>个人中心</span> <span
 					class="pull-right-container"> <i
@@ -282,8 +283,8 @@
 				</span>
 			</a>
 				<ul class="treeview-menu">
-					<li><a href="#"><i class="fa fa-circle-o"></i> 我的资料</a></li>
-					<li><a href="index2.html"><i class="fa fa-circle-o"></i>修改密码</a></li>
+					<!-- <li><a href="#"><i class="fa fa-circle-o"></i> 我的资料</a></li> -->
+					<li><a href="/password"><i class="fa fa-circle-o"></i>修改密码</a></li>
 				</ul></li>
 		</ul>
 	</section>

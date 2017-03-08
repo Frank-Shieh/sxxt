@@ -2,6 +2,8 @@ package sxxt.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,8 +47,19 @@ public class TrainningTaskController {
 		} else {
 			model.addAttribute("result", result);
 		}
-
 		return "TrainningTaskManage/listTrainningTask";
+	}
+
+	@RequestMapping(value = "listOnly")
+	public String listOnly(int id, Model model) {
+		List<TrainningTask> result = trainningTaskService.findByClassId(id);
+		if (result.size() == 0) {
+			model.addAttribute("errorMsg", "暂无实训任务信息");
+		} else {
+			model.addAttribute("result", result);
+		}
+
+		return "TrainningTaskManage/listOnly";
 	}
 
 	// 请求跳转到查看教学任务信息
@@ -58,7 +71,16 @@ public class TrainningTaskController {
 		model.addAttribute("relationship", relationship.get(0));
 		return "TrainningTaskManage/viewTrainningTask";
 	}
-
+	// 请求跳转到查看教学任务信息
+		@RequestMapping(value = "viewOnly")
+		public String viewOnly(HttpSession httpSession,int id, Model model) {
+			TrainningTask result = trainningTaskService.findById(id);
+			model.addAttribute("result", result);
+			model.addAttribute("user", httpSession.getAttribute("user"));
+			List<TaskClassRelationship> relationship = trainningTaskService.findByTaskId(id);
+			model.addAttribute("relationship", relationship.get(0));
+			return "TrainningTaskManage/viewOnly";
+		}
 	// 请求跳转到添加教学任务信息
 	@RequestMapping(value = "add")
 	public String add(Model model) {
