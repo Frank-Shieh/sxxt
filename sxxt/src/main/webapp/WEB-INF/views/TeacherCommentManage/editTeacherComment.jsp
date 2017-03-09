@@ -128,7 +128,7 @@
 							action="/teacherComment/doEdit" id="registerForm">
 							<input type="hidden" name="id" value="${result.id}">
 
-							<!-- 添加学校 -->
+							<%-- <!-- 添加学校 -->
 							<div class="form-group background">
 								<label class="col-sm-3 control-label">学校名称</label>
 								<div class="controls form-group">
@@ -219,7 +219,11 @@
 
 								</div>
 							</div>
-
+ --%>
+							<input id='class-input' name="classId.id"
+								value="${user.classId.id}" hidden="true" /> <input
+								id='student-input' name="student.id" value="${user.id}"
+								hidden="true" />
 							<div class="form-group background">
 								<label class="col-sm-3 control-label">实训教师</label>
 								<div class="controls form-group">
@@ -248,35 +252,40 @@
 							<div class="form-group background">
 								<label class="col-sm-3 control-label">评价内容</label>
 								<div class="controls form-group">
-									<input type="text" class="form-control" name="content" value="${result.content}" />
+									<input type="text" class="form-control" name="content"
+										value="${result.content}" />
 								</div>
 							</div>
 							<!-- 添加教学工作的热情 -->
 							<div class="form-group background">
 								<label class="col-sm-3 control-label">教学工作的热情（满分25分）</label>
 								<div class="controls form-group">
-									<input type="text" class="form-control" name="workHard"  value="${result.workHard}" />
+									<input type="text" class="form-control" name="workHard"
+										value="${result.workHard}" />
 								</div>
 							</div>
 							<!-- 添加理论联系实际 -->
 							<div class="form-group background">
 								<label class="col-sm-3 control-label">理论联系实际（满分25分）</label>
 								<div class="controls form-group">
-									<input type="text" class="form-control" name="theoryActual"  value="${result.theoryActual}" />
+									<input type="text" class="form-control" name="theoryActual"
+										value="${result.theoryActual}" />
 								</div>
 							</div>
 							<!-- 添加讲课思路清晰程度 -->
 							<div class="form-group background">
 								<label class="col-sm-3 control-label">讲课思路清晰程度（满分25分）</label>
 								<div class="controls form-group">
-									<input type="text" class="form-control" name="teachingLevel" value="${result.teachingLevel}" />
+									<input type="text" class="form-control" name="teachingLevel"
+										value="${result.teachingLevel}" />
 								</div>
 							</div>
 							<!-- 添加作业布置合理 -->
 							<div class="form-group background">
 								<label class="col-sm-3 control-label">作业布置合理性（满分25分）</label>
 								<div class="controls form-group">
-									<input type="text" class="form-control" name="homeworkNum" value="${result.homeworkNum}" />
+									<input type="text" class="form-control" name="homeworkNum"
+										value="${result.homeworkNum}" />
 								</div>
 							</div>
 							<div class="form-actions">

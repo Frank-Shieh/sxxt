@@ -5,7 +5,6 @@
 %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -18,8 +17,6 @@
 	name="viewport">
 <!-- Bootstrap 3.3.6 -->
 <link rel="stylesheet" href="<%=path%>/assets/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="<%=path%>/assets/css/bootstrap-responsive.min.css" />
 <!-- Font Awesome -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -64,66 +61,41 @@
 				<section class="content">
 				<div class="row">
 					<div class="col-xs-12">
-
-						<c:if test="${fn:length(errorMsg) gt 0}">
-							<div class="bs-example bs-example-standalone">
-								<div class="alert alert-danger alert-dismissible fade in"
-									role="alert">
-									<button type="button" class="close" data-dismiss="alert">
-										<span aria-hidden="true">×</span><span class="sr-only">Close</span>
-									</button>
-									<h4>Oh snap! You got an error!</h4>
-									<p>暂无相关的实训任务信息。请先添加实训任务信息</p>
-									
-								</div>
+						<div class="panel panel-info">
+							<div class="panel-heading">
+								<h3 class="panel-title">教师评价信息</h3>
 							</div>
-						</c:if>
-
-						<!-- 如果查找出来的数据存在则显示出来，否则不显示 -->
-						<c:if test="${fn:length(result) gt 0}">
-							<div class="panel panel-info">
-								<div class="panel-heading">
-									<h3 class="panel-title">实训训练任务信息</h3>
-								</div>
-								<div class="panel-body">
-									<table id="example1" class="table table-bordered table-striped">
-										<thead>
+							<div class="panel-body">
+								<table id="tp-result-table"
+									class="table table-bordered table-striped">
+									<thead>
+										<tr>
+											<th>教师名称</th>
+											<th>教师得分</th>
+											<th>查看</th>
+											<th>修改</th>
+											<th>删除</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach var="result" items="${result}">
 											<tr>
-												<th>实训任务名称</th>
-												<th>发布日期</th>
-												<th>开始日期</th>
-												<th>结束日期</th>
-												<th>查看</th>
-											<!-- 	<th>修改</th>
-												<th>删除</th> -->
+												<td>${result.trainningTeacher.name}</td>
+												<td>${result.totalScore}</td>
+												<td><a class="btn btn-info"
+													href="/teacherComment/viewByStudent?id=${result.id}">查看</a></td>
+												<td><a href="/teacherComment/edit?id=${result.id}"
+													class="btn btn-primary">修改</a></td>
+												<td><a class="btn btn-danger"
+													onclick="delTeacherComment(${result.id},${user.id})">删除</a></td>
 											</tr>
-										</thead>
-										<tbody>
-											<c:forEach var="result" items="${result}">
-												<tr>
-													<td>${result.name}</td>
-													<td><fmt:formatDate value="${result.releaseDate}"
-															type="date" dateStyle="default" /></td>
-													<td><fmt:formatDate value="${result.startDate}"
-															type="date" dateStyle="default" /></td>
-													<td><fmt:formatDate value="${result.endDate}"
-															type="date" dateStyle="default" /></td>
-													<td><a class="btn btn-info"
-														href="/trainningTask/viewOnly?id=${result.id}">查看</a></td>
-													<%-- <td><a href="/trainningTask/edit?id=${result.id}"
-														class="btn btn-primary">修改</a></td>
-													<td><a class="btn btn-danger"
-														onclick="delTrainningTask(${result.id})">删除</a></td> --%>
-												</tr>
-											</c:forEach>
+										</c:forEach>
+									</tbody>
 
-										</tbody>
-
-									</table>
-								</div>
-								<!-- /.box-body -->
+								</table>
 							</div>
-						</c:if>
+							<!-- /.box-body -->
+						</div>
 						<!-- /.box -->
 					</div>
 					<!-- /.col -->
@@ -133,9 +105,21 @@
 		</div>
 	</div>
 	<!-- ./wrapper -->
-	<!-- 警告提示 -->
-
-
+	<!-- Modal -->
+	<div id="error-msg" class="modal hide fade" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true">×</button>
+			<h3 id="myModalLabel">操作错误提示信息</h3>
+		</div>
+		<div class="modal-body">
+			<p>${errorMsg}</p>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+		</div>
+	</div>
 	<!-- jQuery 2.2.3 -->
 	<script src="<%=path%>/assets/js/jquery-2.2.3.min.js"></script>
 	<!-- jQuery UI 1.11.4 -->
@@ -177,23 +161,31 @@
 		});
 	</script>
 	<script type="text/javascript">
-	function delTrainningTask(id) {
-		var result = confirm("确定删除编号:"+ id +"吗?");
-		if (result) {
-			console.log(result);
-			var url = '/trainningTask/delete?id='+id;
-			$.get(url, function(data) {
-				console.log('deleted.');
-			 	window.location.href='/trainningTask/list'; 
-			});
+		function delTeacherComment(id,studentId) {
+			var result = confirm("确定删除该班级吗?");
+			if (result) {
+				console.log(result);
+				var url = '/teacherComment/delete/' + id+'/'+studentId;
+				$.get(url, function(data) {
+					console.log('deleted.');
+					window.location.href = '/teacherComment/listByStudent?id='+studentId;
+				});
+			}
 		}
-	}
-</script>
+	</script>
 	<script type="text/javascript">
-		
+		$(document).ready(function() {
+			var msg = "${errorMsg}";
+			console.log(msg);
+			if (msg.length > 0) {
+				$('#error-msg').modal({
+					keyboard : false
+				});
+			}
+		});
 		$(document).ready(function() {
 			$('#tp-result-table').DataTable();
-			});
+		});
 	</script>
 </body>
 </html>

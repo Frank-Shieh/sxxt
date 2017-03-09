@@ -270,8 +270,8 @@
 						<ul class="treeview-menu">
 							<li><a href="/teacherComment/add"><i
 									class="fa fa-circle-o"></i>添加教师评价情况</a></li>
-							<!-- <li><a href="/teacherComment/listAll"><i
-									class="fa fa-circle-o"></i>教师评价情况列表</a></li> -->
+							 <li><a href="/teacherComment/listByStudent?id=${user.id}"><i
+									class="fa fa-circle-o"></i>教师评价情况列表</a></li> 
 						</ul></li>
 				</ul></li>
 			<li class="header">INFORMATION</li>

@@ -218,7 +218,9 @@
 
 								</div>
 							</div> --%>
-							<input id='student-input' name="student.id" value="${user.id}"
+							<input id='class-input' name="classId.id"
+								value="${user.classId.id}" hidden="true" /> <input
+								id='student-input' name="student.id" value="${user.id}"
 								hidden="true" />
 							<div class="form-group background">
 								<label class="col-sm-3 control-label">实训教师</label>
