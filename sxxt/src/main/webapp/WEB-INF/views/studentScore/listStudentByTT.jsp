@@ -63,7 +63,7 @@
 					<div class="col-xs-12">
 						<div class="panel panel-info">
 							<div class="panel-heading">
-								<h3 class="panel-title">教师评价信息</h3>
+								<h3 class="panel-title">学生成绩信息</h3>
 							</div>
 							<div class="panel-body">
 								<table id="tp-result-table"
@@ -72,9 +72,9 @@
 										<tr>
 											<th>学生学号</th>
 											<th>学生名称</th>
-											<th>教师得分</th>
+											<th>学生总分</th>
 											<th>查看</th>
-											<!-- <th>修改</th> -->
+											 <th>修改</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -84,9 +84,9 @@
 												<td>${result.student.name}</td>
 												<td>${result.totalScore}</td>
 												<td><a class="btn btn-info"
-													href="/teacherComment/view?id=${result.student.id}">查看</a></td>
-												<%-- <td><a href="/teacherComment/edit?id=${result.id}"
-													class="btn btn-primary">修改</a></td> --%>
+													href="/studentScore/view?id=${result.student.id}">查看</a></td>
+												 <td><a href="/studentScore/edit?id=${result.id}"
+													class="btn btn-primary">修改</a></td> 
 											</tr>
 										</c:forEach>
 									</tbody>

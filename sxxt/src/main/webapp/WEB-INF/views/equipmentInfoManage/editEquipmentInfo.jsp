@@ -106,7 +106,7 @@
 	<div class="wrapper">
 
 		<%-- <jsp:include page="header.jsp"></jsp:include> --%>
-	<jsp:include page="${myheader}"></jsp:include>
+		<jsp:include page="${myheader}"></jsp:include>
 
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
@@ -125,8 +125,8 @@
 						</a> <a href="listClass.html">设备信息</a> <a href="#" class="current">修改场地设备信息</a>
 					</div>
 					<div class="panel-body">
-						<form class="form-horizontal" method="post" action="/equipmentInfo/doEdit"
-							id="registerForm">
+						<form class="form-horizontal" method="post"
+							action="/equipmentInfo/doEdit" id="registerForm">
 							<input type="hidden" class="form-control" name="id"
 								value="${result.id}" />
 							<div class="form-group background">
@@ -199,7 +199,7 @@
 								</div>
 							</div>
 
-							<!-- 添加场地管理员 -->
+							<%-- <!-- 添加场地管理员 -->
 							<div class="form-group background">
 								<label class="col-sm-3 control-label">设备管理员</label>
 								<div class="controls form-group">
@@ -224,7 +224,9 @@
 
 								</div>
 							</div>
-
+ --%>
+							<input id='equipmentManager-input' name="equipmentManager.id"
+								value="${user.id}" hidden="true" />
 							<div class="form-actions">
 								<input type="submit" value="保存"
 									class="btn btn-primary btn-submit" /> <input type="reset"

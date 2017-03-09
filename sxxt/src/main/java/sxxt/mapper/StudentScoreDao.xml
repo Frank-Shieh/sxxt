@@ -215,6 +215,7 @@
 		`trainningTeacher.code`,
 		training_teacher.`name`
 		`trainningTeacher.name`
+		COALESCE(avg(student_score.total_score),0) `avgScore`
 		FROM
 		student_score
 		INNER

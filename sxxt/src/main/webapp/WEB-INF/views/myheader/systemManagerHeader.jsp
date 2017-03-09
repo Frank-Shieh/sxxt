@@ -29,7 +29,7 @@
 			<li class="header">MAIN NAVIGATION</li>
 
 			<!-- 学校人员导航列表 -->
-			 <li class="treeview"><a href="#"> <i class="fa fa-child"
+			<li class="treeview"><a href="#"> <i class="fa fa-child"
 					aria-hidden="true"></i> <span>学校人员管理</span> <span
 					class="pull-right-container"> <i
 						class="fa fa-angle-left pull-right"></i>
@@ -54,7 +54,7 @@
 							<li><a href="/class/addClass"><i class="fa fa-circle-o"></i>添加班级信息</a></li>
 							<li><a href="/class/list"><i class="fa fa-circle-o"></i>查看班级列表</a></li>
 						</ul></li> -->
-				<!-- 	<li><a href="#"><i class="fa fa-circle-o"></i> 添加学生信息 <span
+					<!-- 	<li><a href="#"><i class="fa fa-circle-o"></i> 添加学生信息 <span
 							class="pull-right-container"> <i
 								class="fa fa-angle-left pull-right"></i>
 						</span> </a>
@@ -63,7 +63,7 @@
 							<li><a href="#"><i class="fa fa-circle-o"></i>导入班级人员信息</a></li>
 						</ul></li> -->
 
-				</ul></li> 
+				</ul></li>
 
 			<!-- 实训公司信息导航列表 -->
 			<li class="treeview"><a href="#"> <i class="fa fa-child"
@@ -81,7 +81,7 @@
 							<li><a href="/company/add"><i class="fa fa-circle-o"></i>添加实训公司信息</a></li>
 							<li><a href="/company/list"><i class="fa fa-circle-o"></i>查看实训公司列表</a></li>
 						</ul></li>
-				<!-- 	<li><a href="#"><i class="fa fa-circle-o"></i> 实训场地信息管理 <span
+					<!-- 	<li><a href="#"><i class="fa fa-circle-o"></i> 实训场地信息管理 <span
 							class="pull-right-container"> <i
 								class="fa fa-angle-left pull-right"></i>
 						</span> </a>
@@ -106,10 +106,10 @@
 							<li><a href="/equipmentInspection/add"><i
 									class="fa fa-circle-o"></i>添加设备年检信息</a></li>
 						</ul></li>  -->
-				</ul></li> 
+				</ul></li>
 
 			<!-- 实训公司人员导航列表 -->
-		 	<li class="treeview"><a href="#"> <i class="fa fa-child"
+			<li class="treeview"><a href="#"> <i class="fa fa-child"
 					aria-hidden="true"></i> <span>实训公司人员管理</span> <span
 					class="pull-right-container"> <i
 						class="fa fa-angle-left pull-right"></i>
@@ -168,7 +168,7 @@
 				</ul></li>
 
 			<!-- 资料共享平台 -->
-		<%-- 	<li class="treeview"><a href="#"> <i class="fa fa-book"
+			<%-- 	<li class="treeview"><a href="#"> <i class="fa fa-book"
 					aria-hidden="true"></i> <span>资料共享平台</span> <span
 					class="pull-right-container"> <i
 						class="fa fa-angle-left pull-right"></i>
@@ -273,7 +273,6 @@
 						</ul></li>
 				</ul></li> -->
 			<li class="header">INFORMATION</li>
-			<li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>通知与公告</span></a></li>
 			<!-- 个人中心 -->
 			<li class="treeview"><a href="#"> <i
 					class="fa fa-circle-o text-aqua"></i> <span>个人中心</span> <span
@@ -282,8 +281,8 @@
 				</span>
 			</a>
 				<ul class="treeview-menu">
-					<li><a href="#"><i class="fa fa-circle-o"></i> 我的资料</a></li>
-					<li><a href="index2.html"><i class="fa fa-circle-o"></i>修改密码</a></li>
+					<!-- <li><a href="#"><i class="fa fa-circle-o"></i> 我的资料</a></li> -->
+					<li><a href="/password"><i class="fa fa-circle-o"></i>修改密码</a></li>
 				</ul></li>
 		</ul>
 	</section>

@@ -2,6 +2,8 @@ package sxxt.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,6 +47,7 @@ public class SiteController {
 		}
 		return "siteManage/listSite";
 	}
+
 	@RequestMapping(value = "listOnly")
 	public String listOnly(Model model) {
 		List<Site> result = siteService.findAll();
@@ -55,17 +58,19 @@ public class SiteController {
 		}
 		return "siteManage/listOnly";
 	}
+
 	// 请求跳转到场地信息列表
-		@RequestMapping(value = "listByCompanyId")
-		public String listByCompanyId(int id,Model model) {
-			List<Site> result = siteService.findByCompanyId(id);
-			if (result.size() == 0) {
-				model.addAttribute("errorMsg", "暂无场地信息");
-			} else {
-				model.addAttribute("result", result);
-			}
-			return "siteManage/listByCompanyId";
+	@RequestMapping(value = "listByCompanyId")
+	public String listByCompanyId(int id, Model model) {
+		List<Site> result = siteService.findByCompanyId(id);
+		if (result.size() == 0) {
+			model.addAttribute("errorMsg", "暂无场地信息");
+		} else {
+			model.addAttribute("result", result);
 		}
+		return "siteManage/listByCompanyId";
+	}
+
 	// 请求跳转到场地信息列表
 	@RequestMapping(value = "rentAndAssign")
 	public String rentAndAssign(Model model) {
@@ -100,17 +105,13 @@ public class SiteController {
 
 	// 请求跳转到添加场地管理员信息
 	@RequestMapping(value = "add")
-	public String add(Model model) {
+	public String add(HttpSession httpSession, Model model) {
 		List<Company> companyList = companyService.findAll();
 		String jsonSchool = JSON.toJSONString(companyList);
 		JSONArray jsonArraySchool = JSON.parseArray(jsonSchool);
 		model.addAttribute("companyList", jsonArraySchool);
 
-		List<SiteManager> siteManagerList = siteManagerService.findByCompanyId(companyList.get(0).getId());
-		jsonSchool = JSON.toJSONString(siteManagerList);
-		jsonArraySchool = JSON.parseArray(jsonSchool);
-		model.addAttribute("siteManagerList", jsonArraySchool);
-
+		model.addAttribute("user", httpSession.getAttribute("user"));
 		return "siteManage/addSite";
 	}
 
@@ -124,7 +125,7 @@ public class SiteController {
 
 	// 请求跳转到修改场地信息
 	@RequestMapping(value = "edit")
-	public String edit(int id, Model model) {
+	public String edit(HttpSession httpSession, int id, Model model) {
 		Site site = siteService.findById(id);
 		model.addAttribute("site", site);
 
@@ -133,10 +134,7 @@ public class SiteController {
 		JSONArray jsonArraySchool = JSON.parseArray(jsonSchool);
 		model.addAttribute("companyList", jsonArraySchool);
 
-		List<SiteManager> siteManagerList = siteManagerService.findByCompanyId(site.getCompany().getId());
-		jsonSchool = JSON.toJSONString(siteManagerList);
-		jsonArraySchool = JSON.parseArray(jsonSchool);
-		model.addAttribute("siteManagerList", jsonArraySchool);
+		model.addAttribute("user", httpSession.getAttribute("user"));
 
 		return "siteManage/editSite";
 
@@ -206,13 +204,14 @@ public class SiteController {
 		siteService.delSite(id);
 		return "redirect:/site/list";
 	}
-	
+
 	// 请求跳转到撤销场地状态
-		@RequestMapping(value = "delState")
-		public String delState(int id, Model model) {
-			siteService.delState(id);
-			return "redirect:/site/rentAndAssign";
-		}
+	@RequestMapping(value = "delState")
+	public String delState(int id, Model model) {
+		siteService.delState(id);
+		return "redirect:/site/rentAndAssign";
+	}
+
 	// 请求查找新的场地管理员列表
 	@RequestMapping(value = "findByCompanyId")
 	public @ResponseBody reponseDto findByCompanyId(int id, Model model) {

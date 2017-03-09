@@ -182,7 +182,7 @@
 								<div class="controls form-group">
 									<input type="date" class="form-control" name="commentDate"
 										value="<fmt:formatDate value="${result.commentDate}"
-											type="date" dateStyle="default" />" />
+											pattern="yyyy-MM-dd" />" />
 								</div>
 							</div>
 							<div class="form-actions">

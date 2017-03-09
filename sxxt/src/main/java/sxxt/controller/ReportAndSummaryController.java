@@ -30,14 +30,6 @@ public class ReportAndSummaryController {
 
 	@Autowired
 	private ReportAndSummaryService reportAndSummaryService;
-	@Autowired
-	private SchoolService schoolService;
-	@Autowired
-	private MajorService majorService;
-	@Autowired
-	private ClassService classService;
-	@Autowired
-	private StudentService studentService;
 
 	// 请求添加总结
 	@RequestMapping(value = "add")
@@ -70,7 +62,17 @@ public class ReportAndSummaryController {
 		}
 		return "ReportAndSummary/listReportAndSummary";
 	}
-
+	// 请求跳转到添加总结
+		@RequestMapping(value = "listByTrainningTeacher")
+		public String listByTrainningTeacher(int id,Model model) {
+			List<ReportAndSummary> result = reportAndSummaryService.findByTrainningTeacher(id);
+			if (result.size() == 0) {
+				model.addAttribute("errorMsg", "暂无报告与总结信息");
+			} else {
+				model.addAttribute("result", result);
+			}
+			return "ReportAndSummary/listByTrainningTeacher";
+		}
 	// 请求跳转到添加总结
 	@RequestMapping(value = "listOnly")
 	public String listOnly(Model model) {

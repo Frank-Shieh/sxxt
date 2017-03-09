@@ -2,6 +2,8 @@ package sxxt.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,17 +53,12 @@ public class EquipmentInfoController {
 
 	// 请求跳转到添加场地设备信息
 	@RequestMapping(value = "add")
-	public String add(Model model) {
+	public String add(HttpSession httpSession, Model model) {
 		List<Site> siteList = siteService.findAll();
 		String jsonSite = JSON.toJSONString(siteList);
 		JSONArray jsonArraySite = JSON.parseArray(jsonSite);
 		model.addAttribute("siteList", jsonArraySite);
-
-		List<EquipmentManager> equipmentManagerList = equipmentManagerService.findAll();
-		String jsonEquipmentManager = JSON.toJSONString(equipmentManagerList);
-		JSONArray jsonArrayEquipmentManager = JSON.parseArray(jsonEquipmentManager);
-		model.addAttribute("equipmentManagerList", jsonArrayEquipmentManager);
-
+		model.addAttribute("user", httpSession.getAttribute("user"));
 		return "equipmentInfoManage/addEquipmentInfo";
 	}
 
@@ -80,17 +77,18 @@ public class EquipmentInfoController {
 		model.addAttribute("result", e);
 		return "equipmentInfoManage/viewEquipmentInfo";
 	}
+
 	// 请求跳转到查看场地设备信息
-		@RequestMapping(value = "viewRentAndAssign")
-		public String viewRentAndAssign(int id, Model model) {
-			EquipmentInfo e = equipmentInfoService.findById(id);
-			model.addAttribute("result", e);
-			return "equipmentInfoManage/viewRentAndAssign";
-		}
+	@RequestMapping(value = "viewRentAndAssign")
+	public String viewRentAndAssign(int id, Model model) {
+		EquipmentInfo e = equipmentInfoService.findById(id);
+		model.addAttribute("result", e);
+		return "equipmentInfoManage/viewRentAndAssign";
+	}
 
 	// 请求跳转到修改场地信息
 	@RequestMapping(value = "edit")
-	public String edit(int id, Model model) {
+	public String edit(HttpSession httpSession, int id, Model model) {
 		EquipmentInfo e = equipmentInfoService.findById(id);
 		model.addAttribute("result", e);
 
@@ -99,11 +97,7 @@ public class EquipmentInfoController {
 		JSONArray jsonArraySite = JSON.parseArray(jsonSite);
 		model.addAttribute("siteList", jsonArraySite);
 
-		List<EquipmentManager> equipmentManagerList = equipmentManagerService.findAll();
-		String jsonEquipmentManager = JSON.toJSONString(equipmentManagerList);
-		JSONArray jsonArrayEquipmentManager = JSON.parseArray(jsonEquipmentManager);
-		model.addAttribute("equipmentManagerList", jsonArrayEquipmentManager);
-
+		model.addAttribute("user", httpSession.getAttribute("user"));
 		return "equipmentInfoManage/editEquipmentInfo";
 
 	}

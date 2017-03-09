@@ -70,4 +70,11 @@ public class ReportAndSummaryServiceImpl implements ReportAndSummaryService {
 		return result;
 	}
 
+	@Override
+	public List<ReportAndSummary> findByTrainningTeacher(int id) {
+		// TODO Auto-generated method stub
+		List<ReportAndSummary> result = reportAndSummaryDao.findByTrainningTeacher(id);
+		return result;
+	}
+
 }

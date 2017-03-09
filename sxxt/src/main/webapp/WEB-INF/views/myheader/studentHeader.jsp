@@ -66,7 +66,7 @@
 				</ul></li> -->
 
 			<!-- 实训公司信息导航列表 -->
-<!-- 			<li class="treeview"><a href="#"> <i class="fa fa-child"
+			<!-- 			<li class="treeview"><a href="#"> <i class="fa fa-child"
 					aria-hidden="true"></i> <span>实训公司信息管理</span> <span
 					class="pull-right-container"> <i
 						class="fa fa-angle-left pull-right"></i>
@@ -109,7 +109,7 @@
 				</ul></li> -->
 
 			<!-- 实训公司人员导航列表 -->
-		<!-- 	<li class="treeview"><a href="#"> <i class="fa fa-child"
+			<!-- 	<li class="treeview"><a href="#"> <i class="fa fa-child"
 					aria-hidden="true"></i> <span>实训公司人员管理</span> <span
 					class="pull-right-container"> <i
 						class="fa fa-angle-left pull-right"></i>
@@ -181,10 +181,12 @@
 						</span> </a>
 						<ul class="treeview-menu">
 							<li><a href="/dataInfo/add"><i class="fa fa-circle-o"></i>上传资料</a></li>
-							<li><a href="/dataInfo/listMyself/${user.id}/${user.role.id}"><i class="fa fa-circle-o"></i>自己的资料</a></li>
+							<li><a
+								href="/dataInfo/listMyself/${user.id}/${user.role.id}"><i
+									class="fa fa-circle-o"></i>自己的资料</a></li>
 						</ul></li>
 					<li><a href="/dataInfo/list"><i class="fa fa-circle-o"></i>浏览共享资料</a></li>
-				<%-- 	<li><a href="/dataInfo/listMyself/${user.id}/${user.role.id}"><i
+					<%-- 	<li><a href="/dataInfo/listMyself/${user.id}/${user.role.id}"><i
 							class="fa fa-circle-o"></i>自己的资料</a></li> --%>
 				</ul></li>
 			<!-- 实训教学安排 -->
@@ -193,8 +195,7 @@
 					class="pull-right-container"> <i
 						class="fa fa-angle-left pull-right"></i>
 				</span>
-			</a>
-				<!-- <ul class="treeview-menu">
+			</a> <!-- <ul class="treeview-menu">
 					<li><a href="#"><i class="fa fa-circle-o"></i>实训教学任务 <span
 							class="pull-right-container"> <i
 								class="fa fa-angle-left pull-right"></i>
@@ -217,8 +218,7 @@
 							<li><a href="/trainningTask/listOnly?id=${user.classId.id}"><i
 									class="fa fa-circle-o"></i>实训训练任务列表</a></li>
 						</ul></li>
-				</ul>
-			<!-- 	<ul class="treeview-menu">
+				</ul> <!-- 	<ul class="treeview-menu">
 					<li><a href="#"><i class="fa fa-circle-o"></i>班级教师分配 <span
 							class="pull-right-container"> <i
 								class="fa fa-angle-left pull-right"></i>
@@ -229,8 +229,7 @@
 							<li><a href="/allocateClass/list"><i
 									class="fa fa-circle-o"></i>班级教师分配列表</a></li>
 						</ul></li>
-				</ul> -->
-				</li> 
+				</ul> --></li>
 
 			<!-- 学生实训情况 -->
 			<li class="treeview"><a href="#"> <i class="fa fa-file"
@@ -246,10 +245,10 @@
 								class="fa fa-angle-left pull-right"></i>
 						</span> </a>
 						<ul class="treeview-menu">
-						 	<li><a href="/reportAndSummary/add?id=${user.id}"><i
-									class="fa fa-circle-o"></i>学生撰写报告</a></li> 
+							<li><a href="/reportAndSummary/add?id=${user.id}"><i
+									class="fa fa-circle-o"></i>学生撰写报告</a></li>
 							<li><a href="/reportAndSummary/viewByStudent?id=${user.id}"><i
-									class="fa fa-circle-o"></i>查看个人报告</a></li> 
+									class="fa fa-circle-o"></i>查看个人报告</a></li>
 							<!-- <li><a href="/reportAndSummary/list"><i
 									class="fa fa-circle-o"></i>学生报告列表</a></li> -->
 						</ul></li>
@@ -263,19 +262,19 @@
 							<li><a href="/studentScore/listClass"><i
 									class="fa fa-circle-o"></i>学生实训成绩列表</a></li>
 						</ul></li> -->
-					 <li><a href="#"><i class="fa fa-circle-o"></i>教师评价情况 <span
+					<li><a href="#"><i class="fa fa-circle-o"></i>教师评价情况 <span
 							class="pull-right-container"> <i
 								class="fa fa-angle-left pull-right"></i>
 						</span> </a>
 						<ul class="treeview-menu">
 							<li><a href="/teacherComment/add"><i
 									class="fa fa-circle-o"></i>添加教师评价情况</a></li>
-							 <li><a href="/teacherComment/listByStudent?id=${user.id}"><i
-									class="fa fa-circle-o"></i>教师评价情况列表</a></li> 
+							<li><a href="/teacherComment/listByStudent?id=${user.id}"><i
+									class="fa fa-circle-o"></i>教师评价情况列表</a></li>
 						</ul></li>
 				</ul></li>
 			<li class="header">INFORMATION</li>
-		<!-- 个人中心 -->
+			<!-- 个人中心 -->
 			<li class="treeview"><a href="#"> <i
 					class="fa fa-circle-o text-aqua"></i> <span>个人中心</span> <span
 					class="pull-right-container"> <i

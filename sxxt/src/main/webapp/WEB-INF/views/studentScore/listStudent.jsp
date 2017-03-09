@@ -74,7 +74,7 @@
 											<th>学生名称</th>
 											<th>学生总分</th>
 											<th>查看</th>
-											<th>修改</th>
+											<!-- <th>修改</th> -->
 										</tr>
 									</thead>
 									<tbody>
@@ -85,8 +85,8 @@
 												<td>${result.totalScore}</td>
 												<td><a class="btn btn-info"
 													href="/studentScore/view?id=${result.student.id}">查看</a></td>
-												<td><a href="/studentScore/edit?id=${result.id}"
-													class="btn btn-primary">修改</a></td>
+												<%-- <td><a href="/studentScore/edit?id=${result.id}"
+													class="btn btn-primary">修改</a></td> --%>
 											</tr>
 										</c:forEach>
 									</tbody>

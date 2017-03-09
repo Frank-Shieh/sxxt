@@ -127,6 +127,8 @@
 						<form class="form-horizontal" method="post"
 							action="/studentScore/doEdit" id="registerForm">
 							<input type="hidden" name="id" value="${studentScore.id}">
+							<input id='teacher.id' name="trainningTeacher.id"
+								value="${user.id}" hidden="true" />
 							<!-- 添加学校 -->
 							<div class="form-group background">
 								<label class="col-sm-3 control-label">学校名称</label>

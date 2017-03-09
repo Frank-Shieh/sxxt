@@ -63,30 +63,29 @@
 					<div class="col-xs-12">
 						<div class="panel panel-info">
 							<div class="panel-heading">
-								<h3 class="panel-title">教师评价信息</h3>
+								<h3 class="panel-title">班级成绩信息</h3>
 							</div>
 							<div class="panel-body">
 								<table id="tp-result-table"
 									class="table table-bordered table-striped">
 									<thead>
 										<tr>
-											<th>学生学号</th>
-											<th>学生名称</th>
-											<th>教师得分</th>
+											<th>学校名称</th>
+											<th>专业名称</th>
+											<th>班级名称</th>
+											<th>全班均分</th>
 											<th>查看</th>
-											<!-- <th>修改</th> -->
 										</tr>
 									</thead>
 									<tbody>
 										<c:forEach var="result" items="${result}">
 											<tr>
-												<td>${result.student.code}</td>
-												<td>${result.student.name}</td>
-												<td>${result.totalScore}</td>
+												<td>${result.classId.major.school.name}</td>
+												<td>${result.classId.major.name}</td>
+												<td>${result.classId.name}</td>
+												<td>${result.avgScore}</td>
 												<td><a class="btn btn-info"
-													href="/teacherComment/view?id=${result.student.id}">查看</a></td>
-												<%-- <td><a href="/teacherComment/edit?id=${result.id}"
-													class="btn btn-primary">修改</a></td> --%>
+													href="/studentScore/listByTT?id=${result.classId.id}">查看</a></td>
 											</tr>
 										</c:forEach>
 									</tbody>

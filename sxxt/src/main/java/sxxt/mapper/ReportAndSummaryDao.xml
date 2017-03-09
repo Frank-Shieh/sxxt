@@ -126,6 +126,49 @@
 		class_table.state = 1 AND
 		school_table.state = 1
 	</select>
+	<select id="findByTrainningTeacher" resultType="ReportAndSummary">
+		SELECT
+		report_and_summary.id,
+		report_and_summary.self_comment,
+		report_and_summary.student_id
+		`student.id`,
+		report_and_summary.write_date,
+		report_and_summary.teacher_comment,
+		report_and_summary.teacher_id
+		`trainningTeacher.id`,
+		report_and_summary.comment_date,
+		report_and_summary.state,
+		student_table.`name` `student.name`,
+		student_table.`code`
+		`student.code`,
+		training_teacher.`name`
+		`trainningTeacher.name`,
+		class_table.`name`
+		`student.classId.name`,
+		school_table.`name`
+		`student.school.name`
+		FROM
+		report_and_summary
+		INNER
+		JOIN student_table ON
+		report_and_summary.student_id =
+		student_table.id
+		INNER JOIN
+		training_teacher ON report_and_summary.teacher_id =
+		training_teacher.id
+		INNER JOIN class_table ON student_table.class_id =
+		class_table.id
+		INNER JOIN school_table ON student_table.school_id =
+		school_table.id
+		WHERE
+		report_and_summary.state = 1 AND
+		student_table.state = 1 AND
+		training_teacher.state = 1 AND
+		class_table.state = 1 AND
+		school_table.state = 1
+		AND
+		report_and_summary.teacher_id = #{id}
+	</select>
 	<insert id="addReportAndSummary" parameterType="ReportAndSummary"
 		flushCache="true" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO

@@ -17,4 +17,5 @@ public interface ReportAndSummaryDao {
 	//公用
 	ReportAndSummary findById(int id);
 	List<ReportAndSummary> findAll();
+	List<ReportAndSummary> findByTrainningTeacher(int id);
 }

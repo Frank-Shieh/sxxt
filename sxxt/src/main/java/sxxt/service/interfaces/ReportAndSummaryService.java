@@ -17,6 +17,6 @@ public interface ReportAndSummaryService {
 
 	// 公用
 	ReportAndSummary findById(int id);
-
+	List<ReportAndSummary> findByTrainningTeacher(int id);
 	List<ReportAndSummary> findAll();
 }

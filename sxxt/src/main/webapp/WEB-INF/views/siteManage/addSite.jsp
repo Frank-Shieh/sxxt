@@ -105,8 +105,8 @@
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
 
-<%-- <jsp:include page="header.jsp"></jsp:include> --%>
-	<jsp:include page="${myheader}"></jsp:include>
+		<%-- <jsp:include page="header.jsp"></jsp:include> --%>
+		<jsp:include page="${myheader}"></jsp:include>
 
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
@@ -186,7 +186,7 @@
 								</div>
 							</div>
 
-							<!-- 添加专业 -->
+							<%-- <!-- 添加专业 -->
 							<div class="form-group background">
 								<label class="col-sm-3 control-label">场地管理员</label>
 								<div class="controls form-group">
@@ -208,8 +208,9 @@
 									</div>
 
 								</div>
-							</div>
-
+							</div> --%>
+							<input id='siteManager-input' name="siteManager.id"
+								value="${user.id}" hidden="true" />
 							<div class="form-actions">
 								<input type="submit" value="保存"
 									class="btn btn-primary btn-submit" /> <input type="reset"

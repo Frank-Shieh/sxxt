@@ -5,6 +5,7 @@
 %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -17,6 +18,8 @@
 	name="viewport">
 <!-- Bootstrap 3.3.6 -->
 <link rel="stylesheet" href="<%=path%>/assets/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="<%=path%>/assets/css/bootstrap-responsive.min.css" />
 <!-- Font Awesome -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -52,7 +55,8 @@
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
 
-		<jsp:include page="${myheader}"></jsp:include>
+		<%-- <jsp:include page="header.jsp"></jsp:include> --%>
+	<jsp:include page="${myheader}"></jsp:include>
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
@@ -61,40 +65,68 @@
 				<section class="content">
 				<div class="row">
 					<div class="col-xs-12">
-						<div class="panel panel-info">
-							<div class="panel-heading">
-								<h3 class="panel-title">教师评价信息</h3>
-							</div>
-							<div class="panel-body">
-								<table id="tp-result-table"
-									class="table table-bordered table-striped">
-									<thead>
-										<tr>
-											<th>学生学号</th>
-											<th>学生名称</th>
-											<th>教师得分</th>
-											<th>查看</th>
-											<!-- <th>修改</th> -->
-										</tr>
-									</thead>
-									<tbody>
-										<c:forEach var="result" items="${result}">
-											<tr>
-												<td>${result.student.code}</td>
-												<td>${result.student.name}</td>
-												<td>${result.totalScore}</td>
-												<td><a class="btn btn-info"
-													href="/teacherComment/view?id=${result.student.id}">查看</a></td>
-												<%-- <td><a href="/teacherComment/edit?id=${result.id}"
-													class="btn btn-primary">修改</a></td> --%>
-											</tr>
-										</c:forEach>
-									</tbody>
 
-								</table>
+						<c:if test="${fn:length(errorMsg) gt 0}">
+							<div class="bs-example bs-example-standalone">
+								<div class="alert alert-danger alert-dismissible fade in"
+									role="alert">
+									<button type="button" class="close" data-dismiss="alert">
+										<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+									</button>
+									<h4>Oh snap! You got an error!</h4>
+									<p>该班级暂无相关的报告与总结信息。请先添加报告与总结信息</p>
+									<p>
+										<a class="btn btn-primary" href="/student/add"
+											style="text-decoration: none;">添加报告与总结信息</a>
+									</p>
+								</div>
 							</div>
-							<!-- /.box-body -->
-						</div>
+						</c:if>
+
+						<!-- 如果查找出来的数据存在则显示出来，否则不显示 -->
+						<c:if test="${fn:length(result) gt 0}">
+							<div class="panel panel-info">
+								<div class="panel-heading">
+									<h3 class="panel-title">报告与总结列表信息</h3>
+								</div>
+								<div class="panel-body">
+									<table id="example1" class="table table-bordered table-striped">
+										<thead>
+											<tr>
+												<th>学生学号</th>
+												<th>学生名称</th>
+												<th>撰写日期</th>
+												<th>实训教师</th>
+												<th>查看</th>
+												<th>评价</th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach var="result" items="${result}">
+												<tr>
+													<td>${result.student.code}</td>
+													<td>${result.student.name}</td>
+													<td><fmt:formatDate value="${result.writeDate}"
+															type="date" dateStyle="default" /></td>
+													<td>${result.trainningTeacher.name}</td>
+													<td><a class="btn btn-info"
+														href="/reportAndSummary/view?id=${result.id}">查看</a></td>
+												<%-- 	<td><a href="/reportAndSummary/edit?id=${result.id}"
+														class="btn btn-primary">修改</a></td> --%>
+													<%-- <td><a class="btn btn-danger"
+														onclick="delReportAndSummary(${result.id})">删除</a></td> --%>
+												<td><a href="/reportAndSummary/comment?id=${result.id}"
+														class="btn btn-danger">评价</a></td>
+												</tr>
+											</c:forEach>
+
+										</tbody>
+
+									</table>
+								</div>
+								<!-- /.box-body -->
+							</div>
+						</c:if>
 						<!-- /.box -->
 					</div>
 					<!-- /.col -->
@@ -104,21 +136,9 @@
 		</div>
 	</div>
 	<!-- ./wrapper -->
-	<!-- Modal -->
-	<div id="error-msg" class="modal hide fade" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal"
-				aria-hidden="true">×</button>
-			<h3 id="myModalLabel">操作错误提示信息</h3>
-		</div>
-		<div class="modal-body">
-			<p>${errorMsg}</p>
-		</div>
-		<div class="modal-footer">
-			<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
-		</div>
-	</div>
+	<!-- 警告提示 -->
+
+
 	<!-- jQuery 2.2.3 -->
 	<script src="<%=path%>/assets/js/jquery-2.2.3.min.js"></script>
 	<!-- jQuery UI 1.11.4 -->
@@ -160,31 +180,23 @@
 		});
 	</script>
 	<script type="text/javascript">
-		function delClass(id) {
-			var result = confirm("确定删除该班级吗?");
-			if (result) {
-				console.log(result);
-				var url = '/class/delete?id=' + id;
-				$.get(url, function(data) {
-					console.log('deleted.');
-					window.location.href = '/class/list';
-				});
-			}
+	function delReportAndSummary(id) {
+		var result = confirm("确定删除编号:"+ id +"吗?");
+		if (result) {
+			console.log(result);
+			var url = '/reportAndSummary/delete?id='+id;
+			$.get(url, function(data) {
+				console.log('deleted.');
+			 	window.location.href='/reportAndSummary/list'; 
+			});
 		}
-	</script>
+	}
+</script>
 	<script type="text/javascript">
-		$(document).ready(function() {
-			var msg = "${errorMsg}";
-			console.log(msg);
-			if (msg.length > 0) {
-				$('#error-msg').modal({
-					keyboard : false
-				});
-			}
-		});
+		
 		$(document).ready(function() {
 			$('#tp-result-table').DataTable();
-		});
+			});
 	</script>
 </body>
 </html>

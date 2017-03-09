@@ -106,7 +106,7 @@
 	<div class="wrapper">
 
 		<%-- <jsp:include page="header.jsp"></jsp:include> --%>
-	<jsp:include page="${myheader}"></jsp:include>
+		<jsp:include page="${myheader}"></jsp:include>
 
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
@@ -156,12 +156,12 @@
 								</div>
 							</div>
 							<!-- 添加设备数量 -->
-							 <div class="form-group background">
+							<div class="form-group background">
 								<label class="col-sm-3 control-label">设备数量</label>
 								<div class="controls form-group">
 									<input type="text" class="form-control" name="num" />
 								</div>
-							</div> 
+							</div>
 							<!-- 添加购买日期-->
 							<div class="form-group background">
 								<label class="col-sm-3 control-label">购买日期</label>
@@ -184,14 +184,14 @@
 								</div>
 							</div>
 							<!-- 添加设备年检期限 -->
-							 <div class="form-group background">
+							<div class="form-group background">
 								<label class="col-sm-3 control-label">设备年检期限（以年为单位）</label>
 								<div class="controls form-group">
-									 <input type="text" class="form-control" name="inspectionTime" /> 
+									<input type="text" class="form-control" name="inspectionTime" />
 								</div>
-							</div> 
+							</div>
 
-							<!-- 添加场地管理员 -->
+							<%-- <!-- 添加场地管理员 -->
 							<div class="form-group background">
 								<label class="col-sm-3 control-label">设备管理员</label>
 								<div class="controls form-group">
@@ -215,8 +215,9 @@
 									</div>
 
 								</div>
-							</div>
-
+							</div> --%>
+							<input id='equipmentManager-input' name="equipmentManager.id"
+								value="${user.id}" hidden="true" />
 							<div class="form-actions">
 								<input type="submit" value="保存"
 									class="btn btn-primary btn-submit" /> <input type="reset"

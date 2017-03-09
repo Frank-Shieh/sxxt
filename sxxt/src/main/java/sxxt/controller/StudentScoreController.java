@@ -2,6 +2,8 @@ package sxxt.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,16 +40,13 @@ public class StudentScoreController {
 	// 请求跳转到班级成绩列表信息
 	@RequestMapping(value = "listClass")
 	public String listClass(Model model) {
-
 		List<StudentScore> result = studentScoreService.findAll();
 		if (result.size() == 0) {
 			model.addAttribute("errorMsg", "该班级成绩信息");
 		} else {
 			model.addAttribute("result", result);
 		}
-
 		return "studentScore/listClass";
-
 	}
 
 	// 请求跳转到学生成绩列表信息
@@ -59,14 +58,37 @@ public class StudentScoreController {
 		} else {
 			model.addAttribute("result", result);
 		}
-
 		return "studentScore/listStudent";
+	}
 
+	// 请求跳转到班级成绩列表信息
+	// listClassByTrainningTeacher
+	@RequestMapping(value = "listClassByTT")
+	public String listClassByTT(Model model) {
+		List<StudentScore> result = studentScoreService.findAll();
+		if (result.size() == 0) {
+			model.addAttribute("errorMsg", "该班级成绩信息");
+		} else {
+			model.addAttribute("result", result);
+		}
+		return "studentScore/listClassByTT";
+	}
+
+	// 请求跳转到学生成绩列表信息
+	@RequestMapping(value = "listByTT")
+	public String listByTT(int id, Model model) {
+		List<StudentScore> result = studentScoreService.findByClassId(id);
+		if (result.size() == 0) {
+			model.addAttribute("errorMsg", "该班级成绩信息");
+		} else {
+			model.addAttribute("result", result);
+		}
+		return "studentScore/listStudentByTT";
 	}
 
 	// 请求跳转到添加学生成绩信息
 	@RequestMapping(value = "add")
-	public String add(Model model) {
+	public String add(HttpSession httpSession, Model model) {
 		List<School> schoolList = schoolService.findAll();
 		String jsonSchool = JSON.toJSONString(schoolList);
 		JSONArray jsonArraySchool = JSON.parseArray(jsonSchool);
@@ -87,6 +109,7 @@ public class StudentScoreController {
 		JSONArray jsonArrayStudent = JSON.parseArray(jsonStudent);
 		model.addAttribute("studentList", jsonArrayStudent);
 
+		model.addAttribute("user", httpSession.getAttribute("user"));
 		return "studentScore/addStudentScore";
 	}
 
@@ -100,7 +123,7 @@ public class StudentScoreController {
 
 	// 请求跳转到添加学生成绩信息
 	@RequestMapping(value = "edit")
-	public String eidt(int id, Model model) {
+	public String eidt(HttpSession httpSession, int id, Model model) {
 		StudentScore studentScore = studentScoreService.findById(id);
 		model.addAttribute("studentScore", studentScore);
 
@@ -124,6 +147,7 @@ public class StudentScoreController {
 		JSONArray jsonArrayStudent = JSON.parseArray(jsonStudent);
 		model.addAttribute("studentList", jsonArrayStudent);
 
+		model.addAttribute("user", httpSession.getAttribute("user"));
 		return "/studentScore/editStudentScore";
 	}
 

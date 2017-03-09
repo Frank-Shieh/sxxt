@@ -126,7 +126,8 @@
 					<div class="panel-body">
 						<form class="form-horizontal" method="post"
 							action="/studentScore/doAdd" id="registerForm">
-
+							<input id='teacher.id' name="trainningTeacher.id"
+								value="${user.id}" hidden="true" />
 							<!-- 添加学校 -->
 							<div class="form-group background">
 								<label class="col-sm-3 control-label">学校名称</label>

@@ -79,7 +79,7 @@
 						</span> </a>
 						<ul class="treeview-menu">
 							<!-- <li><a href="/company/add"><i class="fa fa-circle-o"></i>添加实训公司信息</a></li> -->
-							<li><a href="/company/list"><i class="fa fa-circle-o"></i>查看实训公司列表</a></li>
+							<li><a href="/company/listOnly"><i class="fa fa-circle-o"></i>查看实训公司列表</a></li>
 						</ul></li>
 					<li><a href="#"><i class="fa fa-circle-o"></i> 实训场地信息管理 <span
 							class="pull-right-container"> <i
@@ -272,7 +272,6 @@
 						</ul></li>
 				</ul></li> -->
 			<li class="header">INFORMATION</li>
-			<li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>通知与公告</span></a></li>
 			<!-- 个人中心 -->
 			<li class="treeview"><a href="#"> <i
 					class="fa fa-circle-o text-aqua"></i> <span>个人中心</span> <span
@@ -281,8 +280,8 @@
 				</span>
 			</a>
 				<ul class="treeview-menu">
-					<li><a href="#"><i class="fa fa-circle-o"></i> 我的资料</a></li>
-					<li><a href="index2.html"><i class="fa fa-circle-o"></i>修改密码</a></li>
+					<!-- <li><a href="#"><i class="fa fa-circle-o"></i> 我的资料</a></li> -->
+					<li><a href="/password"><i class="fa fa-circle-o"></i>修改密码</a></li>
 				</ul></li>
 		</ul>
 	</section>
